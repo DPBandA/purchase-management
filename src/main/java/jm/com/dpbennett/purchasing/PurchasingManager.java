@@ -22,8 +22,10 @@ package jm.com.dpbennett.purchasing;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import jm.com.dpbennett.business.entity.SystemOption;
 
 
 /**
@@ -42,7 +44,16 @@ public class PurchasingManager implements Serializable {
     /**
      * Creates a new instance of JobManagerBean
      */
-    public PurchasingManager() {    
+    public PurchasingManager() {   
+        System.out.println("Welcome to Purchasing!");
+    }
+    
+    public String getApplicationHeader() {
+               return  "Purchasing";
+     }
+    
+     public EntityManager getEntityManager1() {
+        return EMF1.createEntityManager();
     }
 
 }
