@@ -348,7 +348,7 @@
         </navigation-case>
     </navigation-rule>
     <lifecycle>
-        <phase-listener id="nocache">jm.com.dpbennett.jmts.utils.CacheControlPhaseListener</phase-listener>
+        <phase-listener id="nocache">jm.com.dpbennett.wal.utils.CacheControlPhaseListener</phase-listener>
     </lifecycle>
     
     <!--

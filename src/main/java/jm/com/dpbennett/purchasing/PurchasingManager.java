@@ -1,5 +1,5 @@
 /*
-Job Management & Tracking System (JMTS) 
+Purchasing
 Copyright (C) 2017  D P Bennett & Associates Limited
 
 This program is free software: you can redistribute it and/or modify

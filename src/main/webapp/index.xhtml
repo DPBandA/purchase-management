@@ -1,6 +1,25 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+Purhasing 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html" 
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,12 +30,236 @@
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-        <meta http-equiv="pragma" content="no-cache" />           
+        <meta http-equiv="pragma" content="no-cache" />
+        <title>#{jobManager.applicationHeader}</title>        
         <script type="text/javascript" src="js/jmtsJavascript.js" />   
         <link rel="stylesheet" href="css/main.css" />
     </h:head>
-    <h:body>
-        Hello from Facelets
+    <h:body onload="checkWhichBrowser();
+            PF('longProcessDialogVar').hide();
+            mainTabViewVar.select(0);" >
+
+        <ui:include src="common/commonDialogs.xhtml" />                       
+        <ui:include src="common/loginDialog.xhtml"/>        
+        <ui:include src="common/generalAlertDialogs.xhtml"/>
+        <ui:include src="common/longProcessDialog.xhtml"/>   
+        <ui:include src="common/preferencesDialog.xhtml"/>   
+
+        <p:layout id="JMTSWeb" fullPage="true" widgetVar="layoutVar" >
+            <p:ajax event="toggle" listener="#{jobManager.handleLayoutUnitToggle}" />
+
+            <p:layoutUnit position="north" 
+                          rendered="true" 
+                          header=""
+                          style="border: 0;" 
+                          size="80" >
+                <h:form id="headerForm">   
+                    <p:growl id="growl3" life="5000" showDetail="true" />
+                    <h:panelGrid rendered="#{jobManager.renderUserMenu()}" width="100%" 
+                                 border="0" columns="3" >
+                        <p:graphicImage value="images/BSJ Logo - H41.png"/>
+                        <h:panelGrid>   
+
+                            <div align="center">
+                                <span style="color: darkgrey; font-size: 14pt; font-weight: bold;">
+                                    #{jobManager.applicationHeader}
+                                </span>  
+                                <br />
+                                <div style=" padding-top: 5px;">
+                                    <span style="color: darkgrey; font-size: 10pt; font-weight: bold;">
+                                        #{jobManager.applicationSubheader}
+                                    </span>   
+                                </div>
+                            </div>
+
+                        </h:panelGrid>
+                        <p:menuButton value="#{jobManager.user.employee.firstName} #{jobManager.user.employee.lastName}"     
+                                      iconPos="left"
+                                      id="userMenu"
+                                      style="float: right;" >
+
+                            <p:menuitem actionListener="#{jobManager.editPreferences}"
+                                        onstart="PF('longProcessDialogVar').show();"
+                                        update=":preferencesDialogForm"
+                                        oncomplete="PF('longProcessDialogVar').hide();PF('preferencesDialog').show();"
+                                        onerror="PF('connectionErrorDialog').show();"    
+                                        value="Preferences"
+                                        process="@this"/>
+                            <p:separator />  
+                            <p:menuitem actionListener="#{jobManager.logout}"
+                                        onstart="PF('longProcessDialogVar').show();"                                               
+                                        onerror="PF('connectionErrorDialog').show();"                                              
+                                        icon="ui-icon-circle-arrow-w"
+                                        value="Logout"
+                                        process="@this"/>    
+
+                        </p:menuButton>   
+
+                    </h:panelGrid>
+
+                    <p:remoteCommand name="updateHeaderForm"
+                                     update="headerForm"
+                                     process="@this"/>
+
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit id="centreLayoutUnit"                           
+                          position="center">
+
+                <h:form id="mainTabViewForm">   
+
+                    <p:tabView id="mainTabView"   
+                               rendered="#{jobManager.mainTabView.render}"
+                               value="#{jobManager.mainTabView.tabs}" 
+                               var="t"         
+                               style="border-width: 0px;"
+                               onTabShow="PF('longProcessDialogVar').hide();"
+                               widgetVar="mainTabViewVar">
+
+                        <p:ajax event="tabClose" 
+                                immediate="true"
+                                process="@this"
+                                update=":headerForm:growl3"
+                                listener="#{jobManager.onMainViewTabClose}" />  
+
+                        <p:ajax event="tabChange" 
+                                immediate="true"
+                                process="@this"                                
+                                listener="#{jobManager.onMainViewTabChange}" />  
+
+
+                        <p:tab title="#{t.name}" closable="true"  >
+                            <ui:remove>
+                                <h:panelGroup rendered="#{t.id == 'Job Browser'}">                                
+                                    <ui:include src="job/jobBrowser.xhtml" />   
+                                </h:panelGroup>                                
+                                <h:panelGroup rendered="#{t.id == 'Document Browser'}">                                
+                                    <ui:include src="legal/documentBrowser.xhtml" />   
+                                </h:panelGroup> 
+                                <h:panelGroup rendered="#{t.id == 'Survey Browser'}">                                
+                                    <ui:include src="compliance/surveyBrowser.xhtml" />   
+                                </h:panelGroup>
+                                <h:panelGroup  rendered="#{t.id == 'Financial Administration'}">
+                                    <ui:include src="admin/financialAdminTab.xhtml" /> 
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{t.id == 'System Administration'}" >
+                                    <ui:include src="admin/generalAdminTab.xhtml" /> 
+                                </h:panelGroup>                           
+                                <h:panelGroup rendered="#{t.id == 'Clients'}" >
+                                    <ui:include src="client/clientsTab.xhtml" />                                                                
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{t.id == 'Reports'}" >
+                                    <ui:include src="report/reportsTab.xhtml" />                                                                
+                                </h:panelGroup>
+                            </ui:remove>
+                        </p:tab>
+                    </p:tabView>
+
+                    <p:commandButton
+                        id="doNothingButton"
+                        style="visibility: hidden;"
+                        global="false"                                        
+                        value=""                                       
+                        title="This is the default button that accepts the enter key press"                                       
+                        process="@this"/> 
+
+                    <p:defaultCommand target=":mainTabViewForm:doNothingButton" />
+
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit
+                id="dashboard"    
+                position="west" 
+                size="375"
+                header="Dashboard"
+                resizable="true"                  
+                collapsed="#{jobManager.westLayoutUnitCollapsed}"
+                collapsible="true">   
+                <h:form id="dashboardForm" > 
+
+                    <p:commandButton
+                        id="doGeneralSearchButton"
+                        style="visibility: hidden;"
+                        global="false"                                        
+                        value=""                                       
+                        title="This is the default button that accepts the enter key press" 
+                        onstart="PF('longProcessDialogVar').show();"                                 
+                        oncomplete="PF('longProcessDialogVar').hide();"
+                        actionListener="#{jobManager.doGeneralSearch}"
+                        process="@form"/>                    
+
+                    <p:defaultCommand id="dashboardDefaultCommandButton" 
+                                      target="#{jobManager.dashboard.defaultCommandButtonId}" />
+
+                    <p:accordionPanel id="dashboardAccordion" 
+                                      value="#{jobManager.dashboard.tabs}" 
+                                      var="t" 
+                                      widgetVar="dashboardAccordionVar"
+                                      rendered="#{jobManager.dashboard.render}"
+                                      multiple="false">
+
+                        <p:ajax event="tabChange"       
+                                immediate="true"
+                                process="@this"
+                                listener="#{jobManager.onDashboardTabChange}" />
+
+                        <p:tab title="#{t.name}" > 
+                            <ui:remove>
+                                <h:panelGroup rendered="#{t.id == 'Job Management'}">
+                                    <ui:include src="dashboard/jobs/jobsTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Standards Compliance'}">
+                                    <ui:include src="dashboard/compliance/complianceTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Document Management'}">                               
+                                    <ui:include src="dashboard/legal/documentsTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Client Management'}">
+                                    <ui:include src="dashboard/client/clientsTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Foods Inspectorate'}">
+                                    <ui:include src="dashboard/foods/foodsTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Legal Metrology'}">
+                                    <ui:include src="dashboard/metrology/metrologyTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Standards'}">
+                                    <ui:include src="dashboard/standards/standardsTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Certification'}">
+                                    <ui:include src="dashboard/certification/certificationTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Service Request'}">
+                                    <ui:include src="dashboard/service/serviceTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'System Administration'}">
+                                    <ui:include src="dashboard/admin/generalAdminTab.xhtml" />
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{t.id == 'Financial Administration'}">
+                                    <ui:include src="dashboard/finance/financialAdminTab.xhtml" />
+                                </h:panelGroup>
+                            </ui:remove>
+                        </p:tab>   
+
+                    </p:accordionPanel>      
+
+
+                </h:form>
+            </p:layoutUnit>
+
+        </p:layout>
     </h:body>
 </html>
 
