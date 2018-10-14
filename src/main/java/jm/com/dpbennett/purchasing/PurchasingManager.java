@@ -36,6 +36,7 @@ public class PurchasingManager extends JobManager implements Serializable {
      * Creates a new instance of PurchasingManager.
      */
     public PurchasingManager() {
+        super();
     }
 
     /**
