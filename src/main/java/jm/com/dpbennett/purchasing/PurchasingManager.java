@@ -22,7 +22,6 @@ package jm.com.dpbennett.purchasing;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import jm.com.dpbennett.wal.managers.JobManager;
 
 /**
  *
@@ -30,7 +29,7 @@ import jm.com.dpbennett.wal.managers.JobManager;
  */
 @Named
 @SessionScoped
-public class PurchasingManager extends JobManager implements Serializable {
+public class PurchasingManager implements Serializable {
 
     /**
      * Creates a new instance of PurchasingManager.
@@ -44,7 +43,6 @@ public class PurchasingManager extends JobManager implements Serializable {
      *
      * @return
      */
-    @Override
     public String getApplicationHeader() {
         return "Purchasing";
     }
