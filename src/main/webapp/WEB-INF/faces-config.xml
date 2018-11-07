@@ -140,27 +140,6 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>jobPricings</from-outcome>
-            <to-view-id>/jobPricings.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobCostings</from-outcome>
-            <to-view-id>/jobCostings.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>   
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>userDialog</from-outcome>
-            <to-view-id>/admin/userDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>   
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
             <from-outcome>employeeDialog</from-outcome>
             <to-view-id>/hrm/employeeDialog.xhtml</to-view-id>
         </navigation-case>
@@ -185,119 +164,7 @@
             <from-outcome>subgroupPickListDialog</from-outcome>
             <to-view-id>/hrm/subgroupPickListDialog.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>systemOptionDialog</from-outcome>
-            <to-view-id>/admin/systemOptionDialog.xhtml</to-view-id>
-        </navigation-case>
     </navigation-rule>  
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>clientDialog</from-outcome>
-            <to-view-id>/client/clientDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>          
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobCostingDialog</from-outcome>
-            <to-view-id>/finance/jobCostingDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>      
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobSampleDialog</from-outcome>
-            <to-view-id>/job/sample/jobSampleDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>      
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobSampleDeleteConfirmDialog</from-outcome>
-            <to-view-id>/job/sample/jobSampleDeleteConfirmDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>  
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>classificationDialog</from-outcome>
-            <to-view-id>/admin/classificationDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>classificationDialog</from-outcome>
-            <to-view-id>/admin/classificationDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>documentTypeDialog</from-outcome>
-            <to-view-id>/admin/documentTypeDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>legalDocumentDialog</from-outcome>
-            <to-view-id>/admin/legalDocumentDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobCategoryDialog</from-outcome>
-            <to-view-id>/admin/jobCategoryDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobSubcategoryDialog</from-outcome>
-            <to-view-id>/admin/jobSubcategoryDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>     
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>sectorDialog</from-outcome>
-            <to-view-id>/admin/sectorDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>ldapDialog</from-outcome>
-            <to-view-id>/admin/ldapDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>accountingCodeDialog</from-outcome>
-            <to-view-id>/admin/accountingCodeDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>cashPaymentDialog</from-outcome>
-            <to-view-id>/finance/cashPaymentDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>cashPaymentDeleteConfirmDialog</from-outcome>
-            <to-view-id>/finance/cashPaymentDeleteConfirmDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
@@ -317,34 +184,6 @@
         <navigation-case>
             <from-outcome>divisionDialog</from-outcome>
             <to-view-id>/hrm/divisionDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>jobDialog</from-outcome>
-            <to-view-id>/job/jobDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>reportTemplateDialog</from-outcome>
-            <to-view-id>/report/reportTemplateDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>reportDatePeriodDialog</from-outcome>
-            <to-view-id>/report/reportDatePeriodDialog.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule> 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>complianceSurveyDialog</from-outcome>
-            <to-view-id>/compliance/surveyDialog.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <lifecycle>

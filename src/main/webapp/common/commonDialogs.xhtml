@@ -1,0 +1,100 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">   
+
+    <h:form id="commonMessageDialogForm">
+        <p:confirmDialog severity="#{purchasingManager.dialogMessageSeverity}"
+                         closable="false"
+                         message="#{purchasingManager.dialogMessage}"
+                         header="#{purchasingManager.dialogMessageHeader}"
+                         widgetVar="commonMessageDialog"
+                         width="425">
+
+            <p:commandButton value="Ok" 
+                             rendered="#{purchasingManager.dialogRenderOkButton}"
+                             actionListener="#{purchasingManager.handleDialogOkButtonPressed()}"
+                             onstart="PF('longProcessDialogVar').show();"                                                    
+                             oncomplete="PF('commonMessageDialog').hide();PF('longProcessDialogVar').hide();"
+                             onerror="PF('connectionErrorDialog').show();"
+                             process="@this"
+                             icon="ui-icon-check"/>
+
+            <p:commandButton value="Yes" 
+                             rendered="#{purchasingManager.dialogRenderYesButton}"
+                             actionListener="#{purchasingManager.handleDialogYesButtonPressed()}"
+                             onstart="PF('longProcessDialogVar').show();"                                                    
+                             oncomplete="PF('commonMessageDialog').hide();PF('longProcessDialogVar').hide();"
+                             onerror="PF('connectionErrorDialog').show();"
+                             process="@this"
+                             icon="ui-icon-check"/>
+
+            <p:commandButton value="No" 
+                             rendered="#{purchasingManager.dialogRenderNoButton}"
+                             actionListener="#{purchasingManager.handleDialogNoButtonPressed()}"
+                             onstart="PF('longProcessDialogVar').show();"                                                    
+                             oncomplete="PF('commonMessageDialog').hide();PF('longProcessDialogVar').hide();"
+                             onerror="PF('connectionErrorDialog').show();"
+                             process="@this"
+                             icon="ui-icon-close"/>            
+            <p:spacer height="0" width="20"/>
+            <p:commandButton value="Cancel" 
+                             rendered="#{purchasingManager.dialogRenderCancelButton}"
+                             actionListener="#{purchasingManager.handleDialogCancelButtonPressed()}"
+                             onstart="PF('longProcessDialogVar').show();"                                                    
+                             oncomplete="PF('commonMessageDialog').hide();PF('longProcessDialogVar').hide();"
+                             onerror="PF('connectionErrorDialog').show();"
+                             process="@this"
+                             icon="ui-icon-cancel"/>       
+
+        </p:confirmDialog>
+    </h:form>
+
+    <h:form>
+        <p:confirmDialog severity="alert"
+                         closable="false"
+                         message="A network connection error occurred. An attempt will be made to reload the current page."
+                         header="Network Connection Error"
+                         widgetVar="connectionErrorDialog"
+                         width="400">
+
+            <p:commandButton value="Ok"
+                             onclick="window.location.reload();"
+                             icon="ui-icon-check"/>
+
+        </p:confirmDialog>
+    </h:form>
+
+    <p:confirmDialog severity="alert"
+                     message="A server connection error occured! An attempt will be made to reconnect."
+                     header="Server Connection Error"
+                     widgetVar="connectionErrorAlertDialog"
+                     width="400">
+        <h:form>
+            <p:commandButton value="Ok"
+                             onclick="reloadCurrentPage();"
+                             icon="ui-icon-check"
+                             />
+        </h:form>
+    </p:confirmDialog>
+
+</html>

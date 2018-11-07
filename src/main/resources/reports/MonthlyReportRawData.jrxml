@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MonthlyReportRawData" pageWidth="3500" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="3460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="91614f20-57d8-46cc-9862-2ea4d5a20352">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="2438"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="startOFPeriod" class="java.util.Date"/>
+	<parameter name="endOFPeriod" class="java.util.Date"/>
+	<parameter name="inspectorID" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="departmentID" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[24L]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departmentName" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Chemistry"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     GROUP_CONCAT(jobsample.`DESCRIPTION` SEPARATOR ', ') AS samples,
+     job.`ID` AS job_ID,
+     jobstatusandtracking.`ID` AS jobstatusandtracking_ID,
+     jobsample.`NAME` AS jobsample_NAME,
+     department.`NAME` AS department_NAME,
+     department_A.`NAME` AS department_A_NAME,
+     jobstatusandtracking.`DATEOFCOMPLETION` AS jobstatusandtracking_DATEOFCOMPLETION,
+     employee.`NAME` AS employee_NAME,
+     jobcostingandpayment.`FINALCOST` AS jobcostingandpayment_FINALCOST,
+     job.`NUMBEROFSAMPLES` AS job_NUMBEROFSAMPLES,
+     job.`NOOFTESTSORCALIBRATIONS` AS job_NOOFTESTSORCALIBRATIONS,
+     job.`NOOFTESTS` AS job_NOOFTESTS,
+     job.`NOOFCALIBRATIONS` AS job_NOOFCALIBRATIONS,
+     jobstatusandtracking.`EXPECTEDDATEOFCOMPLETION` AS jobstatusandtracking_EXPECTEDDATEOFCOMPLETION,
+     job.`JOBNUMBER` AS job_JOBNUMBER,
+     client.`NAME` AS client_NAME,
+     jobstatusandtracking.`DATESUBMITTED` AS jobstatusandtracking_DATESUBMITTED,
+     sector.`NAME` AS sector_NAME,
+     classification.`NAME` AS classification_NAME,
+     jobcategory.`CATEGORY` AS jobcategory_CATEGORY,
+     jobsubcategory.`SubCategory` AS jobsubcategory_SubCategory
+FROM
+     `jobstatusandtracking` jobstatusandtracking INNER JOIN `job` job ON jobstatusandtracking.`ID` = job.`JOBSTATUSANDTRACKING_ID`
+     INNER JOIN `job_jobsample` job_jobsample ON job.`ID` = job_jobsample.`Job_ID`
+     INNER JOIN `department` department ON job.`DEPARTMENT_ID` = department.`ID`
+     INNER JOIN `department` department_A ON job.`SUBCONTRACTEDDEPARTMENT_ID` = department_A.`ID`
+     INNER JOIN `employee` employee ON job.`ASSIGNEDTO_ID` = employee.`ID`
+     INNER JOIN `jobcostingandpayment` jobcostingandpayment ON job.`JOBCOSTINGANDPAYMENT_ID` = jobcostingandpayment.`ID`
+     INNER JOIN `client` client ON job.`CLIENT_ID` = client.`ID`
+     INNER JOIN `sector` sector ON job.`SECTOR_ID` = sector.`ID`
+     INNER JOIN `classification` classification ON job.`CLASSIFICATION_ID` = classification.`ID`
+     INNER JOIN `jobcategory` jobcategory ON job.`JOBCATEGORY_ID` = jobcategory.`ID`
+     INNER JOIN `jobsubcategory` jobsubcategory ON job.`JOBSUBCATEGORY_ID` = jobsubcategory.`ID`
+     RIGHT OUTER JOIN `jobsample` jobsample ON job_jobsample.`jobSamples_ID` = jobsample.`ID`
+WHERE
+     ((jobstatusandtracking.`DATEOFCOMPLETION` >= $P{startOFPeriod}
+ AND jobstatusandtracking.`DATEOFCOMPLETION` <= $P{endOFPeriod}))
+ AND ((department.`ID` = $P{departmentID}
+ AND department_A.`NAME` = "--")
+  OR department_A.`ID` = $P{departmentID})
+GROUP BY
+     job.`ID`
+ORDER BY
+     employee.`NAME` ASC]]>
+	</queryString>
+	<field name="samples" class="java.lang.String"/>
+	<field name="job_ID" class="java.lang.Long"/>
+	<field name="jobstatusandtracking_ID" class="java.lang.Long"/>
+	<field name="jobsample_NAME" class="java.lang.String"/>
+	<field name="department_NAME" class="java.lang.String"/>
+	<field name="department_A_NAME" class="java.lang.String"/>
+	<field name="jobstatusandtracking_DATEOFCOMPLETION" class="java.sql.Date"/>
+	<field name="employee_NAME" class="java.lang.String"/>
+	<field name="jobcostingandpayment_FINALCOST" class="java.lang.Double"/>
+	<field name="job_NUMBEROFSAMPLES" class="java.lang.Long"/>
+	<field name="job_NOOFTESTSORCALIBRATIONS" class="java.lang.Integer"/>
+	<field name="job_NOOFTESTS" class="java.lang.Integer"/>
+	<field name="job_NOOFCALIBRATIONS" class="java.lang.Integer"/>
+	<field name="jobstatusandtracking_EXPECTEDDATEOFCOMPLETION" class="java.sql.Date"/>
+	<field name="job_JOBNUMBER" class="java.lang.String"/>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="jobstatusandtracking_DATESUBMITTED" class="java.sql.Date"/>
+	<field name="sector_NAME" class="java.lang.String"/>
+	<field name="classification_NAME" class="java.lang.String"/>
+	<field name="jobcategory_CATEGORY" class="java.lang.String"/>
+	<field name="jobsubcategory_SubCategory" class="java.lang.String"/>
+	<variable name="itemNum" class="java.lang.Long" calculation="Count">
+		<variableExpression><![CDATA[$F{job_ID}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="21" width="262" height="15" uuid="0dcb4c8c-73d3-443a-a6b8-3989da54b766"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Employee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="262" y="21" width="132" height="15" uuid="2b4b6876-6880-43ed-a775-4c94342a3e5b"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[No. of samples]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="394" y="21" width="177" height="15" uuid="5ceb1f44-6f4f-4a06-bae6-786b7f0c7ddb"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[No. of tests/calibrations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="571" y="21" width="182" height="15" uuid="ff47b525-26e4-4e00-8739-73031541a583"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[No. of tests]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="753" y="21" width="162" height="15" uuid="323f3e43-4a19-4f9d-b725-f4235ccfdbd6"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[No. of calibrations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="915" y="21" width="165" height="15" uuid="c5cb3e8b-6890-401b-acb9-dea750d2a1f9"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Fee/Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="1080" y="21" width="165" height="15" uuid="e74ffc4a-3452-4183-b052-c87f985ae329"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Date of completion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" stretchType="RelativeToTallestObject" x="1245" y="21" width="165" height="15" uuid="b1ae36e2-7541-4469-bcbd-01ff5fb8bc9a"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Expected completion date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="1410" y="21" width="165" height="15" uuid="e2d64da7-1d1f-4566-a8e0-4947a4d5b62c"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Job number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="1575" y="21" width="293" height="15" uuid="bf502c68-4705-4816-82b9-17c3208a13d4"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Sample description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="1868" y="21" width="243" height="15" uuid="b6f063fd-fa1a-4246-99fe-d431f9bef566"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Source/Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2111" y="21" width="168" height="15" uuid="106e90c1-82ea-4224-8329-8b5b49e7a980"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Date submitted]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2279" y="21" width="243" height="15" uuid="cb9f1def-45f6-4893-9ac9-c1ef074d930c"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Sector]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2522" y="21" width="161" height="15" uuid="f03ab4ff-d4d2-489c-842a-b894bcb4078c"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Turnaround time status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2683" y="21" width="161" height="15" uuid="18d337fc-742e-416f-a422-a93fac420bc7"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Classification]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2844" y="21" width="161" height="15" uuid="7d6043bb-8eed-4856-aea0-424d969e9c19"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Job category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="3005" y="21" width="161" height="15" uuid="cfb6bb45-6a6b-49d3-aff3-ec0abeb0f6b6"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Job subcategory]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="0" y="0" width="262" height="18" uuid="da727a3e-ed81-4952-981e-15565845cfe2"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="262" y="0" width="132" height="18" uuid="1635e7a2-4566-4b69-816f-770a2cbc161a"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NUMBEROFSAMPLES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="571" y="0" width="182" height="18" uuid="7dab58d4-da11-46f1-a5ac-2c4335c30cfc"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NOOFTESTS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="394" y="0" width="177" height="18" uuid="7001b7bd-51fe-460a-99da-1210cda21332"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NOOFTESTSORCALIBRATIONS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="753" y="0" width="162" height="18" uuid="a157b2e8-5048-45c8-bef4-1b78adbdf190"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NOOFCALIBRATIONS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="915" y="0" width="165" height="18" uuid="5bf599f9-a4c2-44ff-a968-11a828c9ccb4"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobcostingandpayment_FINALCOST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1080" y="0" width="165" height="18" uuid="f985ae76-281b-4c98-af23-2e87a3c5a9dd"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobstatusandtracking_DATEOFCOMPLETION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1245" y="0" width="165" height="18" uuid="23dc8d3d-b39d-4692-b075-1261fd2aebeb"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobstatusandtracking_EXPECTEDDATEOFCOMPLETION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1410" y="0" width="165" height="18" uuid="e50e3444-f62c-4ace-9c32-e040a10bc9cd"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_JOBNUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1575" y="0" width="293" height="18" uuid="c5bb176e-44dc-4f4d-8ee3-de78170dcdf4"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{samples}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1868" y="0" width="243" height="18" uuid="413bb828-5037-4e91-8d3d-9b9419ca9751"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="2111" y="0" width="168" height="18" uuid="2eb721e9-a51d-451b-83c1-caddde02aa29"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobstatusandtracking_DATESUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="2279" y="0" width="243" height="18" uuid="a74138b3-6731-4900-bdb4-2e915643c764"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sector_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="2522" y="0" width="161" height="18" uuid="af962e01-0699-43d9-9d8f-2b70039be689"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobstatusandtracking_DATEOFCOMPLETION}.getTime() <= $F{jobstatusandtracking_EXPECTEDDATEOFCOMPLETION}.getTime() ? "on-time" : "late"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="2683" y="0" width="161" height="18" uuid="ed98b5eb-66e2-4e91-a18a-cf59bd5f2153"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classification_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="2844" y="0" width="161" height="18" uuid="460b5715-e9b5-46d1-bf1d-0621fb8dfd74"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobcategory_CATEGORY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="3005" y="0" width="161" height="18" uuid="ca7601ad-8b7c-4cb6-8d64-0eaf96beaf1d"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobsubcategory_SubCategory}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

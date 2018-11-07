@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Importers served in period" pageWidth="1440" pageHeight="595" orientation="Landscape" columnWidth="1400" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="72dbd18e-dd63-432d-b186-095fd72e83e3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="startOFPeriod" class="java.util.Date"/>
+	<parameter name="endOFPeriod" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     client.`ID` AS client_ID,
+     client.`NAME` AS client_NAME,
+     client_A.`ID` AS client_A_ID,
+     client_A.`NAME` AS client_A_NAME,
+     entrydocumentinspection.`ID` AS entrydocumentinspection_ID,
+     entrydocumentinspection.`ENTRYDOCUMENTNUMBER` AS entrydocumentinspection_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`ENTRYDOCUMENTINSPECTION_ID` AS compliancesurvey_ENTRYDOCUMENTINSPECTION_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     address.`ID` AS address_ID,
+     address.`ADDRESSLINE1` AS address_ADDRESSLINE1,
+     address.`ADDRESSLINE2` AS address_ADDRESSLINE2,
+     address.`CITY` AS address_CITY,
+     address.`COUNTRY` AS address_COUNTRY,
+     address.`NAME` AS address_NAME,
+     address.`POSTALCODE` AS address_POSTALCODE,
+     address.`STATEORPROVINCE` AS address_STATEORPROVINCE,
+     address.`TYPE` AS address_TYPE,
+     client_address.`Client_ID` AS client_address_Client_ID,
+     client_address.`addresses_ID` AS client_address_addresses_ID,
+     client_contact.`Client_ID` AS client_contact_Client_ID,
+     client_contact.`contacts_ID` AS client_contact_contacts_ID,
+     contact.`ID` AS contact_ID,
+     contact.`FIRSTNAME` AS contact_FIRSTNAME,
+     contact.`LASTNAME` AS contact_LASTNAME,
+     contact.`TYPE` AS contact_TYPE
+FROM
+     `compliancesurvey` compliancesurvey INNER JOIN `client` client ON compliancesurvey.`CONSIGNEE_ID` = client.`ID`
+     INNER JOIN `client` client_A ON compliancesurvey.`BROKER_ID` = client_A.`ID`
+     INNER JOIN `entrydocumentinspection` entrydocumentinspection ON compliancesurvey.`ENTRYDOCUMENTINSPECTION_ID` = entrydocumentinspection.`ID`
+     INNER JOIN `client_address` client_address ON client.`ID` = client_address.`Client_ID`
+     INNER JOIN `client_contact` client_contact ON client.`ID` = client_contact.`Client_ID`
+     INNER JOIN `contact` contact ON client_contact.`contacts_ID` = contact.`ID`
+     INNER JOIN `address` address ON client_address.`addresses_ID` = address.`ID`
+WHERE
+     compliancesurvey.`DATEOFSURVEY` >= $P{startOFPeriod}
+ AND compliancesurvey.`DATEOFSURVEY` <= $P{endOFPeriod}
+ AND entrydocumentinspection.`ENTRYDOCUMENTNUMBER` <> '34'
+ AND address.`TYPE` = 'Billing'
+GROUP BY
+     client.`NAME`]]>
+	</queryString>
+	<field name="client_ID" class="java.lang.Long"/>
+	<field name="client_ACTIVE" class="java.lang.Boolean"/>
+	<field name="client_DATEFIRSTRECEIVED" class="java.sql.Date"/>
+	<field name="client_DATELASTACCESSED" class="java.sql.Date"/>
+	<field name="client_INTERNAL" class="java.lang.Boolean"/>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="client_NOTES" class="java.lang.String"/>
+	<field name="client_NUMBER" class="java.lang.String"/>
+	<field name="client_TAG" class="java.lang.Boolean"/>
+	<field name="client_TAXREGISTRATIONNUMBER" class="java.lang.String"/>
+	<field name="client_TYPE" class="java.lang.String"/>
+	<field name="client_INTERNET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+	<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+	<field name="client_A_ID" class="java.lang.Long"/>
+	<field name="client_A_NAME" class="java.lang.String"/>
+	<field name="entrydocumentinspection_ID" class="java.lang.Long"/>
+	<field name="entrydocumentinspection_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTINSPECTION_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="address_ID" class="java.lang.Long"/>
+	<field name="address_ADDRESSLINE1" class="java.lang.String"/>
+	<field name="address_ADDRESSLINE2" class="java.lang.String"/>
+	<field name="address_CITY" class="java.lang.String"/>
+	<field name="address_COUNTRY" class="java.lang.String"/>
+	<field name="address_NAME" class="java.lang.String"/>
+	<field name="address_POSTALCODE" class="java.lang.String"/>
+	<field name="address_STATEORPROVINCE" class="java.lang.String"/>
+	<field name="address_TYPE" class="java.lang.String"/>
+	<field name="client_address_Client_ID" class="java.lang.Long"/>
+	<field name="client_address_addresses_ID" class="java.lang.Long"/>
+	<field name="client_contact_Client_ID" class="java.lang.Long"/>
+	<field name="client_contact_contacts_ID" class="java.lang.Long"/>
+	<field name="contact_ID" class="java.lang.Long"/>
+	<field name="contact_FIRSTNAME" class="java.lang.String"/>
+	<field name="contact_LASTNAME" class="java.lang.String"/>
+	<field name="contact_TYPE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="1400" height="66" backcolor="#000000" uuid="d2451cbf-bbd0-4dd3-8299-76cf43943f0b"/>
+				<staticText>
+					<reportElement style="SubTitle" x="0" y="37" width="472" height="29" uuid="b92ee809-1e70-47b1-9bff-ebccd95ed3c9"/>
+					<textElement>
+						<font fontName="SansSerif" size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Compliance Survey Importers List ]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="199" height="18" forecolor="#000000" uuid="b04f8429-5044-4430-a423-bca4a7d0bcf1"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="392" y="0" width="171" height="18" forecolor="#000000" uuid="44f7eca2-f97e-4d9b-844c-099ff85e77fb"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importer Contact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="566" y="0" width="121" height="18" forecolor="#000000" uuid="cb40bcf5-3d42-4bf6-97fe-ebde2aadd4ea"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Survey]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="687" y="0" width="183" height="18" forecolor="#000000" uuid="5d952cd8-cbe0-4f73-954a-e4e754fd60f6"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entry Doc. #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="199" y="0" width="193" height="18" forecolor="#000000" uuid="73c95fa3-813f-4e86-8c68-90c015f6e378"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importer Address]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="1388" height="18" uuid="a246632c-4bf9-4051-af39-32938adc7fb5"/>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="199" height="18" uuid="0a4370dc-9b1d-4578-85f6-ad002c52d939"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{client_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="392" y="0" width="171" height="18" uuid="313725d3-fa84-48ec-9159-17eb841e1542"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contact_FIRSTNAME} + " " + $F{contact_LASTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="566" y="0" width="121" height="18" uuid="513fd3ff-e25e-4691-b072-a06b7f27d12e"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{compliancesurvey_DATEOFSURVEY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="687" y="0" width="183" height="18" uuid="19d33479-58c7-42ef-b065-22d7b877e686"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{entrydocumentinspection_ENTRYDOCUMENTNUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="199" y="0" width="193" height="18" uuid="e1519841-496e-4983-81c5-789d5ea8e60a"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{address_ADDRESSLINE1} + ", " + $F{address_ADDRESSLINE2} + ", " + $F{address_CITY} + ", " + $F{address_STATEORPROVINCE}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="9ed4064a-fcdd-479d-9b89-7bdcaec5a6da"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="1400" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="27c36da2-f229-49ca-8d86-781c0af9ece7"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="e78e646a-9969-4ce6-a3df-e189a864be84"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="ba63bf74-fd1a-41f0-86af-f552292dae6b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="57ea4dbd-125e-4793-99cc-e253e8be665d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -46,7 +46,7 @@ Email: info@dpbennett.com.jm
         <ui:include src="common/preferencesDialog.xhtml"/>   
 
         <p:layout id="JMTSWeb" fullPage="true" widgetVar="layoutVar" >
-            <p:ajax event="toggle" listener="#{jobManager.handleLayoutUnitToggle}" />
+            <p:ajax event="toggle" listener="#{purchasingManager.handleLayoutUnitToggle}" />
 
             <p:layoutUnit position="north" 
                           rendered="true" 
@@ -55,7 +55,7 @@ Email: info@dpbennett.com.jm
                           size="80" >
                 <h:form id="headerForm">   
                     <p:growl id="growl3" life="5000" showDetail="true" />
-                    <h:panelGrid rendered="#{jobManager.renderUserMenu()}" width="100%" 
+                    <h:panelGrid rendered="#{purchasingManager.renderUserMenu()}" width="100%" 
                                  border="0" columns="3" >
                         <p:graphicImage value="images/BSJ Logo - H41.png"/>
                         <h:panelGrid>   
@@ -67,18 +67,18 @@ Email: info@dpbennett.com.jm
                                 <br />
                                 <div style=" padding-top: 5px;">
                                     <span style="color: darkgrey; font-size: 10pt; font-weight: bold;">
-                                        #{jobManager.applicationSubheader}
+                                        #{purchasingManager.applicationSubheader}
                                     </span>   
                                 </div>
                             </div>
 
                         </h:panelGrid>
-                        <p:menuButton value="#{jobManager.user.employee.firstName} #{jobManager.user.employee.lastName}"     
+                        <p:menuButton value="#{purchasingManager.user.employee.firstName} #{purchasingManager.user.employee.lastName}"     
                                       iconPos="left"
                                       id="userMenu"
                                       style="float: right;" >
 
-                            <p:menuitem actionListener="#{jobManager.editPreferences}"
+                            <p:menuitem actionListener="#{purchasingManager.editPreferences}"
                                         onstart="PF('longProcessDialogVar').show();"
                                         update=":preferencesDialogForm"
                                         oncomplete="PF('longProcessDialogVar').hide();PF('preferencesDialog').show();"
@@ -86,7 +86,7 @@ Email: info@dpbennett.com.jm
                                         value="Preferences"
                                         process="@this"/>
                             <p:separator />  
-                            <p:menuitem actionListener="#{jobManager.logout}"
+                            <p:menuitem actionListener="#{purchasingManager.logout}"
                                         onstart="PF('longProcessDialogVar').show();"                                               
                                         onerror="PF('connectionErrorDialog').show();"                                              
                                         icon="ui-icon-circle-arrow-w"
@@ -110,8 +110,8 @@ Email: info@dpbennett.com.jm
                 <h:form id="mainTabViewForm">   
 
                     <p:tabView id="mainTabView"   
-                               rendered="#{jobManager.mainTabView.render}"
-                               value="#{jobManager.mainTabView.tabs}" 
+                               rendered="#{purchasingManager.mainTabView.render}"
+                               value="#{purchasingManager.mainTabView.tabs}" 
                                var="t"         
                                style="border-width: 0px;"
                                onTabShow="PF('longProcessDialogVar').hide();"
@@ -121,12 +121,12 @@ Email: info@dpbennett.com.jm
                                 immediate="true"
                                 process="@this"
                                 update=":headerForm:growl3"
-                                listener="#{jobManager.onMainViewTabClose}" />  
+                                listener="#{purchasingManager.onMainViewTabClose}" />  
 
                         <p:ajax event="tabChange" 
                                 immediate="true"
                                 process="@this"                                
-                                listener="#{jobManager.onMainViewTabChange}" />  
+                                listener="#{purchasingManager.onMainViewTabChange}" />  
 
 
                         <p:tab title="#{t.name}" closable="true"  >
@@ -175,7 +175,7 @@ Email: info@dpbennett.com.jm
                 size="375"
                 header="Dashboard"
                 resizable="true"                  
-                collapsed="#{jobManager.westLayoutUnitCollapsed}"
+                collapsed="#{purchasingManager.westLayoutUnitCollapsed}"
                 collapsible="true">   
                 <h:form id="dashboardForm" > 
 
@@ -187,23 +187,23 @@ Email: info@dpbennett.com.jm
                         title="This is the default button that accepts the enter key press" 
                         onstart="PF('longProcessDialogVar').show();"                                 
                         oncomplete="PF('longProcessDialogVar').hide();"
-                        actionListener="#{jobManager.doGeneralSearch}"
+                        actionListener="#{purchasingManager.doGeneralSearch}"
                         process="@form"/>                    
 
                     <p:defaultCommand id="dashboardDefaultCommandButton" 
-                                      target="#{jobManager.dashboard.defaultCommandButtonId}" />
+                                      target="#{purchasingManager.dashboard.defaultCommandButtonId}" />
 
                     <p:accordionPanel id="dashboardAccordion" 
-                                      value="#{jobManager.dashboard.tabs}" 
+                                      value="#{purchasingManager.dashboard.tabs}" 
                                       var="t" 
                                       widgetVar="dashboardAccordionVar"
-                                      rendered="#{jobManager.dashboard.render}"
+                                      rendered="#{purchasingManager.dashboard.render}"
                                       multiple="false">
 
                         <p:ajax event="tabChange"       
                                 immediate="true"
                                 process="@this"
-                                listener="#{jobManager.onDashboardTabChange}" />
+                                listener="#{purchasingManager.onDashboardTabChange}" />
 
                         <p:tab title="#{t.name}" > 
                             <ui:remove>

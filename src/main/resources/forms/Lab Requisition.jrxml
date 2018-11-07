@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lab Requisition" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a52baad-35f7-495a-a8aa-125da4be7058">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="43"/>
+	<subDataset name="Job Samples" uuid="a7e613e8-cf98-4942-94d6-f734eb7f6361">
+		<parameter name="jobSample_jobId" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     job.`ID` AS job_ID,
+     job_jobsample.`Job_ID` AS job_jobsample_Job_ID,
+     job_jobsample.`jobSamples_ID` AS job_jobsample_jobSamples_ID,
+     jobsample.`ID` AS jobsample_ID,
+     jobsample.`NAME` AS jobsample_NAME,
+     jobsample.`CODE` AS jobsample_CODE,
+     jobsample.`DESCRIPTION` AS jobsample_DESCRIPTION
+FROM
+     `job` job INNER JOIN `job_jobsample` job_jobsample ON job.`ID` = job_jobsample.`Job_ID`
+     INNER JOIN `jobsample` jobsample ON job_jobsample.`jobSamples_ID` = jobsample.`ID`
+WHERE
+     job.`ID` = $P{jobSample_jobId}]]>
+		</queryString>
+		<field name="job_ID" class="java.lang.Long"/>
+		<field name="job_jobsample_Job_ID" class="java.lang.Long"/>
+		<field name="job_jobsample_jobSamples_ID" class="java.lang.Long"/>
+		<field name="jobsample_ID" class="java.lang.Long"/>
+		<field name="jobsample_NAME" class="java.lang.String"/>
+		<field name="jobsample_CODE" class="java.lang.String"/>
+		<field name="jobsample_DESCRIPTION" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="jobId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     job.`ID` AS job_ID,
+     job.`JOBNUMBER` AS job_JOBNUMBER
+FROM
+     `job` job
+WHERE
+     job.`ID` = $P{jobId}]]>
+	</queryString>
+	<field name="job_ID" class="java.lang.Long"/>
+	<field name="job_JOBNUMBER" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<image>
+				<reportElement uuid="79add375-34e1-4107-9b88-6eaa9e4fea2e" x="0" y="0" width="88" height="84"/>
+				<imageExpression><![CDATA["C:\\Projects\\JobManagementAndTracking\\JMTSWebAppBetaV2\\reports\\bsj logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="cec827c0-1453-40f1-ab39-9bc5ff2d3fbb" x="428" y="19" width="71" height="14" forecolor="#666666"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Reference #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c06410a4-3ebf-41e6-be81-ab90fbe8b659" x="491" y="19" width="73" height="14" forecolor="#666666"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[____________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28da7d10-287e-4d6c-a264-e5b044e55720" x="209" y="33" width="154" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BUREAU OF STANDARDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64dd6ea5-7ebc-4df5-ba6e-ab1e4f2cfe58" x="197" y="53" width="178" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LABORATORY REQUISITION]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="170" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="eb05ffe1-1f71-42b4-b0a2-701baa825e42" key="table" x="0" y="109" width="572" height="30"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Job Samples" uuid="b6550a51-90a7-442a-b391-e62334246ad3">
+						<datasetParameter name="jobSample_jobId">
+							<datasetParameterExpression><![CDATA[$P{jobId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column uuid="bbeefa23-f63d-4814-914c-77425049a3ad" width="141">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a03c8c85-8321-4579-8b68-911cda2639dd" x="0" y="0" width="141" height="30"/>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement/>
+								<text><![CDATA[Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="a5a886ef-b1cd-4c5e-9603-dbf22dceef3c" x="0" y="0" width="141" height="20"/>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{jobsample_DESCRIPTION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="09a89573-5cce-459b-bc2b-35aa73f8d58c" width="162">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a18536fa-26a0-4c26-bc02-bfab82990e6e" x="0" y="0" width="162" height="30"/>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement/>
+								<text><![CDATA[jobsample_CODE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="3cbe7c6c-483f-428a-bdcc-ba8242ecb022" x="0" y="0" width="162" height="20"/>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{jobsample_CODE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="fa89abe7-fb34-47b5-8f5d-96cfcc27a907" x="0" y="77" width="542" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Examine the following product (s), as detailed below, and advise me of your findings.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="361e4415-b7a6-4471-a168-68b4ab706266" x="0" y="27" width="48" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="930338f8-41d5-4a8c-bd52-6a267034334d" x="46" y="27" width="82" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Special Request]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b2736f5-9d39-4791-9ba4-f1f7d1683a92" x="46" y="50" width="82" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Routine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="361e4415-b7a6-4471-a168-68b4ab706266" x="0" y="4" width="37" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Job #:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2e07ef4a-ce17-46d6-9c42-96b885d4076c" x="37" y="4" width="263" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_JOBNUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="361e4415-b7a6-4471-a168-68b4ab706266" x="418" y="4" width="32" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement uuid="14ebb008-49d5-489d-9697-64a4308a4125" x="453" y="4" width="111" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="f06f2b3a-41f4-4ead-9ed3-6827768e41af" x="133" y="27" width="15" height="15"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="b96608d9-7be4-40ef-ab7c-0d6af90b5ca2" x="133" y="50" width="15" height="15"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="783b6eb2-b5f0-4dee-83af-b168b58b2b09" x="0" y="34" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

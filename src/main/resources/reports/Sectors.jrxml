@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sectors" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="3cb98978-4f36-476f-82a9-0016074c3443">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     sector.`NAME` AS sector_NAME,
+     sector.`ACTIVE` AS sector_ACTIVE,
+     sector.`DESCRIPTION` AS sector_DESCRIPTION
+FROM
+     `sector` sector]]>
+	</queryString>
+	<field name="sector_NAME" class="java.lang.String"/>
+	<field name="sector_ACTIVE" class="java.lang.Boolean"/>
+	<field name="sector_DESCRIPTION" class="java.lang.String"/>
+	<title>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="195" y="0" width="183" height="29" uuid="3b7ab590-af39-4332-a63e-dd538e8379db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JMTS Sectors]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="175" height="20" uuid="0d4ce132-63f9-4a37-8678-cb64acb24f17"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sector]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="0" width="313" height="19" uuid="b08eef24-312d-41dc-a6bc-498653d94ef9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="0" width="84" height="20" uuid="45d21575-38d1-45ba-8852-cffecc2eef9f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Active]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="175" y="0" width="313" height="20" uuid="3348d8d3-fa44-4049-b235-3189e1a7c3e2"/>
+				<box leftPadding="5"/>
+				<textFieldExpression><![CDATA[$F{sector_DESCRIPTION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="488" y="0" width="84" height="20" uuid="6c605973-d458-4dda-84e8-76728483eb6e"/>
+				<box leftPadding="5"/>
+				<textFieldExpression><![CDATA[( $F{sector_ACTIVE} ? "Yes" : "No" )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="175" height="20" uuid="1691a58d-8861-4de2-8451-e7a47f8e7aca"/>
+				<box leftPadding="5" rightPadding="0"/>
+				<textFieldExpression><![CDATA[$F{sector_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

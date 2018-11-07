@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Services Offered by Sector" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="2968f87d-e793-471b-a0e2-11b9ce11246e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Date Period 1 Dataset" uuid="e462431c-3fd8-41c3-962a-630b1b136416">
+		<parameter name="datePeriodStart1" class="java.util.Date" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="datePeriodEnd1" class="java.util.Date" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     CASE WHEN jobsubcategory.`SubCategory` LIKE '--'THEN 'Uncategorized'ELSE jobsubcategory.`SubCategory` END AS jobsubcategory_SubCategory,
+     GROUP_CONCAT(job.`JOBNUMBER` SEPARATOR ', ') AS 'Job_Numbers',
+     jobstatusandtracking.`DATEOFCOMPLETION` AS Date_Period,
+     SUM(jobcostingandpayment.`FINALCOST`) AS Earnings,
+     department.`SUBGROUPCODE` AS department_SUBGROUPCODE,
+     department.`NAME` AS department_NAME,
+     GROUP_CONCAT(department_A.`SUBGROUPCODE` SEPARATOR ', ') AS department_A_SUBGROUPCODE
+FROM
+     `department` department INNER JOIN `job` job ON department.`ID` = job.`DEPARTMENT_ID`
+     INNER JOIN `jobsubcategory` jobsubcategory ON job.`JOBSUBCATEGORY_ID` = jobsubcategory.`ID`
+     INNER JOIN `jobstatusandtracking` jobstatusandtracking ON job.`JOBSTATUSANDTRACKING_ID` = jobstatusandtracking.`ID`
+     INNER JOIN `jobcostingandpayment` jobcostingandpayment ON job.`JOBCOSTINGANDPAYMENT_ID` = jobcostingandpayment.`ID`
+     INNER JOIN `department` department_A ON job.`SUBCONTRACTEDDEPARTMENT_ID` = department_A.`ID`
+WHERE
+     (department.`NAME` LIKE 'Chemistry'
+  OR department.`NAME` LIKE 'Electrical%'
+  OR department.`NAME` LIKE 'Civil%'
+  OR department.`NAME` LIKE 'Micro%'
+  OR department.`NAME` LIKE 'Mechanical%')
+ AND jobstatusandtracking.`DATEOFCOMPLETION` >= $P{datePeriodStart1}
+ AND jobstatusandtracking.`DATEOFCOMPLETION` <= $P{datePeriodEnd1}
+ AND jobsubcategory.`IsEarning` = 1
+ AND (department_A.`SUBGROUPCODE` = 0 OR department_A.`SUBGROUPCODE` IS NULL)
+GROUP BY
+     Date_Period,
+     jobsubcategory_SubCategory
+ORDER BY
+     department_NAME ASC,
+     jobsubcategory_SubCategory ASC,
+     Date_Period ASC]]>
+		</queryString>
+		<field name="jobsubcategory_SubCategory" class="java.lang.String"/>
+		<field name="Job_Numbers" class="java.lang.String"/>
+		<field name="Date_Period" class="java.sql.Date"/>
+		<field name="Earnings" class="java.lang.Double"/>
+		<field name="department_SUBGROUPCODE" class="java.lang.String"/>
+		<field name="department_NAME" class="java.lang.String"/>
+		<field name="department_A_SUBGROUPCODE" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="datePeriodStart1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse("2014-04-01")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datePeriodEnd1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").parse("2017-03-31")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numDatePeriods" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datePeriodType" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Year"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CASE WHEN sector.`NAME` LIKE '--'THEN 'Uncategorized'ELSE sector.`NAME` END AS sector_NAME,
+     CASE WHEN jobsubcategory.`SubCategory` LIKE '--'THEN 'Uncategorized'ELSE jobsubcategory.`SubCategory` END AS jobsubcategory_SubCategory,
+     GROUP_CONCAT(job.`JOBNUMBER` SEPARATOR ', ') AS 'Job_Numbers',
+     SUM(jobcostingandpayment.`FINALCOST`) AS Earnings,
+     GROUP_CONCAT(department_A.`SUBGROUPCODE` SEPARATOR ', ') AS department_A_SUBGROUPCODE,
+     SUM(job.`NOOFTESTS`) AS job_NOOFTESTS,
+     /*CASE WHEN SUM(job.`NOOFTESTS`) >= 0 THEN SUM(job.`NOOFTESTS`) ELSE NULL END AS job_NOOFTESTS,*/
+     SUM(job.`NOOFCALIBRATIONS`) AS job_NOOFCALIBRATIONS,
+     jobstatusandtracking.`DATEOFCOMPLETION` AS Completion_Date,
+     department.`SUBGROUPCODE` AS department_SUBGROUPCODE,
+     department.`NAME` AS department_NAME,
+     sector.`ACTIVE` AS sector_ACTIVE
+FROM
+     `department` department INNER JOIN `job` job ON department.`ID` = job.`DEPARTMENT_ID`
+     INNER JOIN `jobsubcategory` jobsubcategory ON job.`JOBSUBCATEGORY_ID` = jobsubcategory.`ID`
+     INNER JOIN `jobstatusandtracking` jobstatusandtracking ON job.`JOBSTATUSANDTRACKING_ID` = jobstatusandtracking.`ID`
+     INNER JOIN `jobcostingandpayment` jobcostingandpayment ON job.`JOBCOSTINGANDPAYMENT_ID` = jobcostingandpayment.`ID`
+     INNER JOIN `department` department_A ON job.`SUBCONTRACTEDDEPARTMENT_ID` = department_A.`ID`
+     INNER JOIN `sector` sector ON job.`SECTOR_ID` = sector.`ID`
+WHERE
+     jobstatusandtracking.`DATEOFCOMPLETION` >= $P{datePeriodStart1}
+ AND jobstatusandtracking.`DATEOFCOMPLETION` <= $P{datePeriodEnd1}
+ AND jobsubcategory.`IsEarning` = 1
+ /*
+ AND (department_A.`SUBGROUPCODE` = 0
+  OR department_A.`SUBGROUPCODE` IS NULL)*/
+GROUP BY
+     sector.`NAME`,
+     jobsubcategory_SubCategory
+ORDER BY
+     sector_NAME ASC,
+     jobsubcategory_SubCategory ASC]]>
+	</queryString>
+	<field name="sector_NAME" class="java.lang.String"/>
+	<field name="jobsubcategory_SubCategory" class="java.lang.String"/>
+	<field name="Job_Numbers" class="java.lang.String"/>
+	<field name="Earnings" class="java.lang.Double"/>
+	<field name="department_A_SUBGROUPCODE" class="java.lang.String"/>
+	<field name="job_NOOFTESTS" class="java.math.BigDecimal"/>
+	<field name="job_NOOFCALIBRATIONS" class="java.math.BigDecimal"/>
+	<field name="Completion_Date" class="java.sql.Date"/>
+	<field name="department_SUBGROUPCODE" class="java.lang.String"/>
+	<field name="department_NAME" class="java.lang.String"/>
+	<field name="sector_ACTIVE" class="java.lang.Boolean"/>
+	<variable name="job_NOOFCALIBRATIONS_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Sector" calculation="Sum">
+		<variableExpression><![CDATA[$F{job_NOOFCALIBRATIONS} / $P{numDatePeriods}]]></variableExpression>
+	</variable>
+	<variable name="job_NOOFTESTS_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Sector" calculation="Sum">
+		<variableExpression><![CDATA[$F{job_NOOFTESTS} / $P{numDatePeriods}]]></variableExpression>
+	</variable>
+	<group name="Sector">
+		<groupExpression><![CDATA[$F{sector_NAME}]]></groupExpression>
+		<groupHeader>
+			<band height="35">
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="0" y="7" width="752" height="20" backcolor="#CCCCCC" uuid="87e6a9f0-fb4d-4ccc-b56a-07904d588b38"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sector_NAME} + ( $F{sector_ACTIVE} ? " Sector" : " Sector (* Currently inactive)")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="49">
+				<textField evaluationTime="Group" evaluationGroup="Sector" pattern="#,##0.0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="258" y="15" width="197" height="20" backcolor="#CCCCCC" uuid="96818e0c-b146-4a06-97ed-634d0448eb49"/>
+					<box>
+						<bottomPen lineWidth="0.5" lineStyle="Double"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{job_NOOFCALIBRATIONS_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="455" y="15" width="138" height="20" backcolor="#CCCCCC" uuid="349b4efb-9989-4f17-a99a-5d8850a40e3c"/>
+					<box>
+						<bottomPen lineWidth="0.5" lineStyle="Double"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{job_NOOFTESTS_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="593" y="15" width="159" height="20" backcolor="#CCCCCC" uuid="41e31148-57fd-4513-b77a-522fb816b159"/>
+					<box>
+						<bottomPen lineWidth="0.5" lineStyle="Double"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="0" y="15" width="258" height="20" backcolor="#CCCCCC" uuid="573c1c4e-ba97-4249-b86c-5681125b087f"/>
+					<box>
+						<bottomPen lineWidth="0.5" lineStyle="Double"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sector Averages (per " + $P{datePeriodType} + "): "]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="752" height="30" forecolor="#000033" uuid="260c2041-5dc2-4658-b962-0b22a91afa83"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bureau of Standards Jamaica]]></text>
+			</staticText>
+			<textField pattern="MMM dd, yyyy">
+				<reportElement x="0" y="66" width="752" height="20" forecolor="#003366" uuid="d5541b55-03dd-442a-a95f-63bf77c1e71b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Period for Data: " + new SimpleDateFormat("MMM dd, yyyy").format($P{datePeriodStart1}).toString() + " to " + new SimpleDateFormat("MMM dd, yyyy").format($P{datePeriodEnd1}).toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="30" width="750" height="23" forecolor="#000033" uuid="65fd9991-4aa4-4c59-9633-e2b42a9aa668"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Services Offered by Sector]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="256" height="29" backcolor="#999999" uuid="d2db3155-6d35-4e89-b8e1-a016dee45e76"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[** Service Offered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="257" y="0" width="198" height="29" backcolor="#999999" uuid="f24b8823-7d55-4097-8501-3e2c8b774a5e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Calibrations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="456" y="0" width="136" height="29" backcolor="#999999" uuid="90097a0f-1d76-43a1-8bb5-562bc8ec6f70"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of Tests]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="593" y="0" width="159" height="29" backcolor="#999999" uuid="aadee692-c150-4d95-9d5e-dd3ca8d1d542"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="256" height="29" uuid="f41e42c3-02d9-4bbc-b933-fce93c85a4ce"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobsubcategory_SubCategory}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="256" y="0" width="199" height="29" uuid="cdb1b737-96e0-492e-942c-62042ff9abf5"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NOOFCALIBRATIONS}.intValue() == 0 ? 0 : $F{job_NOOFCALIBRATIONS}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="138" height="29" uuid="0a5e371f-f85a-463b-ad7b-39c625185fd9"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_NOOFTESTS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="593" y="0" width="159" height="29" uuid="563bdf99-00b3-4123-8d3f-f99701824bae"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21">
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="608" y="0" width="144" height="20" uuid="6389fae1-60a0-4515-9f19-e14cb78ed6af"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="80" height="20" uuid="3529a349-dd74-4880-aad5-b38ad6c53c36"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="82" y="0" width="40" height="20" uuid="1a996fbf-42c6-4323-bb7e-e437039f670b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="084c31d3-08c7-4702-91f4-13061cdba57a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Notes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="20" width="494" height="20" uuid="1bf755a5-a1df-42c1-be7e-3a50dbccd4f6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[* Inactive sectors are currently not being assigned to new job entries.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="40" width="494" height="20" uuid="81ac4cb5-6a9f-41ec-ac55-8210dc7211c0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[** Blank entries for calibrations and tests indicate that services are not offered.]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

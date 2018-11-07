@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JobEnteredByInspector" pageWidth="1200" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91614f20-57d8-46cc-9862-2ea4d5a20352">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="startOFPeriod" class="java.util.Date"/>
+	<parameter name="endOFPeriod" class="java.util.Date"/>
+	<parameter name="employeeID" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     GROUP_CONCAT(job.`JOBNUMBER` SEPARATOR ', ') AS jobNumbers,
+     job.`ID` AS job_ID,
+     job.`JOBDESCRIPTION` AS job_JOBDESCRIPTION,
+     job.`NOOFTESTSORCALIBRATIONS` AS job_NOOFTESTSORCALIBRATIONS,
+     job.`JOBNUMBER` AS job_JOBNUMBER,
+     job.`ASSIGNEDTO_ID` AS job_ASSIGNEDTO_ID,
+     job.`JOBSTATUSANDTRACKING_ID` AS job_JOBSTATUSANDTRACKING_ID,
+     employee.`ID` AS employee_ID,
+     employee.`LASTNAME` AS employee_LASTNAME,
+     employee.`NAME` AS employee_NAME,
+     employee.`FIRSTNAME` AS employee_FIRSTNAME,
+     jobstatusandtracking.`ID` AS jobstatusandtracking_ID,
+     jobstatusandtracking.`EXPECTEDDATEOFCOMPLETION` AS jobstatusandtracking_EXPECTEDDATEOFCOMPLETION,
+     jobstatusandtracking.`DATESUBMITTED` AS jobstatusandtracking_DATESUBMITTED,
+     jobstatusandtracking.`DATEOFCOMPLETION` AS jobstatusandtracking_DATEOFCOMPLETION
+FROM
+     `jobstatusandtracking` jobstatusandtracking INNER JOIN `job` job ON jobstatusandtracking.`ID` = job.`JOBSTATUSANDTRACKING_ID`
+     LEFT OUTER JOIN `employee` employee ON job.`ASSIGNEDTO_ID` = employee.`ID`
+WHERE
+     (jobstatusandtracking.`DATESUBMITTED` >= $P{startOFPeriod}
+ AND jobstatusandtracking.`DATESUBMITTED` <= $P{endOFPeriod})
+ AND job.`ASSIGNEDTO_ID` = $P{employeeID}
+GROUP BY
+     job.`ID`]]>
+	</queryString>
+	<field name="jobNumbers" class="java.lang.String"/>
+	<field name="job_ID" class="java.lang.Long"/>
+	<field name="job_JOBDESCRIPTION" class="java.lang.String"/>
+	<field name="job_NOOFTESTSORCALIBRATIONS" class="java.lang.Integer"/>
+	<field name="job_JOBNUMBER" class="java.lang.String"/>
+	<field name="job_ASSIGNEDTO_ID" class="java.lang.Long"/>
+	<field name="job_JOBSTATUSANDTRACKING_ID" class="java.lang.Long"/>
+	<field name="employee_ID" class="java.lang.Long"/>
+	<field name="employee_LASTNAME" class="java.lang.String"/>
+	<field name="employee_NAME" class="java.lang.String"/>
+	<field name="employee_FIRSTNAME" class="java.lang.String"/>
+	<field name="jobstatusandtracking_ID" class="java.lang.Long"/>
+	<field name="jobstatusandtracking_EXPECTEDDATEOFCOMPLETION" class="java.sql.Date"/>
+	<field name="jobstatusandtracking_DATESUBMITTED" class="java.sql.Date"/>
+	<field name="jobstatusandtracking_DATEOFCOMPLETION" class="java.sql.Date"/>
+	<variable name="itemNo" class="java.lang.Long" calculation="Count">
+		<variableExpression><![CDATA[$F{job_ID}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="860" height="36" forecolor="#000000" uuid="34049110-7832-4684-9215-8eeae0100de4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Jobs Assigned to Employee]]></text>
+			</staticText>
+			<textField pattern="MMM dd, yyyy">
+				<reportElement x="162" y="41" width="178" height="29" uuid="7b20eb55-fc0b-4bdf-a309-d5d8832aa567"/>
+				<textElement>
+					<font fontName="Arial" size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endOFPeriod}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="138" y="41" width="24" height="29" uuid="1b6f14d2-0b8b-49e8-9fd4-54d2c9a2ad28"/>
+				<textElement>
+					<font fontName="Arial" size="22"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<textField pattern="MMM dd, yyyy">
+				<reportElement x="0" y="41" width="138" height="29" uuid="e05af91a-98e1-45d2-be9f-b0ee4e9f491d"/>
+				<textElement>
+					<font fontName="Arial" size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{startOFPeriod}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="107" y="21" width="138" height="15" uuid="0dcb4c8c-73d3-443a-a6b8-3989da54b766"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Employee name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="245" y="21" width="138" height="15" uuid="2b4b6876-6880-43ed-a775-4c94342a3e5b"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Job numbers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="383" y="21" width="138" height="15" uuid="5ceb1f44-6f4f-4a06-bae6-786b7f0c7ddb"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Assignee firstname]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="521" y="21" width="138" height="15" uuid="4d92a13e-1359-4814-8331-78d7ca682f5e"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Employee name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="659" y="21" width="149" height="15" uuid="a6ba2726-dc8e-499e-a320-f7eedac7a3f8"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Date assigned/submitted]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="21" width="107" height="15" uuid="a69ac1e4-c088-4d2d-bae4-a5fe2b1c5372"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Item No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="107" y="0" width="138" height="42" uuid="da727a3e-ed81-4952-981e-15565845cfe2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="245" y="0" width="138" height="42" uuid="1635e7a2-4566-4b69-816f-770a2cbc161a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{jobNumbers}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="383" y="0" width="138" height="42" uuid="884003e6-7512-4404-932e-2a2d7c46d057"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee_FIRSTNAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="521" y="0" width="138" height="42" uuid="555fa4c6-3959-4085-a6f0-4a2e40f884ae"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee_NAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM dd, yyyy">
+				<reportElement style="Detail" x="659" y="0" width="149" height="42" uuid="319d0f79-b19a-4469-99ec-fe7fdd237bf5"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{jobstatusandtracking_DATESUBMITTED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="107" height="42" uuid="0432afd6-67f8-4025-859f-c5c0ad0612fa"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$V{itemNo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="47d9c740-0c76-4f6f-9927-92e3bfd0fe3c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="af72b5f1-5563-4f3b-84f7-5473a0b388ce"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="a0e0a050-cc64-4945-82d1-97cd3f2b8f22"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="5d2175c9-498c-4403-8179-ac21d6761c03"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Detention Request - Port of Entry" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="7be5e4ea-68fa-43f9-a68a-5d0b82dabf99">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="163"/>
+	<parameter name="formId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[208587L]]></defaultValueExpression>
+	</parameter>
+	<parameter name="brokerDetail" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consigneeDetail" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="products" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="quantity" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="numberOfSamplesTaken" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="referenceNumber" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID,
+     employee.`ID` AS employee_ID,
+     employee.`ACTIVE` AS employee_ACTIVE,
+     employee.`BILLINGRATE` AS employee_BILLINGRATE,
+     employee.`BIRTHDATE` AS employee_BIRTHDATE,
+     employee.`DATEHIRED` AS employee_DATEHIRED,
+     employee.`FIRSTNAME` AS employee_FIRSTNAME,
+     employee.`LASTNAME` AS employee_LASTNAME,
+     employee.`MIDDLENAME` AS employee_MIDDLENAME,
+     employee.`NAME` AS employee_NAME,
+     employee.`NAMESUFFIX` AS employee_NAMESUFFIX,
+     employee.`NOTES` AS employee_NOTES,
+     employee.`NUMBER` AS employee_NUMBER,
+     employee.`SEX` AS employee_SEX,
+     employee.`TITLE` AS employee_TITLE,
+     employee.`USERNAME` AS employee_USERNAME,
+     employee.`BUSINESSOFFICE_ID` AS employee_BUSINESSOFFICE_ID,
+     employee.`DEPARTMENT_ID` AS employee_DEPARTMENT_ID,
+     employee.`INTERNET_ID` AS employee_INTERNET_ID,
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     employee.`EMPLOYMENTTYPE` AS employee_EMPLOYMENTTYPE,
+     employee.`BUSINESS_ID` AS employee_BUSINESS_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE,
+     compliancesurvey.`SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID,
+     compliancesurvey.`RELEASEDATEDOMESTICMARKET` AS compliancesurvey_RELEASEDATEDOMESTICMARKET,
+     compliancesurvey.`LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID` AS compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID,
+     compliancesurvey.`RETAILER` AS compliancesurvey_RETAILER,
+     compliancesurvey.`DISTRIBUTOR` AS compliancesurvey_DISTRIBUTOR,
+     compliancesurvey.`OTHERCOMPANYTYPES` AS compliancesurvey_OTHERCOMPANYTYPES,
+     compliancesurvey.`COMPANYTYPES` AS compliancesurvey_COMPANYTYPES,
+     compliancesurvey.`RELEASEFROMDETENTIONREPORTDATE` AS compliancesurvey_RELEASEFROMDETENTIONREPORTDATE,
+     compliancesurvey.`DATEOFDETENTION` AS compliancesurvey_DATEOFDETENTION,
+     compliancesurvey.`FULLRELEASE` AS compliancesurvey_FULLRELEASE,
+     compliancesurvey.`SAMPLESTOBEDISPOSED` AS compliancesurvey_SAMPLESTOBEDISPOSED,
+     compliancesurvey.`SAMPLESTOBECOLLECTED` AS compliancesurvey_SAMPLESTOBECOLLECTED,
+     compliancesurvey.`INSPECTIONADDRESS_ID` AS compliancesurvey_INSPECTIONADDRESS_ID,
+     compliancesurvey.`NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET` AS compliancesurvey_NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET,
+     compliancesurvey.`REQUESTFORDETENTIONISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORDETENTIONISSUEDFORPORTOFENTRY,
+     compliancesurvey.`REQUESTFORSAMPLEISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORSAMPLEISSUEDFORPORTOFENTRY,
+     compliancesurvey.`REQUESTFORRELEASEISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORRELEASEISSUEDFORPORTOFENTRY,
+     compliancesurvey.`NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMARKET` AS compliancesurvey_NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMA,
+     compliancesurvey.`PORTOFENTRYDETENTIONNUMBER` AS compliancesurvey_PORTOFENTRYDETENTIONNUMBER,
+     compliancesurvey.`DOMESTICMARKETDETENTIONNUMBER` AS compliancesurvey_DOMESTICMARKETDETENTIONNUMBER,
+     employee.`SIGNATURE_ID` AS employee_SIGNATURE_ID,
+     employee.`POST` AS employee_POST,
+     compliancesurvey.`AUTHSIGFORDETENTIONREQUESTPOE_ID` AS compliancesurvey_AUTHSIGFORDETENTIONREQUESTPOE_ID,
+     compliancesurvey.`AUTHSIGDATEFORDETENTIONREQUESTPOE` AS compliancesurvey_AUTHSIGDATEFORDETENTIONREQUESTPOE,
+     signature.`ID` AS signature_ID,
+     signature.`NAME` AS signature_NAME,
+     signature.`SIGNATUREIMAGE` AS signature_SIGNATUREIMAGE,
+     entrydocumentinspection.`ID` AS entrydocumentinspection_ID,
+     entrydocumentinspection.`CONTAINERNUMBERS` AS entrydocumentinspection_CONTAINERNUMBERS,
+     entrydocumentinspection.`COUNTRYOFCONSIGNMENT` AS entrydocumentinspection_COUNTRYOFCONSIGNMENT,
+     entrydocumentinspection.`DOCUMENTSTAMPED` AS entrydocumentinspection_DOCUMENTSTAMPED,
+     entrydocumentinspection.`ENTRYDOCUMENTNUMBER` AS entrydocumentinspection_ENTRYDOCUMENTNUMBER,
+     entrydocumentinspection.`ENTRYDOCUMENTREPORTDATE` AS entrydocumentinspection_ENTRYDOCUMENTREPORTDATE,
+     entrydocumentinspection.`NAME` AS entrydocumentinspection_NAME,
+     entrydocumentinspection.`VESSEL` AS entrydocumentinspection_VESSEL,
+     entrydocumentinspection.`CIF` AS entrydocumentinspection_CIF,
+     entrydocumentinspection.`SCF` AS entrydocumentinspection_SCF,
+     compliancesurvey.`ENTRYDOCUMENTINSPECTION_ID` AS compliancesurvey_ENTRYDOCUMENTINSPECTION_ID
+FROM
+     `employee` employee INNER JOIN `compliancesurvey` compliancesurvey ON employee.`ID` = compliancesurvey.`INSPECTOR_ID`
+     INNER JOIN `client` client ON compliancesurvey.`BROKER_ID` = client.`ID`
+     LEFT OUTER JOIN `signature` signature ON compliancesurvey.`AUTHSIGFORDETENTIONREQUESTPOE_ID` = signature.`ID`
+     INNER JOIN `entrydocumentinspection` entrydocumentinspection ON compliancesurvey.`ENTRYDOCUMENTINSPECTION_ID` = entrydocumentinspection.`ID`
+WHERE
+     compliancesurvey.`ID` = $P{formId}]]>
+	</queryString>
+	<field name="client_ID" class="java.lang.Long"/>
+	<field name="client_ACTIVE" class="java.lang.Boolean"/>
+	<field name="client_DATEFIRSTRECEIVED" class="java.sql.Date"/>
+	<field name="client_DATELASTACCESSED" class="java.sql.Date"/>
+	<field name="client_INTERNAL" class="java.lang.Boolean"/>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="client_NOTES" class="java.lang.String"/>
+	<field name="client_NUMBER" class="java.lang.String"/>
+	<field name="client_TAG" class="java.lang.Boolean"/>
+	<field name="client_TAXREGISTRATIONNUMBER" class="java.lang.String"/>
+	<field name="client_TYPE" class="java.lang.String"/>
+	<field name="client_INTERNET_ID" class="java.lang.Long"/>
+	<field name="employee_ID" class="java.lang.Long"/>
+	<field name="employee_ACTIVE" class="java.lang.Boolean"/>
+	<field name="employee_BILLINGRATE" class="java.lang.Double"/>
+	<field name="employee_BIRTHDATE" class="java.sql.Date"/>
+	<field name="employee_DATEHIRED" class="java.sql.Date"/>
+	<field name="employee_FIRSTNAME" class="java.lang.String"/>
+	<field name="employee_LASTNAME" class="java.lang.String"/>
+	<field name="employee_MIDDLENAME" class="java.lang.String"/>
+	<field name="employee_NAME" class="java.lang.String"/>
+	<field name="employee_NAMESUFFIX" class="java.lang.String"/>
+	<field name="employee_NOTES" class="java.lang.String"/>
+	<field name="employee_NUMBER" class="java.lang.String"/>
+	<field name="employee_SEX" class="java.lang.String"/>
+	<field name="employee_TITLE" class="java.lang.String"/>
+	<field name="employee_USERNAME" class="java.lang.String"/>
+	<field name="employee_BUSINESSOFFICE_ID" class="java.lang.Long"/>
+	<field name="employee_DEPARTMENT_ID" class="java.lang.Long"/>
+	<field name="employee_INTERNET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_COMMENTS" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEAUTHORIZED" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATESIGNED" class="java.sql.Date"/>
+	<field name="compliancesurvey_INSPECTIONPOINT" class="java.lang.String"/>
+	<field name="compliancesurvey_NAME" class="java.lang.String"/>
+	<field name="compliancesurvey_PORTOFENTRY" class="java.lang.String"/>
+	<field name="compliancesurvey_REASONFORDETENTION" class="java.lang.String"/>
+	<field name="compliancesurvey_REFERENCENUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_SURVEYENDTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYSTARTTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYTYPE" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHORIZEDBY_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKERREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTOR_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILOUTLET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="employee_EMPLOYMENTTYPE" class="java.lang.String"/>
+	<field name="employee_BUSINESS_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATION_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEREQUESTREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEDATEDOMESTICMARKET" class="java.sql.Date"/>
+	<field name="compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILER" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_DISTRIBUTOR" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_OTHERCOMPANYTYPES" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_COMPANYTYPES" class="java.lang.String"/>
+	<field name="compliancesurvey_RELEASEFROMDETENTIONREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATEOFDETENTION" class="java.sql.Date"/>
+	<field name="compliancesurvey_FULLRELEASE" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBEDISPOSED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBECOLLECTED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_INSPECTIONADDRESS_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORDETENTIONISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORSAMPLEISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORRELEASEISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMA" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_PORTOFENTRYDETENTIONNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_DOMESTICMARKETDETENTIONNUMBER" class="java.lang.String"/>
+	<field name="employee_SIGNATURE_ID" class="java.lang.Long"/>
+	<field name="employee_POST" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHSIGFORDETENTIONREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHSIGDATEFORDETENTIONREQUESTPOE" class="java.sql.Date"/>
+	<field name="signature_ID" class="java.lang.Long"/>
+	<field name="signature_NAME" class="java.lang.String"/>
+	<field name="signature_SIGNATUREIMAGE" class="java.io.InputStream"/>
+	<field name="entrydocumentinspection_ID" class="java.lang.Long"/>
+	<field name="entrydocumentinspection_CONTAINERNUMBERS" class="java.lang.String"/>
+	<field name="entrydocumentinspection_COUNTRYOFCONSIGNMENT" class="java.lang.String"/>
+	<field name="entrydocumentinspection_DOCUMENTSTAMPED" class="java.lang.String"/>
+	<field name="entrydocumentinspection_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+	<field name="entrydocumentinspection_ENTRYDOCUMENTREPORTDATE" class="java.sql.Date"/>
+	<field name="entrydocumentinspection_NAME" class="java.lang.String"/>
+	<field name="entrydocumentinspection_VESSEL" class="java.lang.String"/>
+	<field name="entrydocumentinspection_CIF" class="java.lang.Double"/>
+	<field name="entrydocumentinspection_SCF" class="java.lang.Double"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTINSPECTION_ID" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="220" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="150" y="0" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[BUREAU OF STANDARDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="150" y="26" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[REGULATORY DIVISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="98" y="52" width="384" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[STANDARDS COMPLIANCE PROGRAMME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="148" y="78" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DETENTION REQUEST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="148" y="104" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PORTS OF ENTRY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="2" y="129" width="290" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TO: CUSTOMS DEPARTMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="955dcfca-b617-400a-978b-371951a3ad81" x="2" y="151" width="570" height="47"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[The BUREAU OF STANDARDS hereby requests the CUSTOMS   DEPARTMENT to detain the under mentioned shipment for breaches under the Standards Act and the Customs (Prohibition of Entry of Goods) Order, 1991.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="430" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="-21" width="204" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Entry Document No:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="-1" width="204" height="53"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrydocumentinspection_ENTRYDOCUMENTNUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="206" y="-1" width="204" height="53"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrydocumentinspection_CONTAINERNUMBERS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="206" y="-21" width="204" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Container Number(s):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="410" y="-1" width="162" height="53"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrydocumentinspection_COUNTRYOFCONSIGNMENT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="410" y="-21" width="162" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Country of Consignment:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="72" width="204" height="53"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrydocumentinspection_ENTRYDOCUMENTREPORTDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="52" width="204" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Report date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="206" y="52" width="139" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Inspection Point:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="206" y="72" width="139" height="53"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compliancesurvey_INSPECTIONPOINT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="345" y="52" width="227" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Broker's Name & Address/Tel./Fax #:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="345" y="71" width="227" height="163"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{brokerDetail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="125" width="343" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Name & Address of Consignee, Tel/Fax #:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="YYYY-MM-DD" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="144" width="343" height="90"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{consigneeDetail}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="YYYY-MM-DD" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="254" width="408" height="69"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{products}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="234" width="408" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Product(s):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="410" y="254" width="162" height="69"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{quantity}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="410" y="234" width="162" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Quantity:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="343" width="128" height="29"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numberOfSamplesTaken}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="323" width="128" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[No. of samples taken:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="130" y="323" width="158" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Inspector:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="130" y="343" width="158" height="29"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="288" y="323" width="122" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Date Inspected:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="288" y="343" width="122" height="29"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compliancesurvey_DATEOFSURVEY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="410" y="323" width="162" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Ref. #:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="410" y="343" width="162" height="29"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compliancesurvey_PORTOFENTRYDETENTIONNUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ed0ada2-62b6-4fe2-b031-c84b51eb7620" x="2" y="372" width="570" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Reason for Detention:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="YYYY-MM-DD" isBlankWhenNull="true">
+				<reportElement uuid="9e6fd957-8894-4fc7-ad06-74fc9f38d94b" x="2" y="392" width="570" height="30"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compliancesurvey_REASONFORDETENTION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="75" splitType="Stretch">
+			<line>
+				<reportElement uuid="466d5e3e-127c-434a-b165-14709c418916" x="13" y="23" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="4e1a7728-c1b1-4dda-99ff-ccfc53ab5342" x="345" y="24" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="d465c5ae-71de-44a3-87b8-7d43e6af7aaa" x="14" y="24" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Athorized Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0be1921c-bea0-471d-b563-e488062f337d" x="345" y="25" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e462a42b-a4e1-4c66-8274-ab392f01dc53" x="14" y="55" width="558" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Form No: REG42_F_01/00             Issue Date: 2011  July 25                           Revision Date: 2011 June 25                                 Page 1 of 1]]></text>
+			</staticText>
+			<image vAlign="Bottom">
+				<reportElement uuid="4ab13643-11c8-416c-a819-61a156f996ba" positionType="Float" x="14" y="-1" width="192" height="24"/>
+				<imageExpression><![CDATA[$F{signature_SIGNATUREIMAGE}]]></imageExpression>
+			</image>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="20cc46be-d1ee-4c22-8bdc-8cae9a68396f" positionType="Float" x="345" y="3" width="200" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{compliancesurvey_AUTHSIGDATEFORDETENTIONREQUESTPOE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sample Request - Port of Entry" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7be5e4ea-68fa-43f9-a68a-5d0b82dabf99">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Product Samples" uuid="0ec3944e-7631-4aa8-9f90-887e22bd4451">
+		<parameter name="productSample_formId" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     marketproduct.`ID` AS marketproduct_ID,
+     marketproduct.`BATCHCODE` AS marketproduct_BATCHCODE,
+     marketproduct.`BRAND` AS marketproduct_BRAND,
+     marketproduct.`COMMENTS` AS marketproduct_COMMENTS,
+     marketproduct.`COUNTRYOFORIGIN` AS marketproduct_COUNTRYOFORIGIN,
+     marketproduct.`DATECHECKED` AS marketproduct_DATECHECKED,
+     marketproduct.`DATEMARK` AS marketproduct_DATEMARK,
+     marketproduct.`HASBUSINESSSOURCE` AS marketproduct_HASBUSINESSSOURCE,
+     marketproduct.`HASCOUNTRYOFORIGIN` AS marketproduct_HASCOUNTRYOFORIGIN,
+     marketproduct.`HASINGREDIENTS` AS marketproduct_HASINGREDIENTS,
+     marketproduct.`HASINSTRUCTIONS` AS marketproduct_HASINSTRUCTIONS,
+     marketproduct.`HASPICTORIALREPRESENTATION` AS marketproduct_HASPICTORIALREPRESENTATION,
+     marketproduct.`HASQUANTITYDESCRIPTION` AS marketproduct_HASQUANTITYDESCRIPTION,
+     marketproduct.`IMAGEURL` AS marketproduct_IMAGEURL,
+     marketproduct.`INGREDIENTS` AS marketproduct_INGREDIENTS,
+     marketproduct.`INSTRUCTIONS` AS marketproduct_INSTRUCTIONS,
+     marketproduct.`NAME` AS marketproduct_NAME,
+     marketproduct.`PRECAUTIONSTATEMENT` AS marketproduct_PRECAUTIONSTATEMENT,
+     marketproduct.`QUANTITY` AS marketproduct_QUANTITY,
+     marketproduct.`QUANTITYDESCRIPTION` AS marketproduct_QUANTITYDESCRIPTION,
+     marketproduct.`SPECIFICATIONSUMMARY` AS marketproduct_SPECIFICATIONSUMMARY,
+     marketproduct.`STATUS` AS marketproduct_STATUS,
+     marketproduct.`TIMECHECKED` AS marketproduct_TIMECHECKED,
+     marketproduct.`TYPE` AS marketproduct_TYPE,
+     marketproduct.`BUSINESSSOURCE_ID` AS marketproduct_BUSINESSSOURCE_ID,
+     marketproduct.`CLIENT_ID` AS marketproduct_CLIENT_ID,
+     marketproduct.`MANUFACTURER_ID` AS marketproduct_MANUFACTURER_ID,
+     marketproduct.`SAMPLESIZE` AS marketproduct_SAMPLESIZE,
+     marketproduct.`MODEL` AS marketproduct_MODEL,
+     marketproduct.`SERIALNUMBER` AS marketproduct_SERIALNUMBER,
+     compliancesurvey_marketproduct.`ComplianceSurvey_ID` AS compliancesurvey_marketproduct_ComplianceSurvey_ID,
+     compliancesurvey_marketproduct.`products_ID` AS compliancesurvey_marketproduct_products_ID,
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`CONTAINER` AS compliancesurvey_CONTAINER,
+     compliancesurvey.`CONTAINERNUMBER` AS compliancesurvey_CONTAINERNUMBER,
+     compliancesurvey.`COUNTRYOFCONSIGNMENT` AS compliancesurvey_COUNTRYOFCONSIGNMENT,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`ENTRYDOCUMENTNUMBER` AS compliancesurvey_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`REPORTDATE` AS compliancesurvey_REPORTDATE,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE
+FROM
+     `marketproduct` marketproduct INNER JOIN `compliancesurvey_marketproduct` compliancesurvey_marketproduct ON marketproduct.`ID` = compliancesurvey_marketproduct.`products_ID`
+     INNER JOIN `compliancesurvey` compliancesurvey ON compliancesurvey_marketproduct.`ComplianceSurvey_ID` = compliancesurvey.`ID`
+WHERE
+     compliancesurvey.`ID` = $P{productSample_formId}]]>
+		</queryString>
+		<field name="marketproduct_ID" class="java.lang.Long"/>
+		<field name="marketproduct_BATCHCODE" class="java.lang.String"/>
+		<field name="marketproduct_BRAND" class="java.lang.String"/>
+		<field name="marketproduct_COMMENTS" class="java.lang.String"/>
+		<field name="marketproduct_COUNTRYOFORIGIN" class="java.lang.String"/>
+		<field name="marketproduct_DATECHECKED" class="java.sql.Date"/>
+		<field name="marketproduct_DATEMARK" class="java.lang.String"/>
+		<field name="marketproduct_HASBUSINESSSOURCE" class="java.lang.Boolean"/>
+		<field name="marketproduct_HASCOUNTRYOFORIGIN" class="java.lang.Boolean"/>
+		<field name="marketproduct_HASINGREDIENTS" class="java.lang.Boolean"/>
+		<field name="marketproduct_HASINSTRUCTIONS" class="java.lang.Boolean"/>
+		<field name="marketproduct_HASPICTORIALREPRESENTATION" class="java.lang.Boolean"/>
+		<field name="marketproduct_HASQUANTITYDESCRIPTION" class="java.lang.Boolean"/>
+		<field name="marketproduct_IMAGEURL" class="java.lang.String"/>
+		<field name="marketproduct_INGREDIENTS" class="java.lang.String"/>
+		<field name="marketproduct_INSTRUCTIONS" class="java.lang.String"/>
+		<field name="marketproduct_NAME" class="java.lang.String"/>
+		<field name="marketproduct_PRECAUTIONSTATEMENT" class="java.lang.String"/>
+		<field name="marketproduct_QUANTITY" class="java.lang.Integer"/>
+		<field name="marketproduct_QUANTITYDESCRIPTION" class="java.lang.String"/>
+		<field name="marketproduct_SPECIFICATIONSUMMARY" class="java.lang.String"/>
+		<field name="marketproduct_STATUS" class="java.lang.String"/>
+		<field name="marketproduct_TIMECHECKED" class="java.sql.Time"/>
+		<field name="marketproduct_TYPE" class="java.lang.String"/>
+		<field name="marketproduct_BUSINESSSOURCE_ID" class="java.lang.Long"/>
+		<field name="marketproduct_CLIENT_ID" class="java.lang.Long"/>
+		<field name="marketproduct_MANUFACTURER_ID" class="java.lang.Long"/>
+		<field name="marketproduct_SAMPLESIZE" class="java.lang.Long"/>
+		<field name="marketproduct_MODEL" class="java.lang.String"/>
+		<field name="marketproduct_SERIALNUMBER" class="java.lang.String"/>
+		<field name="compliancesurvey_marketproduct_ComplianceSurvey_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_marketproduct_products_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_COMMENTS" class="java.lang.String"/>
+		<field name="compliancesurvey_CONTAINER" class="java.lang.String"/>
+		<field name="compliancesurvey_CONTAINERNUMBER" class="java.lang.String"/>
+		<field name="compliancesurvey_COUNTRYOFCONSIGNMENT" class="java.lang.String"/>
+		<field name="compliancesurvey_DATEAUTHORIZED" class="java.sql.Date"/>
+		<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+		<field name="compliancesurvey_DATESIGNED" class="java.sql.Date"/>
+		<field name="compliancesurvey_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+		<field name="compliancesurvey_INSPECTIONPOINT" class="java.lang.String"/>
+		<field name="compliancesurvey_NAME" class="java.lang.String"/>
+		<field name="compliancesurvey_PORTOFENTRY" class="java.lang.String"/>
+		<field name="compliancesurvey_REASONFORDETENTION" class="java.lang.String"/>
+		<field name="compliancesurvey_REFERENCENUMBER" class="java.lang.String"/>
+		<field name="compliancesurvey_REPORTDATE" class="java.sql.Date"/>
+		<field name="compliancesurvey_SURVEYENDTIME" class="java.sql.Time"/>
+		<field name="compliancesurvey_SURVEYSTARTTIME" class="java.sql.Time"/>
+		<field name="compliancesurvey_SURVEYTYPE" class="java.lang.String"/>
+		<field name="compliancesurvey_AUTHORIZEDBY_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_BROKERREPRESENTATIVE_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_INSPECTOR_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_RETAILOUTLET_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_RETAILREPRESENTATIVE_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_SPECIFIEDRELEASELOCATION_ID" class="java.lang.Long"/>
+		<field name="compliancesurvey_RELEASEREQUESTREPORTDATE" class="java.sql.Date"/>
+	</subDataset>
+	<parameter name="formId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[183801L]]></defaultValueExpression>
+	</parameter>
+	<parameter name="brokerDetail" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="consigneeDetail" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="products" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="quantity" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="numberOfSamplesTaken" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="referenceNumber" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID,
+     employee.`ID` AS employee_ID,
+     employee.`ACTIVE` AS employee_ACTIVE,
+     employee.`BILLINGRATE` AS employee_BILLINGRATE,
+     employee.`BIRTHDATE` AS employee_BIRTHDATE,
+     employee.`DATEHIRED` AS employee_DATEHIRED,
+     employee.`FIRSTNAME` AS employee_FIRSTNAME,
+     employee.`LASTNAME` AS employee_LASTNAME,
+     employee.`MIDDLENAME` AS employee_MIDDLENAME,
+     employee.`NAME` AS employee_NAME,
+     employee.`NAMESUFFIX` AS employee_NAMESUFFIX,
+     employee.`NOTES` AS employee_NOTES,
+     employee.`NUMBER` AS employee_NUMBER,
+     employee.`SEX` AS employee_SEX,
+     employee.`TITLE` AS employee_TITLE,
+     employee.`USERNAME` AS employee_USERNAME,
+     employee.`BUSINESSOFFICE_ID` AS employee_BUSINESSOFFICE_ID,
+     employee.`DEPARTMENT_ID` AS employee_DEPARTMENT_ID,
+     employee.`INTERNET_ID` AS employee_INTERNET_ID,
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`CONTAINER` AS compliancesurvey_CONTAINER,
+     compliancesurvey.`CONTAINERNUMBER` AS compliancesurvey_CONTAINERNUMBER,
+     compliancesurvey.`COUNTRYOFCONSIGNMENT` AS compliancesurvey_COUNTRYOFCONSIGNMENT,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`ENTRYDOCUMENTNUMBER` AS compliancesurvey_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`REPORTDATE` AS compliancesurvey_REPORTDATE,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE
+FROM
+     `client` client INNER JOIN `compliancesurvey` compliancesurvey ON client.`ID` = compliancesurvey.`CONSIGNEE_ID`
+     INNER JOIN `employee` employee ON compliancesurvey.`INSPECTOR_ID` = employee.`ID`
+WHERE
+     compliancesurvey.`ID` = $P{formId}]]>
+	</queryString>
+	<field name="client_ID" class="java.lang.Long"/>
+	<field name="client_ACTIVE" class="java.lang.Boolean"/>
+	<field name="client_DATEFIRSTRECEIVED" class="java.sql.Date"/>
+	<field name="client_DATELASTACCESSED" class="java.sql.Date"/>
+	<field name="client_INTERNAL" class="java.lang.Boolean"/>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="client_NOTES" class="java.lang.String"/>
+	<field name="client_NUMBER" class="java.lang.String"/>
+	<field name="client_TAG" class="java.lang.Boolean"/>
+	<field name="client_TAXREGISTRATIONNUMBER" class="java.lang.String"/>
+	<field name="client_TYPE" class="java.lang.String"/>
+	<field name="client_INTERNET_ID" class="java.lang.Long"/>
+	<field name="employee_ID" class="java.lang.Long"/>
+	<field name="employee_ACTIVE" class="java.lang.Boolean"/>
+	<field name="employee_BILLINGRATE" class="java.lang.Double"/>
+	<field name="employee_BIRTHDATE" class="java.sql.Date"/>
+	<field name="employee_DATEHIRED" class="java.sql.Date"/>
+	<field name="employee_FIRSTNAME" class="java.lang.String"/>
+	<field name="employee_LASTNAME" class="java.lang.String"/>
+	<field name="employee_MIDDLENAME" class="java.lang.String"/>
+	<field name="employee_NAME" class="java.lang.String"/>
+	<field name="employee_NAMESUFFIX" class="java.lang.String"/>
+	<field name="employee_NOTES" class="java.lang.String"/>
+	<field name="employee_NUMBER" class="java.lang.String"/>
+	<field name="employee_SEX" class="java.lang.String"/>
+	<field name="employee_TITLE" class="java.lang.String"/>
+	<field name="employee_USERNAME" class="java.lang.String"/>
+	<field name="employee_BUSINESSOFFICE_ID" class="java.lang.Long"/>
+	<field name="employee_DEPARTMENT_ID" class="java.lang.Long"/>
+	<field name="employee_INTERNET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_COMMENTS" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINER" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINERNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_COUNTRYOFCONSIGNMENT" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEAUTHORIZED" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATESIGNED" class="java.sql.Date"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_INSPECTIONPOINT" class="java.lang.String"/>
+	<field name="compliancesurvey_NAME" class="java.lang.String"/>
+	<field name="compliancesurvey_PORTOFENTRY" class="java.lang.String"/>
+	<field name="compliancesurvey_REASONFORDETENTION" class="java.lang.String"/>
+	<field name="compliancesurvey_REFERENCENUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_REPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SURVEYENDTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYSTARTTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYTYPE" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHORIZEDBY_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKERREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTOR_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILOUTLET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATION_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEREQUESTREPORTDATE" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="183" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="150" y="0" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[BUREAU OF STANDARDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="150" y="26" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[REGULATORY DIVISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="98" y="52" width="384" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[STANDARDS COMPLIANCE PROGRAMME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="148" y="78" width="279" height="26" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SAMPLE REQUEST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="148" y="104" width="279" height="25" forecolor="#6C1B78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PORTS OF ENTRY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4813cf56-368d-45e7-b1d7-f623ea1b6e72" mode="Transparent" x="2" y="129" width="290" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TO: CUSTOMS DEPARTMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="955dcfca-b617-400a-978b-371951a3ad81" x="2" y="151" width="570" height="29"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[The following products are being requested by the Bureau of Standards for examination and / or testing at its Laboratories at 6 Winchester Road, Kingston 10. ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="441" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d465c5ae-71de-44a3-87b8-7d43e6af7aaa" positionType="Float" x="5" y="74" width="74" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Received from:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6dce71fb-98ea-4bc2-95c4-dff1d11b0dbd" positionType="Float" x="79" y="76" width="433" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{client_NAME}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="466d5e3e-127c-434a-b165-14709c418916" positionType="Float" x="77" y="94" width="443" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="cf3ff36e-d410-4beb-bd1e-3e78e5c2c3ae" positionType="Float" x="160" y="95" width="246" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PRINT - Name of Company / Individual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5adc977a-9abc-4da4-82b0-136771d5a19c" positionType="Float" x="160" y="134" width="246" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Address of Company / Individual]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="466d5e3e-127c-434a-b165-14709c418916" positionType="Float" x="3" y="133" width="517" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="458e9f66-c7d8-4f9a-b1cc-6ec0a6608916" positionType="Float" x="0" y="205" width="566" height="77"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I hereby agree that any remaining unit/units of samples submitted for conformance testing that has not undergone destructive tests will be:
+
+[ ] Collected within 30 days of the date of collection notification, after which the Bureau reserves the right to dispose of same.
+
+[ ] Disposed of by the Bureau.
+
+**Failure to select an option above will result in the items being disposed of by the Bureau.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d465c5ae-71de-44a3-87b8-7d43e6af7aaa" positionType="Float" x="364" y="169" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tel./Fax/E-mail]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="466d5e3e-127c-434a-b165-14709c418916" positionType="Float" x="363" y="167" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="d465c5ae-71de-44a3-87b8-7d43e6af7aaa" positionType="Float" x="3" y="169" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Name of Contact Person]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="466d5e3e-127c-434a-b165-14709c418916" positionType="Float" x="2" y="167" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6dce71fb-98ea-4bc2-95c4-dff1d11b0dbd" positionType="Float" x="4" y="114" width="518" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{consigneeDetail}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="168d5ac1-438c-40e2-a3d0-8b4a32ac78fa" x="0" y="0" width="572" height="54"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Product Samples" uuid="ee783c36-e4f9-4bf1-8f7e-96b2f93727e3">
+						<datasetParameter name="productSample_formId">
+							<datasetParameterExpression><![CDATA[$P{formId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="136" uuid="8c9c7765-a5d5-4b45-aab7-2211edda27fe">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="baf09a94-4eb7-4c37-a946-81ddadbbcd83" x="0" y="0" width="136" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Product name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="e212f7a6-f836-4649-aa5c-84b943c027dd" x="0" y="0" width="136" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_NAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="87" uuid="5e8c146a-376e-461a-9daa-1c5b153bc410">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="baf09a94-4eb7-4c37-a946-81ddadbbcd83" x="0" y="0" width="87" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Brand name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="e212f7a6-f836-4649-aa5c-84b943c027dd" x="0" y="0" width="87" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_BRAND}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="101" uuid="fe6fcb46-a642-4b93-be89-541af4db7a6c">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="baf09a94-4eb7-4c37-a946-81ddadbbcd83" x="0" y="0" width="101" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Model]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="e212f7a6-f836-4649-aa5c-84b943c027dd" x="0" y="0" width="101" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_MODEL}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="b829c34a-7427-49ed-ba7f-af45355000db">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="baf09a94-4eb7-4c37-a946-81ddadbbcd83" x="0" y="0" width="92" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Serial Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="e212f7a6-f836-4649-aa5c-84b943c027dd" x="0" y="0" width="92" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_SERIALNUMBER}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="88" uuid="41653e58-527f-4a13-83ef-785995373f7c">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="baf09a94-4eb7-4c37-a946-81ddadbbcd83" x="0" y="0" width="88" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[No. of Samples]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="e212f7a6-f836-4649-aa5c-84b943c027dd" x="0" y="0" width="88" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_SAMPLESIZE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="63" uuid="d36cc575-8f17-4036-8b66-45cd4094e40b">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="8d27c791-2e00-4c71-a002-83c5367a7731" x="0" y="0" width="63" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Size of Units]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="b39a6002-b5cd-4c46-a074-b58544073fa5" x="0" y="0" width="63" height="30"/>
+								<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{marketproduct_QUANTITY}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="1d34b604-1560-4689-9bd2-9aa72e000d3a" positionType="Float" x="2" y="302" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Name of Importer/Broker]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="f874dea7-34d1-43f9-a9a3-d5a9c910464a" positionType="Float" x="363" y="299" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="1f66bd72-84f7-49dc-acea-9decc151c338" positionType="Float" x="364" y="301" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Importer/Broker Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="e8d7af66-fd51-4caf-bcc4-d89b1ba5249f" positionType="Float" x="1" y="327" width="561" height="2"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="9f551848-6c0f-447b-abb2-331267657ed2" positionType="Float" x="1" y="301" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="b829e6a8-729c-4452-ab68-3813237e0d66" positionType="Float" x="2" y="345" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Athorized Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="8b88f380-aac8-4644-8ea3-a1c1e5532ac5" positionType="Float" x="362" y="345" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="33afe721-6b36-452c-b717-86e9ed97ff84" positionType="Float" x="363" y="347" width="192" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Athorized Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="cd53b09d-493b-4ff6-955c-52632509e765" positionType="Float" x="1" y="343" width="200" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<staticText>
+				<reportElement uuid="e462a42b-a4e1-4c66-8274-ab392f01dc53" x="0" y="8" width="558" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Form No: REG42_F_01/00             Issue Date: 2011  July 25                           Revision Date: 2011 June 25                                 Page 1 of 1]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

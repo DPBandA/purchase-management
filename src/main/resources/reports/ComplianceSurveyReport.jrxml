@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Compliance Survey Report" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f1f10196-eb87-4422-bf3d-35f428b0348d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Import Monitoring - One Stop Shop" uuid="2236b9d0-a1ca-4bd8-9001-8144cd7248a0">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`CONTAINER` AS compliancesurvey_CONTAINER,
+     compliancesurvey.`CONTAINERNUMBER` AS compliancesurvey_CONTAINERNUMBER,
+     compliancesurvey.`COUNTRYOFCONSIGNMENT` AS compliancesurvey_COUNTRYOFCONSIGNMENT,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`ENTRYDOCUMENTNUMBER` AS compliancesurvey_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`REPORTDATE` AS compliancesurvey_REPORTDATE,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE,
+     compliancesurvey.`SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID,
+     compliancesurvey.`RELEASEDATEDOMESTICMARKET` AS compliancesurvey_RELEASEDATEDOMESTICMARKET,
+     compliancesurvey.`LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID` AS compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID,
+     compliancesurvey.`RETAILER` AS compliancesurvey_RETAILER,
+     compliancesurvey.`DISTRIBUTOR` AS compliancesurvey_DISTRIBUTOR,
+     compliancesurvey.`OTHERCOMPANYTYPES` AS compliancesurvey_OTHERCOMPANYTYPES,
+     compliancesurvey.`COMPANYTYPES` AS compliancesurvey_COMPANYTYPES,
+     compliancesurvey.`VESSEL` AS compliancesurvey_VESSEL,
+     compliancesurvey.`RELEASEFROMDETENTIONREPORTDATE` AS compliancesurvey_RELEASEFROMDETENTIONREPORTDATE,
+     compliancesurvey.`SHIPMENTCOUNTRYOFORIGIN` AS compliancesurvey_SHIPMENTCOUNTRYOFORIGIN,
+     compliancesurvey.`DATEOFDETENTION` AS compliancesurvey_DATEOFDETENTION,
+     compliancesurvey.`FULLRELEASE` AS compliancesurvey_FULLRELEASE,
+     compliancesurvey.`SAMPLESTOBEDISPOSED` AS compliancesurvey_SAMPLESTOBEDISPOSED,
+     compliancesurvey.`SAMPLESTOBECOLLECTED` AS compliancesurvey_SAMPLESTOBECOLLECTED,
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID,
+     marketproduct.`ID` AS marketproduct_ID,
+     marketproduct.`BATCHCODE` AS marketproduct_BATCHCODE,
+     marketproduct.`BRAND` AS marketproduct_BRAND,
+     marketproduct.`COMMENTS` AS marketproduct_COMMENTS,
+     marketproduct.`COUNTRYOFORIGIN` AS marketproduct_COUNTRYOFORIGIN,
+     marketproduct.`DATECHECKED` AS marketproduct_DATECHECKED,
+     marketproduct.`DATEMARK` AS marketproduct_DATEMARK,
+     marketproduct.`HASBUSINESSSOURCE` AS marketproduct_HASBUSINESSSOURCE,
+     marketproduct.`HASCOUNTRYOFORIGIN` AS marketproduct_HASCOUNTRYOFORIGIN,
+     marketproduct.`HASINGREDIENTS` AS marketproduct_HASINGREDIENTS,
+     marketproduct.`HASINSTRUCTIONS` AS marketproduct_HASINSTRUCTIONS,
+     marketproduct.`HASPICTORIALREPRESENTATION` AS marketproduct_HASPICTORIALREPRESENTATION,
+     marketproduct.`HASQUANTITYDESCRIPTION` AS marketproduct_HASQUANTITYDESCRIPTION,
+     marketproduct.`IMAGEURL` AS marketproduct_IMAGEURL,
+     marketproduct.`INGREDIENTS` AS marketproduct_INGREDIENTS,
+     marketproduct.`INSTRUCTIONS` AS marketproduct_INSTRUCTIONS,
+     marketproduct.`NAME` AS marketproduct_NAME,
+     marketproduct.`PRECAUTIONSTATEMENT` AS marketproduct_PRECAUTIONSTATEMENT,
+     marketproduct.`QUANTITY` AS marketproduct_QUANTITY,
+     marketproduct.`QUANTITYDESCRIPTION` AS marketproduct_QUANTITYDESCRIPTION,
+     marketproduct.`SPECIFICATIONSUMMARY` AS marketproduct_SPECIFICATIONSUMMARY,
+     marketproduct.`STATUS` AS marketproduct_STATUS,
+     marketproduct.`TIMECHECKED` AS marketproduct_TIMECHECKED,
+     marketproduct.`TYPE` AS marketproduct_TYPE,
+     marketproduct.`BUSINESSSOURCE_ID` AS marketproduct_BUSINESSSOURCE_ID,
+     marketproduct.`CLIENT_ID` AS marketproduct_CLIENT_ID,
+     marketproduct.`MANUFACTURER_ID` AS marketproduct_MANUFACTURER_ID,
+     marketproduct.`SAMPLESIZE` AS marketproduct_SAMPLESIZE,
+     marketproduct.`MODEL` AS marketproduct_MODEL,
+     marketproduct.`SERIALNUMBER` AS marketproduct_SERIALNUMBER,
+     marketproduct.`QUANTITYUNIT` AS marketproduct_QUANTITYUNIT,
+     marketproduct.`CONTAINERSIZE` AS marketproduct_CONTAINERSIZE,
+     marketproduct.`SAMPLESIZEUNITS` AS marketproduct_SAMPLESIZEUNITS,
+     compliancesurvey_marketproduct.`ComplianceSurvey_ID` AS compliancesurvey_marketproduct_ComplianceSurvey_ID,
+     compliancesurvey_marketproduct.`products_ID` AS compliancesurvey_marketproduct_products_ID
+FROM
+     `client` client INNER JOIN `compliancesurvey` compliancesurvey ON client.`ID` = compliancesurvey.`CONSIGNEE_ID`
+     INNER JOIN `compliancesurvey_marketproduct` compliancesurvey_marketproduct ON compliancesurvey.`ID` = compliancesurvey_marketproduct.`ComplianceSurvey_ID`
+     INNER JOIN `marketproduct` marketproduct ON compliancesurvey_marketproduct.`products_ID` = marketproduct.`ID`]]>
+		</queryString>
+		<field name="client_NAME" class="java.lang.String"/>
+		<field name="compliancesurvey_CONTAINERNUMBER" class="java.lang.String"/>
+		<group name="client_NAME">
+			<groupExpression><![CDATA[$F{client_NAME}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="team" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Team X"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startOfPeriod" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endOfPeriod" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="timeOfArrival" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="timeOfDeparture" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="location" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="teamMembers" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="driver" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`CONTAINER` AS compliancesurvey_CONTAINER,
+     compliancesurvey.`CONTAINERNUMBER` AS compliancesurvey_CONTAINERNUMBER,
+     compliancesurvey.`COUNTRYOFCONSIGNMENT` AS compliancesurvey_COUNTRYOFCONSIGNMENT,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`ENTRYDOCUMENTNUMBER` AS compliancesurvey_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`REPORTDATE` AS compliancesurvey_REPORTDATE,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE,
+     compliancesurvey.`SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID,
+     compliancesurvey.`RELEASEDATEDOMESTICMARKET` AS compliancesurvey_RELEASEDATEDOMESTICMARKET,
+     compliancesurvey.`LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID` AS compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID,
+     compliancesurvey.`RETAILER` AS compliancesurvey_RETAILER,
+     compliancesurvey.`DISTRIBUTOR` AS compliancesurvey_DISTRIBUTOR,
+     compliancesurvey.`OTHERCOMPANYTYPES` AS compliancesurvey_OTHERCOMPANYTYPES,
+     compliancesurvey.`COMPANYTYPES` AS compliancesurvey_COMPANYTYPES,
+     compliancesurvey.`VESSEL` AS compliancesurvey_VESSEL,
+     compliancesurvey.`RELEASEFROMDETENTIONREPORTDATE` AS compliancesurvey_RELEASEFROMDETENTIONREPORTDATE,
+     compliancesurvey.`SHIPMENTCOUNTRYOFORIGIN` AS compliancesurvey_SHIPMENTCOUNTRYOFORIGIN,
+     compliancesurvey.`DATEOFDETENTION` AS compliancesurvey_DATEOFDETENTION,
+     compliancesurvey.`FULLRELEASE` AS compliancesurvey_FULLRELEASE,
+     compliancesurvey.`SAMPLESTOBEDISPOSED` AS compliancesurvey_SAMPLESTOBEDISPOSED,
+     compliancesurvey.`SAMPLESTOBECOLLECTED` AS compliancesurvey_SAMPLESTOBECOLLECTED,
+     compliancesurvey_marketproduct.`ComplianceSurvey_ID` AS compliancesurvey_marketproduct_ComplianceSurvey_ID,
+     compliancesurvey_marketproduct.`products_ID` AS compliancesurvey_marketproduct_products_ID,
+     marketproduct.`ID` AS marketproduct_ID,
+     marketproduct.`BATCHCODE` AS marketproduct_BATCHCODE,
+     marketproduct.`BRAND` AS marketproduct_BRAND,
+     marketproduct.`COMMENTS` AS marketproduct_COMMENTS,
+     marketproduct.`COUNTRYOFORIGIN` AS marketproduct_COUNTRYOFORIGIN,
+     marketproduct.`DATECHECKED` AS marketproduct_DATECHECKED,
+     marketproduct.`DATEMARK` AS marketproduct_DATEMARK,
+     marketproduct.`HASBUSINESSSOURCE` AS marketproduct_HASBUSINESSSOURCE,
+     marketproduct.`HASCOUNTRYOFORIGIN` AS marketproduct_HASCOUNTRYOFORIGIN,
+     marketproduct.`HASINGREDIENTS` AS marketproduct_HASINGREDIENTS,
+     marketproduct.`HASINSTRUCTIONS` AS marketproduct_HASINSTRUCTIONS,
+     marketproduct.`HASPICTORIALREPRESENTATION` AS marketproduct_HASPICTORIALREPRESENTATION,
+     marketproduct.`HASQUANTITYDESCRIPTION` AS marketproduct_HASQUANTITYDESCRIPTION,
+     marketproduct.`IMAGEURL` AS marketproduct_IMAGEURL,
+     marketproduct.`INGREDIENTS` AS marketproduct_INGREDIENTS,
+     marketproduct.`INSTRUCTIONS` AS marketproduct_INSTRUCTIONS,
+     marketproduct.`NAME` AS marketproduct_NAME,
+     marketproduct.`PRECAUTIONSTATEMENT` AS marketproduct_PRECAUTIONSTATEMENT,
+     marketproduct.`QUANTITY` AS marketproduct_QUANTITY,
+     marketproduct.`QUANTITYDESCRIPTION` AS marketproduct_QUANTITYDESCRIPTION,
+     marketproduct.`SPECIFICATIONSUMMARY` AS marketproduct_SPECIFICATIONSUMMARY,
+     marketproduct.`STATUS` AS marketproduct_STATUS,
+     marketproduct.`TIMECHECKED` AS marketproduct_TIMECHECKED,
+     marketproduct.`TYPE` AS marketproduct_TYPE,
+     marketproduct.`BUSINESSSOURCE_ID` AS marketproduct_BUSINESSSOURCE_ID,
+     marketproduct.`CLIENT_ID` AS marketproduct_CLIENT_ID,
+     marketproduct.`MANUFACTURER_ID` AS marketproduct_MANUFACTURER_ID,
+     marketproduct.`SAMPLESIZE` AS marketproduct_SAMPLESIZE,
+     marketproduct.`MODEL` AS marketproduct_MODEL,
+     marketproduct.`SERIALNUMBER` AS marketproduct_SERIALNUMBER,
+     marketproduct.`QUANTITYUNIT` AS marketproduct_QUANTITYUNIT,
+     marketproduct.`CONTAINERSIZE` AS marketproduct_CONTAINERSIZE,
+     marketproduct.`SAMPLESIZEUNITS` AS marketproduct_SAMPLESIZEUNITS,
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID
+FROM
+     `compliancesurvey` compliancesurvey INNER JOIN `compliancesurvey_marketproduct` compliancesurvey_marketproduct ON compliancesurvey.`ID` = compliancesurvey_marketproduct.`ComplianceSurvey_ID`
+     INNER JOIN `marketproduct` marketproduct ON compliancesurvey_marketproduct.`products_ID` = marketproduct.`ID`
+     INNER JOIN `client` client ON compliancesurvey.`CONSIGNEE_ID` = client.`ID`]]>
+	</queryString>
+	<field name="compliancesurvey_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_COMMENTS" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINER" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINERNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_COUNTRYOFCONSIGNMENT" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEAUTHORIZED" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATESIGNED" class="java.sql.Date"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_INSPECTIONPOINT" class="java.lang.String"/>
+	<field name="compliancesurvey_NAME" class="java.lang.String"/>
+	<field name="compliancesurvey_PORTOFENTRY" class="java.lang.String"/>
+	<field name="compliancesurvey_REASONFORDETENTION" class="java.lang.String"/>
+	<field name="compliancesurvey_REFERENCENUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_REPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SURVEYENDTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYSTARTTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYTYPE" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHORIZEDBY_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKERREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTOR_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILOUTLET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATION_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEREQUESTREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEDATEDOMESTICMARKET" class="java.sql.Date"/>
+	<field name="compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILER" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_DISTRIBUTOR" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_OTHERCOMPANYTYPES" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_COMPANYTYPES" class="java.lang.String"/>
+	<field name="compliancesurvey_VESSEL" class="java.lang.String"/>
+	<field name="compliancesurvey_RELEASEFROMDETENTIONREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SHIPMENTCOUNTRYOFORIGIN" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEOFDETENTION" class="java.sql.Date"/>
+	<field name="compliancesurvey_FULLRELEASE" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBEDISPOSED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBECOLLECTED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_marketproduct_ComplianceSurvey_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_marketproduct_products_ID" class="java.lang.Long"/>
+	<field name="marketproduct_ID" class="java.lang.Long"/>
+	<field name="marketproduct_BATCHCODE" class="java.lang.String"/>
+	<field name="marketproduct_BRAND" class="java.lang.String"/>
+	<field name="marketproduct_COMMENTS" class="java.lang.String"/>
+	<field name="marketproduct_COUNTRYOFORIGIN" class="java.lang.String"/>
+	<field name="marketproduct_DATECHECKED" class="java.sql.Date"/>
+	<field name="marketproduct_DATEMARK" class="java.lang.String"/>
+	<field name="marketproduct_HASBUSINESSSOURCE" class="java.lang.Boolean"/>
+	<field name="marketproduct_HASCOUNTRYOFORIGIN" class="java.lang.Boolean"/>
+	<field name="marketproduct_HASINGREDIENTS" class="java.lang.Boolean"/>
+	<field name="marketproduct_HASINSTRUCTIONS" class="java.lang.Boolean"/>
+	<field name="marketproduct_HASPICTORIALREPRESENTATION" class="java.lang.Boolean"/>
+	<field name="marketproduct_HASQUANTITYDESCRIPTION" class="java.lang.Boolean"/>
+	<field name="marketproduct_IMAGEURL" class="java.lang.String"/>
+	<field name="marketproduct_INGREDIENTS" class="java.lang.String"/>
+	<field name="marketproduct_INSTRUCTIONS" class="java.lang.String"/>
+	<field name="marketproduct_NAME" class="java.lang.String"/>
+	<field name="marketproduct_PRECAUTIONSTATEMENT" class="java.lang.String"/>
+	<field name="marketproduct_QUANTITY" class="java.lang.Integer"/>
+	<field name="marketproduct_QUANTITYDESCRIPTION" class="java.lang.String"/>
+	<field name="marketproduct_SPECIFICATIONSUMMARY" class="java.lang.String"/>
+	<field name="marketproduct_STATUS" class="java.lang.String"/>
+	<field name="marketproduct_TIMECHECKED" class="java.sql.Time"/>
+	<field name="marketproduct_TYPE" class="java.lang.String"/>
+	<field name="marketproduct_BUSINESSSOURCE_ID" class="java.lang.Long"/>
+	<field name="marketproduct_CLIENT_ID" class="java.lang.Long"/>
+	<field name="marketproduct_MANUFACTURER_ID" class="java.lang.Long"/>
+	<field name="marketproduct_SAMPLESIZE" class="java.lang.Long"/>
+	<field name="marketproduct_MODEL" class="java.lang.String"/>
+	<field name="marketproduct_SERIALNUMBER" class="java.lang.String"/>
+	<field name="marketproduct_QUANTITYUNIT" class="java.lang.String"/>
+	<field name="marketproduct_CONTAINERSIZE" class="java.lang.String"/>
+	<field name="marketproduct_SAMPLESIZEUNITS" class="java.lang.String"/>
+	<field name="client_ID" class="java.lang.Long"/>
+	<field name="client_ACTIVE" class="java.lang.Boolean"/>
+	<field name="client_DATEFIRSTRECEIVED" class="java.sql.Date"/>
+	<field name="client_DATELASTACCESSED" class="java.sql.Date"/>
+	<field name="client_INTERNAL" class="java.lang.Boolean"/>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="client_NOTES" class="java.lang.String"/>
+	<field name="client_NUMBER" class="java.lang.String"/>
+	<field name="client_TAG" class="java.lang.Boolean"/>
+	<field name="client_TAXREGISTRATIONNUMBER" class="java.lang.String"/>
+	<field name="client_TYPE" class="java.lang.String"/>
+	<field name="client_INTERNET_ID" class="java.lang.Long"/>
+	<group name="client_ID">
+		<groupExpression><![CDATA[$F{client_ID}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="203" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9e6a7745-6be2-46a7-897f-26f3b0054f93" x="0" y="0" width="572" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Regulatory Division]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0f1d6756-db43-4f77-a140-5e608dd8e556" x="0" y="20" width="572" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Compliance Department Daily Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4634245c-5ba7-46e6-9ea7-5667408bb66d" x="0" y="40" width="572" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{team}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3c0cb9d5-8afb-4351-9fbc-2c94f24cec7d" x="0" y="76" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Period:]]></text>
+			</staticText>
+			<textField pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement uuid="e234262a-e4f5-4075-9d9d-4345a6019ddb" x="123" y="76" width="84" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{startOfPeriod}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="21874115-65ab-408d-a857-60e0713f219f" x="0" y="96" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time of Arrival:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="59163e5b-21eb-44bd-a100-85f5830b29c4" x="123" y="96" width="161" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeOfArrival}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="67a6a7b8-8af7-4c3d-b4ac-6d0820dcecf5" x="123" y="116" width="131" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeOfDeparture}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c5f1796a-512f-4180-8e3d-f750a874483c" x="0" y="116" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time of Departure:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64f5e0bd-4a19-4c5b-a559-502201ed17c5" x="0" y="136" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="4850b651-0ae6-4f18-bc60-c9e7bfbb7690" x="123" y="136" width="131" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{location}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="f09d9d9b-2216-4857-beba-7880f43d7379" x="123" y="156" width="131" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{teamMembers}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c06d58f5-acea-414d-8391-e715ff28fe79" x="0" y="156" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Team Members:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="de07b754-a252-43ce-a1b9-203d6177afb1" x="123" y="176" width="131" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{driver}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4bdeb766-bc37-43d0-a9b0-31affdc5da20" x="0" y="176" width="110" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Driver:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="146" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="89b4a8c9-a9d6-4ce7-b196-b404b567fe4a" key="table" style="table" x="0" y="26" width="572" height="69"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Import Monitoring - One Stop Shop" uuid="f5c03962-c019-47bf-acf8-24f1ed4f77ba">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="129" uuid="7616f302-dcfe-431e-a0a5-abf95e3e48d1">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="052813b8-1ab6-4155-bfdc-044fc255c9c8" x="0" y="0" width="129" height="30"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Name of Importer]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="35" rowSpan="1">
+							<textField>
+								<reportElement uuid="0d5157ff-8874-4a80-ba48-8cb9069ccd55" x="0" y="0" width="129" height="35"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{client_NAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="126" uuid="aadc15b4-cf35-43e0-b651-7dfccf628c90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="32ebcec7-52a0-4eb8-91f5-2e05df926a0b" x="0" y="0" width="126" height="30"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Container Nos.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="35" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="140" uuid="88d494b6-d530-48d4-8dbb-8239e90527c5">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="35" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="165" uuid="007903c4-8143-498f-abf6-108e89e8951f">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="35" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="b9c13f0e-9480-4020-8c7e-91b263a045bd" x="0" y="0" width="572" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Compliance Department Daily Report]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

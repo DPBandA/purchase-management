@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inspectorate Monthly Report" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="e8224842-3b2e-4e03-9a8b-0989aa8101d6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="execuitiveSummary" class="java.lang.String">
+		<defaultValueExpression><![CDATA["weewewreuew tjerej reriejriejriejri jirjeir jiejrijeirerer
+rererieuri euriueiruieurieuri iruieur ieurieireurierer
+erueiru ierie"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     compliancesurvey.`ID` AS compliancesurvey_ID,
+     compliancesurvey.`COMMENTS` AS compliancesurvey_COMMENTS,
+     compliancesurvey.`CONTAINER` AS compliancesurvey_CONTAINER,
+     compliancesurvey.`CONTAINERNUMBER` AS compliancesurvey_CONTAINERNUMBER,
+     compliancesurvey.`COUNTRYOFCONSIGNMENT` AS compliancesurvey_COUNTRYOFCONSIGNMENT,
+     compliancesurvey.`DATEAUTHORIZED` AS compliancesurvey_DATEAUTHORIZED,
+     compliancesurvey.`DATEOFSURVEY` AS compliancesurvey_DATEOFSURVEY,
+     compliancesurvey.`DATESIGNED` AS compliancesurvey_DATESIGNED,
+     compliancesurvey.`ENTRYDOCUMENTNUMBER` AS compliancesurvey_ENTRYDOCUMENTNUMBER,
+     compliancesurvey.`INSPECTIONPOINT` AS compliancesurvey_INSPECTIONPOINT,
+     compliancesurvey.`NAME` AS compliancesurvey_NAME,
+     compliancesurvey.`PORTOFENTRY` AS compliancesurvey_PORTOFENTRY,
+     compliancesurvey.`REASONFORDETENTION` AS compliancesurvey_REASONFORDETENTION,
+     compliancesurvey.`REFERENCENUMBER` AS compliancesurvey_REFERENCENUMBER,
+     compliancesurvey.`REPORTDATE` AS compliancesurvey_REPORTDATE,
+     compliancesurvey.`SURVEYENDTIME` AS compliancesurvey_SURVEYENDTIME,
+     compliancesurvey.`SURVEYSTARTTIME` AS compliancesurvey_SURVEYSTARTTIME,
+     compliancesurvey.`SURVEYTYPE` AS compliancesurvey_SURVEYTYPE,
+     compliancesurvey.`AUTHORIZEDBY_ID` AS compliancesurvey_AUTHORIZEDBY_ID,
+     compliancesurvey.`BROKER_ID` AS compliancesurvey_BROKER_ID,
+     compliancesurvey.`BROKERREPRESENTATIVE_ID` AS compliancesurvey_BROKERREPRESENTATIVE_ID,
+     compliancesurvey.`CONSIGNEE_ID` AS compliancesurvey_CONSIGNEE_ID,
+     compliancesurvey.`CONSIGNEEREPRESENTATIVE_ID` AS compliancesurvey_CONSIGNEEREPRESENTATIVE_ID,
+     compliancesurvey.`INSPECTOR_ID` AS compliancesurvey_INSPECTOR_ID,
+     compliancesurvey.`RETAILOUTLET_ID` AS compliancesurvey_RETAILOUTLET_ID,
+     compliancesurvey.`RETAILREPRESENTATIVE_ID` AS compliancesurvey_RETAILREPRESENTATIVE_ID,
+     compliancesurvey.`SPECIFIEDRELEASELOCATION_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATION_ID,
+     compliancesurvey.`RELEASEREQUESTREPORTDATE` AS compliancesurvey_RELEASEREQUESTREPORTDATE,
+     compliancesurvey.`SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID` AS compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID,
+     compliancesurvey.`RELEASEDATEDOMESTICMARKET` AS compliancesurvey_RELEASEDATEDOMESTICMARKET,
+     compliancesurvey.`LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID` AS compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID,
+     compliancesurvey.`RETAILER` AS compliancesurvey_RETAILER,
+     compliancesurvey.`DISTRIBUTOR` AS compliancesurvey_DISTRIBUTOR,
+     compliancesurvey.`OTHERCOMPANYTYPES` AS compliancesurvey_OTHERCOMPANYTYPES,
+     compliancesurvey.`COMPANYTYPES` AS compliancesurvey_COMPANYTYPES,
+     compliancesurvey.`VESSEL` AS compliancesurvey_VESSEL,
+     compliancesurvey.`RELEASEFROMDETENTIONREPORTDATE` AS compliancesurvey_RELEASEFROMDETENTIONREPORTDATE,
+     compliancesurvey.`SHIPMENTCOUNTRYOFORIGIN` AS compliancesurvey_SHIPMENTCOUNTRYOFORIGIN,
+     compliancesurvey.`DATEOFDETENTION` AS compliancesurvey_DATEOFDETENTION,
+     compliancesurvey.`FULLRELEASE` AS compliancesurvey_FULLRELEASE,
+     compliancesurvey.`SAMPLESTOBEDISPOSED` AS compliancesurvey_SAMPLESTOBEDISPOSED,
+     compliancesurvey.`SAMPLESTOBECOLLECTED` AS compliancesurvey_SAMPLESTOBECOLLECTED,
+     compliancesurvey.`INSPECTIONADDRESS_ID` AS compliancesurvey_INSPECTIONADDRESS_ID,
+     compliancesurvey.`NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET` AS compliancesurvey_NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET,
+     compliancesurvey.`REQUESTFORDETENTIONISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORDETENTIONISSUEDFORPORTOFENTRY,
+     compliancesurvey.`REQUESTFORSAMPLEISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORSAMPLEISSUEDFORPORTOFENTRY,
+     compliancesurvey.`REQUESTFORRELEASEISSUEDFORPORTOFENTRY` AS compliancesurvey_REQUESTFORRELEASEISSUEDFORPORTOFENTRY,
+     compliancesurvey.`NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMARKET` AS compliancesurvey_NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMA,
+     compliancesurvey.`ENTRYDOCUMENTREPORTDATE` AS compliancesurvey_ENTRYDOCUMENTREPORTDATE,
+     compliancesurvey.`PORTOFENTRYDETENTIONNUMBER` AS compliancesurvey_PORTOFENTRYDETENTIONNUMBER,
+     compliancesurvey.`DOMESTICMARKETDETENTIONNUMBER` AS compliancesurvey_DOMESTICMARKETDETENTIONNUMBER,
+     compliancesurvey.`AUTHSIGFORDETENTIONREQUESTPOE_ID` AS compliancesurvey_AUTHSIGFORDETENTIONREQUESTPOE_ID,
+     compliancesurvey.`AUTHSIGDATEFORDETENTIONREQUESTPOE` AS compliancesurvey_AUTHSIGDATEFORDETENTIONREQUESTPOE,
+     compliancesurvey.`AUTHEMPLOYEEFORDETENTIONREQUESTPOE_ID` AS compliancesurvey_AUTHEMPLOYEEFORDETENTIONREQUESTPOE_ID,
+     compliancesurvey.`INSPECTORSIGFORSAMPLEREQUESTPOE_ID` AS compliancesurvey_INSPECTORSIGFORSAMPLEREQUESTPOE_ID,
+     compliancesurvey.`INSPECTORSIGDATEFORSAMPLEREQUESTPOE` AS compliancesurvey_INSPECTORSIGDATEFORSAMPLEREQUESTPOE,
+     compliancesurvey.`AUTHSIGFORNOTICEOFRELEASEFROMDENTIONDM_ID` AS compliancesurvey_AUTHSIGFORNOTICEOFRELEASEFROMDENTIONDM_ID,
+     compliancesurvey.`AUTHSIGDATEFORNOTICEOFRELEASEFROMDENTIONDM` AS compliancesurvey_AUTHSIGDATEFORNOTICEOFRELEASEFROMDENTIONDM,
+     compliancesurvey.`AUTHEMPLOYEEFORNOTICEOFRELEASEFROMDENTIONDM_ID` AS compliancesurvey_AUTHEMPLOYEEFORNOTICEOFRELEASEFROMDENTIONDM_ID,
+     compliancesurvey.`AUTHEMPFORNOTICEOFRELEASEFROMDENTIONDM_ID` AS compliancesurvey_AUTHEMPFORNOTICEOFRELEASEFROMDENTIONDM_ID,
+     compliancesurvey.`AUTHSIGFORNOTICEOFDENTIONDM_ID` AS compliancesurvey_AUTHSIGFORNOTICEOFDENTIONDM_ID,
+     compliancesurvey.`AUTHSIGDATEFORNOTICEOFDENTIONDM` AS compliancesurvey_AUTHSIGDATEFORNOTICEOFDENTIONDM,
+     compliancesurvey.`AUTHEMPLOYEEFORNOTICEOFDENTIONDM_ID` AS compliancesurvey_AUTHEMPLOYEEFORNOTICEOFDENTIONDM_ID,
+     compliancesurvey.`PREPAREDBYSIGFORRELEASEREQUESTPOE_ID` AS compliancesurvey_PREPAREDBYSIGFORRELEASEREQUESTPOE_ID,
+     compliancesurvey.`PREPAREDBYEMPLOYEEFORRELEASEREQUESTPOE_ID` AS compliancesurvey_PREPAREDBYEMPLOYEEFORRELEASEREQUESTPOE_ID,
+     compliancesurvey.`PREPAREDBYSIGDATEFORRELEASEREQUESTPOE` AS compliancesurvey_PREPAREDBYSIGDATEFORRELEASEREQUESTPOE,
+     compliancesurvey.`APPROVEDBYSIGFORRELEASEREQUESTPOE_ID` AS compliancesurvey_APPROVEDBYSIGFORRELEASEREQUESTPOE_ID,
+     compliancesurvey.`APPROVEDBYEMPLOYEEFORRELEASEREQUESTPOE_ID` AS compliancesurvey_APPROVEDBYEMPLOYEEFORRELEASEREQUESTPOE_ID,
+     compliancesurvey.`APPROVEDBYSIGDATEFORRELEASEREQUESTPOE` AS compliancesurvey_APPROVEDBYSIGDATEFORRELEASEREQUESTPOE,
+     compliancesurvey.`WAYBILL` AS compliancesurvey_WAYBILL,
+     compliancesurvey.`DATEEDITED` AS compliancesurvey_DATEEDITED,
+     compliancesurvey.`EDITEDBY_ID` AS compliancesurvey_EDITEDBY_ID
+FROM
+     `compliancesurvey` compliancesurvey]]>
+	</queryString>
+	<field name="compliancesurvey_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_COMMENTS" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINER" class="java.lang.String"/>
+	<field name="compliancesurvey_CONTAINERNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_COUNTRYOFCONSIGNMENT" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEAUTHORIZED" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATEOFSURVEY" class="java.sql.Date"/>
+	<field name="compliancesurvey_DATESIGNED" class="java.sql.Date"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_INSPECTIONPOINT" class="java.lang.String"/>
+	<field name="compliancesurvey_NAME" class="java.lang.String"/>
+	<field name="compliancesurvey_PORTOFENTRY" class="java.lang.String"/>
+	<field name="compliancesurvey_REASONFORDETENTION" class="java.lang.String"/>
+	<field name="compliancesurvey_REFERENCENUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_REPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SURVEYENDTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYSTARTTIME" class="java.sql.Time"/>
+	<field name="compliancesurvey_SURVEYTYPE" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHORIZEDBY_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKER_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_BROKERREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_CONSIGNEEREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTOR_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILOUTLET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILREPRESENTATIVE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATION_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEREQUESTREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SPECIFIEDRELEASELOCATIONDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RELEASEDATEDOMESTICMARKET" class="java.sql.Date"/>
+	<field name="compliancesurvey_LOCATIONOFDETAINEDPRODUCTDOMESTICMARKET_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_RETAILER" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_DISTRIBUTOR" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_OTHERCOMPANYTYPES" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_COMPANYTYPES" class="java.lang.String"/>
+	<field name="compliancesurvey_VESSEL" class="java.lang.String"/>
+	<field name="compliancesurvey_RELEASEFROMDETENTIONREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_SHIPMENTCOUNTRYOFORIGIN" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEOFDETENTION" class="java.sql.Date"/>
+	<field name="compliancesurvey_FULLRELEASE" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBEDISPOSED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_SAMPLESTOBECOLLECTED" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_INSPECTIONADDRESS_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_NOTICEOFDETENTIONISSUEDFORDOMESTICMARKET" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORDETENTIONISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORSAMPLEISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_REQUESTFORRELEASEISSUEDFORPORTOFENTRY" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_NOTICEOFRELEASEFROMDETENTIONISSUEDFORDOMESTICMA" class="java.lang.Boolean"/>
+	<field name="compliancesurvey_ENTRYDOCUMENTREPORTDATE" class="java.sql.Date"/>
+	<field name="compliancesurvey_PORTOFENTRYDETENTIONNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_DOMESTICMARKETDETENTIONNUMBER" class="java.lang.String"/>
+	<field name="compliancesurvey_AUTHSIGFORDETENTIONREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHSIGDATEFORDETENTIONREQUESTPOE" class="java.sql.Date"/>
+	<field name="compliancesurvey_AUTHEMPLOYEEFORDETENTIONREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTORSIGFORSAMPLEREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_INSPECTORSIGDATEFORSAMPLEREQUESTPOE" class="java.sql.Date"/>
+	<field name="compliancesurvey_AUTHSIGFORNOTICEOFRELEASEFROMDENTIONDM_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHSIGDATEFORNOTICEOFRELEASEFROMDENTIONDM" class="java.sql.Date"/>
+	<field name="compliancesurvey_AUTHEMPLOYEEFORNOTICEOFRELEASEFROMDENTIONDM_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHEMPFORNOTICEOFRELEASEFROMDENTIONDM_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHSIGFORNOTICEOFDENTIONDM_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_AUTHSIGDATEFORNOTICEOFDENTIONDM" class="java.sql.Date"/>
+	<field name="compliancesurvey_AUTHEMPLOYEEFORNOTICEOFDENTIONDM_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_PREPAREDBYSIGFORRELEASEREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_PREPAREDBYEMPLOYEEFORRELEASEREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_PREPAREDBYSIGDATEFORRELEASEREQUESTPOE" class="java.sql.Date"/>
+	<field name="compliancesurvey_APPROVEDBYSIGFORRELEASEREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_APPROVEDBYEMPLOYEEFORRELEASEREQUESTPOE_ID" class="java.lang.Long"/>
+	<field name="compliancesurvey_APPROVEDBYSIGDATEFORRELEASEREQUESTPOE" class="java.sql.Date"/>
+	<field name="compliancesurvey_WAYBILL" class="java.lang.String"/>
+	<field name="compliancesurvey_DATEEDITED" class="java.sql.Date"/>
+	<field name="compliancesurvey_EDITEDBY_ID" class="java.lang.Long"/>
+	<title>
+		<band height="200">
+			<textField>
+				<reportElement uuid="d8b6c632-6235-4384-ae86-7c2076a80f08" stretchType="RelativeToBandHeight" mode="Opaque" x="14" y="11" width="522" height="73"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{execuitiveSummary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="73"/>
+	</detail>
+</jasperReport>

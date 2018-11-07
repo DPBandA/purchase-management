@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Port of Entry Form Data" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02b0d9f4-6cd3-4e99-9cfe-74a39736d989">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     portofentrydetention.`ID` AS portofentrydetention_ID,
+     portofentrydetention.`CONTAINERNUMBER` AS portofentrydetention_CONTAINERNUMBER,
+     portofentrydetention.`COUNTRYOFCONSIGNMENT` AS portofentrydetention_COUNTRYOFCONSIGNMENT,
+     portofentrydetention.`DATEAUTHORIZED` AS portofentrydetention_DATEAUTHORIZED,
+     portofentrydetention.`DATEINSPECTED` AS portofentrydetention_DATEINSPECTED,
+     portofentrydetention.`ENTRYDOCUMENTNUMBER` AS portofentrydetention_ENTRYDOCUMENTNUMBER,
+     portofentrydetention.`INSPECTIONPOINT` AS portofentrydetention_INSPECTIONPOINT,
+     portofentrydetention.`NAME` AS portofentrydetention_NAME,
+     portofentrydetention.`NUMBEROFSAMPLESTAKEN` AS portofentrydetention_NUMBEROFSAMPLESTAKEN,
+     portofentrydetention.`QUANTITY` AS portofentrydetention_QUANTITY,
+     portofentrydetention.`REASONFORDETENTION` AS portofentrydetention_REASONFORDETENTION,
+     portofentrydetention.`REFERENCENUMBER` AS portofentrydetention_REFERENCENUMBER,
+     portofentrydetention.`REPORTDATE` AS portofentrydetention_REPORTDATE,
+     portofentrydetention.`AUTHORIZEDBY_ID` AS portofentrydetention_AUTHORIZEDBY_ID,
+     portofentrydetention.`BROKER_ID` AS portofentrydetention_BROKER_ID,
+     portofentrydetention.`CONSIGNEE_ID` AS portofentrydetention_CONSIGNEE_ID,
+     portofentrydetention.`INSPECTOR_ID` AS portofentrydetention_INSPECTOR_ID,
+     portofentrydetention.`BROKERREPRESENTATIVE_ID` AS portofentrydetention_BROKERREPRESENTATIVE_ID,
+     portofentrydetention.`CONSIGNEEREPRESENTATIVE_ID` AS portofentrydetention_CONSIGNEEREPRESENTATIVE_ID,
+     portofentrydetention_marketproduct.`PortOfEntryDetention_ID` AS portofentrydetention_marketproduct_PortOfEntryDetention_ID,
+     portofentrydetention_marketproduct.`products_ID` AS portofentrydetention_marketproduct_products_ID,
+     marketproduct.`ID` AS marketproduct_ID,
+     marketproduct.`BATCHCODE` AS marketproduct_BATCHCODE,
+     marketproduct.`BRAND` AS marketproduct_BRAND,
+     marketproduct.`COMMENTS` AS marketproduct_COMMENTS,
+     marketproduct.`COUNTRYOFORIGIN` AS marketproduct_COUNTRYOFORIGIN,
+     marketproduct.`DATECHECKED` AS marketproduct_DATECHECKED,
+     marketproduct.`DATEMARK` AS marketproduct_DATEMARK,
+     marketproduct.`HASBUSINESSSOURCE` AS marketproduct_HASBUSINESSSOURCE,
+     marketproduct.`HASCOUNTRYOFORIGIN` AS marketproduct_HASCOUNTRYOFORIGIN,
+     marketproduct.`HASINGREDIENTS` AS marketproduct_HASINGREDIENTS,
+     marketproduct.`HASINSTRUCTIONS` AS marketproduct_HASINSTRUCTIONS,
+     marketproduct.`HASPICTORIALREPRESENTATION` AS marketproduct_HASPICTORIALREPRESENTATION,
+     marketproduct.`HASQUANTITYDESCRIPTION` AS marketproduct_HASQUANTITYDESCRIPTION,
+     marketproduct.`IMAGEURL` AS marketproduct_IMAGEURL,
+     marketproduct.`INGREDIENTS` AS marketproduct_INGREDIENTS,
+     marketproduct.`INSTRUCTIONS` AS marketproduct_INSTRUCTIONS,
+     marketproduct.`NAME` AS marketproduct_NAME,
+     marketproduct.`PRECAUTIONSTATEMENT` AS marketproduct_PRECAUTIONSTATEMENT,
+     marketproduct.`QUANTITY` AS marketproduct_QUANTITY,
+     marketproduct.`QUANTITYDESCRIPTION` AS marketproduct_QUANTITYDESCRIPTION,
+     marketproduct.`SPECIFICATIONSUMMARY` AS marketproduct_SPECIFICATIONSUMMARY,
+     marketproduct.`STATUS` AS marketproduct_STATUS,
+     marketproduct.`TIMECHECKED` AS marketproduct_TIMECHECKED,
+     marketproduct.`TYPE` AS marketproduct_TYPE,
+     marketproduct.`BUSINESSSOURCE_ID` AS marketproduct_BUSINESSSOURCE_ID,
+     marketproduct.`CLIENT_ID` AS marketproduct_CLIENT_ID,
+     marketproduct.`MANUFACTURER_ID` AS marketproduct_MANUFACTURER_ID,
+     marketproduct.`SAMPLESIZE` AS marketproduct_SAMPLESIZE,
+     marketproduct.`MODEL` AS marketproduct_MODEL,
+     marketproduct.`SERIALNUMBER` AS marketproduct_SERIALNUMBER,
+     client.`ID` AS client_ID,
+     client.`ACTIVE` AS client_ACTIVE,
+     client.`DATEFIRSTRECEIVED` AS client_DATEFIRSTRECEIVED,
+     client.`DATELASTACCESSED` AS client_DATELASTACCESSED,
+     client.`INTERNAL` AS client_INTERNAL,
+     client.`NAME` AS client_NAME,
+     client.`NOTES` AS client_NOTES,
+     client.`NUMBER` AS client_NUMBER,
+     client.`TAG` AS client_TAG,
+     client.`TAXREGISTRATIONNUMBER` AS client_TAXREGISTRATIONNUMBER,
+     client.`TYPE` AS client_TYPE,
+     client.`INTERNET_ID` AS client_INTERNET_ID,
+     employee.`ID` AS employee_ID,
+     employee.`ACTIVE` AS employee_ACTIVE,
+     employee.`BILLINGRATE` AS employee_BILLINGRATE,
+     employee.`BIRTHDATE` AS employee_BIRTHDATE,
+     employee.`DATEHIRED` AS employee_DATEHIRED,
+     employee.`FIRSTNAME` AS employee_FIRSTNAME,
+     employee.`LASTNAME` AS employee_LASTNAME,
+     employee.`MIDDLENAME` AS employee_MIDDLENAME,
+     employee.`NAME` AS employee_NAME,
+     employee.`NAMESUFFIX` AS employee_NAMESUFFIX,
+     employee.`NOTES` AS employee_NOTES,
+     employee.`NUMBER` AS employee_NUMBER,
+     employee.`SEX` AS employee_SEX,
+     employee.`TITLE` AS employee_TITLE,
+     employee.`USERNAME` AS employee_USERNAME,
+     employee.`BUSINESSOFFICE_ID` AS employee_BUSINESSOFFICE_ID,
+     employee.`DEPARTMENT_ID` AS employee_DEPARTMENT_ID,
+     employee.`INTERNET_ID` AS employee_INTERNET_ID,
+     employee.`EMPLOYMENTTYPE` AS employee_EMPLOYMENTTYPE,
+     employee.`BUSINESS_ID` AS employee_BUSINESS_ID
+FROM
+     `portofentrydetention` portofentrydetention INNER JOIN `portofentrydetention_marketproduct` portofentrydetention_marketproduct ON portofentrydetention.`ID` = portofentrydetention_marketproduct.`PortOfEntryDetention_ID`
+     INNER JOIN `marketproduct` marketproduct ON portofentrydetention_marketproduct.`products_ID` = marketproduct.`ID`
+     INNER JOIN `client` client ON portofentrydetention.`CONSIGNEE_ID` = client.`ID`
+     INNER JOIN `employee` employee ON portofentrydetention.`INSPECTOR_ID` = employee.`ID`]]>
+	</queryString>
+	<field name="client_NAME" class="java.lang.String"/>
+	<field name="portofentrydetention_CONTAINERNUMBER" class="java.lang.String"/>
+	<field name="marketproduct_NAME" class="java.lang.String"/>
+	<field name="employee_NAME" class="java.lang.String"/>
+	<field name="marketproduct_STATUS" class="java.lang.String"/>
+	<field name="marketproduct_COMMENTS" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8181f041-7357-4239-8f1c-9e06281179a4" style="Title" x="270" y="0" width="263" height="62"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="199f4d1e-071f-4419-8c9d-c489d368eb38" style="SubTitle" x="303" y="62" width="196" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="637a435c-c7aa-4235-9db4-1654cc08f87f" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="85e5f8e4-2451-448d-a840-819a35310682" style="Column header" x="0" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[client_NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b6183dc-b822-4d03-b144-3e16aa391d6e" style="Column header" x="133" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[portofentrydetention_CONTAINERNUMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6189ea8f-26f9-4286-8fc4-d5e0856d46e5" style="Column header" x="266" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[marketproduct_NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="17e2ae7f-6514-49cf-a5a6-a52104e49cda" style="Column header" x="399" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[employee_NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51144ab6-8467-44ec-81dd-4f32a2c5042a" style="Column header" x="532" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[marketproduct_STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="488a0d4c-60ad-4707-8c86-03ba242242fa" style="Column header" x="665" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[marketproduct_COMMENTS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="f79280d7-c1f3-4a47-8409-29de923b4336" style="Row" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="67b92f36-1351-4bc4-9de3-cd8380d0c58d" style="Detail" x="0" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{client_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="10064298-46d1-43de-b174-891c5d262dc7" style="Detail" x="133" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{portofentrydetention_CONTAINERNUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d149c2ca-1877-4052-9de8-a05253207eaa" style="Detail" x="266" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{marketproduct_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="854ca534-6d9c-4a20-ba89-a37948f3f56f" style="Detail" x="399" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{employee_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="f8f606f0-c1e5-4654-8af3-3cc07e1c6ae8" style="Detail" x="532" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{marketproduct_STATUS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="b28d0ec5-1b15-41f4-aab7-e7316d9be9ea" style="Detail" x="665" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{marketproduct_COMMENTS}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement uuid="90de233a-ca3b-4bd4-8257-166446e34f20" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="8a38023b-7413-4e0c-ab5e-7db7e6baef72" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="12e8a691-710c-4553-8a2f-9fd944282533" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0b6e0042-5716-42d7-a043-4dff0cd5c8ae" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="95211bca-9aea-443c-ada8-9c921a5ab33e" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

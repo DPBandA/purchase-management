@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sectors, Samples, Intruments and Services" language="groovy" pageWidth="2400" pageHeight="595" orientation="Landscape" columnWidth="2360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="1cda2bef-1062-41dd-abde-2d67ef351d32">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="startOFPeriod" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endOFPeriod" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     COUNT(job.`ID`) AS numOfJobs,
+     COUNT(job.`NOOFTESTSORCALIBRATIONS`) AS job_NOOFTESTSORCALIBRATIONS,
+     COUNT(job.`NUMBEROFSAMPLES`) AS job_NUMBEROFSAMPLES,
+     GROUP_CONCAT(job.`JOBNUMBER` SEPARATOR ', ') AS jobNumbers,
+     GROUP_CONCAT(sector.`NAME` SEPARATOR ', ') AS sectors,
+     job.`ID` AS job_ID,
+     job.`JOBCOSTINGANDPAYMENT_ID` AS job_JOBCOSTINGANDPAYMENT_ID,
+     jobstatusandtracking.`ID` AS jobstatusandtracking_ID,
+     jobstatusandtracking.`DATESUBMITTED` AS jobstatusandtracking_DATESUBMITTED,
+     job.`CLIENT_ID` AS job_CLIENT_ID,
+     job.`NOOFTESTS` AS job_NOOFTESTS,
+     job.`NOOFCALIBRATIONS` AS job_NOOFCALIBRATIONS,
+     job.`NOOFTESTSORCALIBRATIONS` AS job_NOOFTESTSORCALIBRATIONS,
+     jobsubcategory.`SubCategory` AS jobsubcategory_SubCategory,
+     job.`JOBNUMBER` AS job_JOBNUMBER,
+     sector.`NAME` AS sector_NAME
+FROM
+     `job` job INNER JOIN `jobstatusandtracking` jobstatusandtracking ON job.`JOBSTATUSANDTRACKING_ID` = jobstatusandtracking.`ID`
+     INNER JOIN `jobsubcategory` jobsubcategory ON job.`JOBSUBCATEGORY_ID` = jobsubcategory.`ID`
+     INNER JOIN `sector` sector ON job.`SECTOR_ID` = sector.`ID`
+WHERE
+     jobstatusandtracking.`DATESUBMITTED` >= $P{startOFPeriod}
+ AND jobstatusandtracking.`DATESUBMITTED` <= $P{endOFPeriod}
+ AND jobsubcategory.`IsEarning` = 1
+GROUP BY
+     jobsubcategory.`SubCategory`
+ORDER BY
+     jobsubcategory.`SubCategory` ASC]]>
+	</queryString>
+	<field name="numOfJobs" class="java.lang.Long"/>
+	<field name="job_NOOFTESTSORCALIBRATIONS" class="java.lang.Long"/>
+	<field name="job_NUMBEROFSAMPLES" class="java.lang.Long"/>
+	<field name="jobNumbers" class="java.lang.String"/>
+	<field name="sectors" class="java.lang.String"/>
+	<field name="job_ID" class="java.lang.Long"/>
+	<field name="job_JOBCOSTINGANDPAYMENT_ID" class="java.lang.Long"/>
+	<field name="jobstatusandtracking_ID" class="java.lang.Long"/>
+	<field name="jobstatusandtracking_DATESUBMITTED" class="java.sql.Date"/>
+	<field name="job_CLIENT_ID" class="java.lang.Long"/>
+	<field name="job_NOOFTESTS" class="java.lang.Integer"/>
+	<field name="job_NOOFCALIBRATIONS" class="java.lang.Integer"/>
+	<field name="jobsubcategory_SubCategory" class="java.lang.String"/>
+	<field name="job_JOBNUMBER" class="java.lang.String"/>
+	<field name="sector_NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="0" y="30" width="1327" height="21" uuid="467a70a7-176a-427c-8ac5-a6991ed93cf7"/>
+				<textElement>
+					<font fontName="SansSerif" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["JMTS Report on Samples/Instruments Received in the Period April 1, 2016 to March 31, 2017"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="0" y="0" width="1327" height="30" uuid="0170e003-fd27-47ac-92c5-37799a677a25"/>
+				<textElement>
+					<font fontName="SansSerif" size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bureau of Standards Jamaica"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="132" height="18" forecolor="#000000" uuid="f62abab1-cda1-4ad7-8acd-c67e26c68f43"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Job Subcategory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="345" y="0" width="231" height="18" forecolor="#000000" uuid="517983bd-497d-4977-9a8c-57d9f344af0e"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="20"/>
+				</textElement>
+				<text><![CDATA[Job numbers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="132" y="0" width="213" height="18" forecolor="#000000" uuid="cab8ad73-ab35-404f-8de9-790cddb16df9"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[No. of Jobs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="576" y="0" width="433" height="18" forecolor="#000000" uuid="1b364744-31be-4013-8c6c-32d7f846de1d"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="20"/>
+				</textElement>
+				<text><![CDATA[Sectors]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="1009" y="0" width="252" height="18" forecolor="#000000" uuid="c6e4c348-f814-4431-a8a3-432d29d4c3a4"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="20"/>
+				</textElement>
+				<text><![CDATA[Sector]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="2350" height="18" uuid="33e7ddf2-1de6-4301-a2e2-c6a51be75a09"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="132" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="ef99faed-6c45-41ad-8c29-4bea78f09886"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{jobsubcategory_SubCategory}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="345" y="0" width="231" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="0432cfc8-afb0-4c3e-b9a5-01e5d2281a2d"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+						<paragraph leftIndent="20"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{jobNumbers}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="132" y="0" width="213" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="938b981a-e048-49b9-ac2d-af4995eb1800"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+						<paragraph leftIndent="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numOfJobs}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="576" y="0" width="433" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="923e6101-b40e-4b5b-a11a-dd43aa126eb2"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+						<paragraph leftIndent="20"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sectors}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="1009" y="0" width="252" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="b7a99667-8385-4c10-96fc-73df1d16f632"/>
+					<textElement>
+						<font fontName="SansSerif" size="14"/>
+						<paragraph leftIndent="20"/>
+					</textElement>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

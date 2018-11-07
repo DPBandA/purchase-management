@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Legal Office Monthly Report" pageWidth="1008" pageHeight="612" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="3ff111b8-3d9a-4c47-b35c-44d4874dbfa2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="319"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="681"/>
+	<style name="particularsStyle" mode="Transparent" fill="Solid" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_GOAL}.toString().trim().equals("# 1")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FFCC99" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_GOAL}.toString().trim().equals("# 2")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#CCFFFF" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_GOAL}.toString().trim().equals("# 3")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#CC99FF" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_GOAL}.toString().trim().equals("# 4")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#CCFFCC" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_GOAL}.toString().trim().equals("# 5")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF99" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<style name="turnaroundTimeStyle" mode="Transparent" fill="Solid" hTextAlign="Left" hImageAlign="Left" vTextAlign="Top" vImageAlign="Top" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{legaldocument_DATEOFCOMPLETION}.getTime() > $F{legaldocument_EXPECTEDDATEOFCOMPLETION}.getTime()]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FF0000" fill="Solid" rotation="None" markup="none" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<style name="reportTitleStyle" hTextAlign="Center" fontSize="16" isBold="true"/>
+	<parameter name="reportTitle" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Legal Office Monthly Report for the period 1 to 31 January 2018 - Request by Category"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startOfPeriod1" class="java.util.Date"/>
+	<parameter name="endOfPeriod1" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT legaldocument.`ID` AS legaldocument_ID,
+	legaldocument.`NUMBER` AS legaldocument_NUMBER,
+	legaldocument.`EXPECTEDDATEOFCOMPLETION` AS legaldocument_EXPECTEDDATEOFCOMPLETION,
+	legaldocument.`DESCRIPTION` AS legaldocument_DESCRIPTION,
+	legaldocument.`TURNAROUNDTIME` AS legaldocument_TURNAROUNDTIME,
+	legaldocument.`ACTUALTURNAROUNDTIME` AS legaldocument_ACTUALTURNAROUNDTIME,
+	legaldocument.`DATEOFCOMPLETION` AS legaldocument_DATEOFCOMPLETION,
+	legaldocument.`SUBMITTEDBY_ID` AS legaldocument_SUBMITTEDBY_ID,
+	legaldocument.`GOAL` AS legaldocument_GOAL,
+	employee.`ID` AS employee_ID,
+	employee.`LASTNAME` AS employee_LASTNAME,
+	legaldocument.`TYPE_ID` AS legaldocument_TYPE_ID,
+	employee.`FIRSTNAME` AS employee_FIRSTNAME,
+	legaldocument.`DATERECEIVED` AS legaldocument_DATERECEIVED,
+	jmts.documenttype.`ID`,
+	jmts.documenttype.`NAME`
+FROM employee employee
+	INNER JOIN legaldocument ON 
+	 legaldocument.`SUBMITTEDBY_ID` = employee.`ID` 
+	INNER JOIN jmts.documenttype ON 
+	 jmts.documenttype.`ID` = legaldocument.`TYPE_ID` 
+WHERE 
+	 legaldocument.`DATERECEIVED` >= $P{startOfPeriod1} 
+	 AND legaldocument.`DATERECEIVED` <= $P{endOfPeriod1} 
+ORDER BY legaldocument.`TYPE_ID` DESC]]>
+	</queryString>
+	<field name="legaldocument_ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_NUMBER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_NUMBER"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_EXPECTEDDATEOFCOMPLETION" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_EXPECTEDDATEOFCOMPLETION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_DESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_DESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_TURNAROUNDTIME" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_TURNAROUNDTIME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_ACTUALTURNAROUNDTIME" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_ACTUALTURNAROUNDTIME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_DATEOFCOMPLETION" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_DATEOFCOMPLETION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_SUBMITTEDBY_ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_SUBMITTEDBY_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="legaldocument_GOAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_GOAL"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="employee_ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="employee_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="employee_LASTNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="employee_LASTNAME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="legaldocument_TYPE_ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_TYPE_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="employee_FIRSTNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="employee_FIRSTNAME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+	</field>
+	<field name="legaldocument_DATERECEIVED" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="legaldocument_DATERECEIVED"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="legaldocument"/>
+	</field>
+	<field name="ID" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="documenttype"/>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="documenttype"/>
+	</field>
+	<variable name="ID1" class="java.lang.Integer" resetType="Group" resetGroup="DocumentTypeGroup" calculation="Count">
+		<variableExpression><![CDATA[$F{ID}]]></variableExpression>
+	</variable>
+	<variable name="legaldocument_ID1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{legaldocument_ID}]]></variableExpression>
+	</variable>
+	<group name="DocumentTypeGroup">
+		<groupExpression><![CDATA[$F{NAME}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement x="0" y="10" width="200" height="20" uuid="2529f44f-abc2-4d69-9926-f686ee6b7b96"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="39">
+				<textField>
+					<reportElement x="580" y="0" width="106" height="20" uuid="b14892ef-d490-4e31-bf50-d790bf87a366"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ID1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="410" y="0" width="170" height="20" uuid="962b71de-8072-4191-ba75-05fa4153459e"/>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total delivered = ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="200" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement key="" style="reportTitleStyle" mode="Opaque" x="0" y="-10" width="968" height="30" backcolor="#FFFF33" uuid="801cd672-2dfa-4c19-85d2-8de04e1b4243"/>
+				<box bottomPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reportTitle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="284" height="20" uuid="e39ffe6c-5c9d-4d1f-8ab5-9d8dfffd45c5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="40" width="171" height="20" uuid="8a1e7951-a349-4252-b8fc-2fee5ea1d877"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GOAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="40" width="113" height="20" uuid="50e795d6-e8a0-4faa-9705-48c9973614ca"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COLOR CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="171" height="20" uuid="1fa5f5fc-ab82-4508-af8f-8f1b581052d3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goal 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="60" width="113" height="20" backcolor="#FFCC99" uuid="5613df9d-3f47-4bb6-a410-fb4d2347e0e7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="80" width="171" height="20" uuid="7620867e-9d6b-4daa-bc8c-c66cb4b3011e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goal 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="80" width="113" height="20" backcolor="#CCFFFF" uuid="82d38d2d-f67a-47eb-a1b4-2652d4b345a5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="100" width="171" height="20" uuid="a4c27c31-a298-4a6a-a385-f85b637e699a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goal 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="100" width="113" height="20" backcolor="#CC99FF" uuid="1b64d9b6-1df5-4958-8088-c60e6c71946e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="120" width="171" height="20" uuid="cb4b1ea0-e998-497e-998e-98532c002f37"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goal 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="120" width="113" height="20" backcolor="#CCFFCC" uuid="4883934d-5771-49aa-91ae-c8ced25fbd0d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="140" width="171" height="20" uuid="06bf60fc-1788-4734-94c0-8a52a5eb6512"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goal 5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="140" width="113" height="20" backcolor="#FFFF99" uuid="585f04b6-4c5c-4368-a263-a3f15d52fa6d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="160" width="171" height="20" uuid="1a115b94-28b7-49f2-ab7b-4de3bc8a683f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Timeline not met]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="160" width="113" height="20" backcolor="#FF0000" uuid="00941731-fdb6-4406-8e6b-e0eb963b6086"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="180" width="171" height="20" uuid="ff36e376-f9f2-45b1-980e-183d5831fed8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Incomplete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="171" y="180" width="113" height="20" backcolor="#C0C0C0" uuid="355dc79f-f238-4f65-9174-045a048dcf54"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="133" height="50" backcolor="#FFFF00" uuid="c97f4507-be5c-408c-8754-8f23a5538e1c"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Document #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="133" y="0" width="108" height="50" backcolor="#FFFF00" uuid="4734b776-4919-4505-9304-53ce7c07a650"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Requester]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="241" y="0" width="219" height="50" backcolor="#FFFF00" uuid="c7e3b20b-d082-470f-9020-f3d0d7f155e9"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Particulars]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="460" y="0" width="70" height="50" backcolor="#FFFF00" uuid="bf5d16ed-826c-4c21-bccb-fae94a99e36b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Strategic Goal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="530" y="0" width="76" height="50" backcolor="#FFFF00" uuid="9d5823c3-6a13-4db3-a420-7044bc25b236"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Received]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="606" y="0" width="80" height="50" backcolor="#FFFF00" uuid="dfb83792-5652-48bc-90ac-b25003a30de5"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agreed Delivery]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="686" y="0" width="80" height="50" backcolor="#FFFF00" uuid="1f93c5e9-0201-448a-9da3-b09e04374ba8"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Delivered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="766" y="0" width="95" height="50" backcolor="#FFFF00" uuid="a627c9dc-ff46-4f44-9c70-bf6fdfc7088b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agreed Turnaround Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="861" y="0" width="95" height="50" backcolor="#FFFF00" uuid="268c77bf-03e9-449c-8ca2-4077c3dcf87b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual Turnaround Time]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="133" height="20" uuid="ba81a884-9f64-478e-b1dc-3ee273454127"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="133" y="0" width="108" height="20" uuid="a250d0cb-bd43-4ae4-8a9a-b355e9aec3d6"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee_FIRSTNAME} + " " + $F{employee_LASTNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="460" y="0" width="70" height="20" uuid="7f981614-a8e8-4bcd-9e77-4fec75b68226"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_GOAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="530" y="0" width="76" height="20" uuid="1ffc4c24-3287-4b83-a5a9-bd14d3820373"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_DATERECEIVED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="606" y="0" width="80" height="20" uuid="ac4e7ec6-d634-4950-b103-b5d7efc6aa82"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_EXPECTEDDATEOFCOMPLETION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="686" y="0" width="80" height="20" uuid="8a9cdac7-01cc-49f9-92a7-b8e861dc5332"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_DATEOFCOMPLETION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="766" y="0" width="95" height="20" uuid="39d50f70-5964-46d6-8c34-2698335a5c55"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_TURNAROUNDTIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="turnaroundTimeStyle" stretchType="RelativeToTallestObject" x="861" y="0" width="95" height="20" uuid="f23bdf48-dbb8-4e9e-8047-72d079af034d"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_ACTUALTURNAROUNDTIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="particularsStyle" stretchType="RelativeToTallestObject" x="241" y="0" width="219" height="20" uuid="96e54174-9ef1-4d99-aae2-0128dd10d7d1"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{legaldocument_DESCRIPTION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="580" y="0" width="106" height="20" uuid="6df14c01-3a9c-4841-b4cf-aafd0cfdc4c6"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{legaldocument_ID1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="0" width="170" height="20" uuid="a9f90173-b347-4284-8702-4f07280d0432"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total requests completed = ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
