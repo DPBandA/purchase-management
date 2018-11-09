@@ -58,14 +58,16 @@ import org.primefaces.event.TabCloseEvent;
 import org.primefaces.event.ToggleEvent;
 import jm.com.dpbennett.business.entity.management.BusinessEntityManagement;
 import static jm.com.dpbennett.purchasing.PurchasingApplication.checkForLDAPUser;
+import jm.com.dpbennett.wal.managers.ReportManager;
 import jm.com.dpbennett.wal.utils.Dashboard;
 import jm.com.dpbennett.wal.utils.DateUtils;
 import jm.com.dpbennett.wal.utils.DialogActionHandler;
 import jm.com.dpbennett.wal.utils.Utils;
 import jm.com.dpbennett.wal.utils.MainTabView;
 import jm.com.dpbennett.wal.utils.PrimeFacesUtils;
+import jm.com.dpbennett.wal.utils.Tab;
 import org.primefaces.PrimeFaces;
-import org.primefaces.component.tabview.Tab;
+
 
 /**
  *
@@ -108,7 +110,6 @@ public class PurchasingManager implements Serializable, BusinessEntityManagement
     private String logonMessage;
     private Boolean westLayoutUnitCollapsed;
     private String invalidFormFieldMessage;
-    // tk rid of dialog* and handler and use growl?
     private String dialogMessage;
     private String dialogMessageHeader;
     private String dialogMessageSeverity;
