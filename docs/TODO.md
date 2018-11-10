@@ -1,9 +1,14 @@
 # General
-- See what other dates that can be created from the PO form.
-- Create JobPosition class with, salary, description, minApprovalLimit and
+- Implement Authentication session bean and use it for login in jmts and other apps.
+  Put it in wal.
+  * Move Authentication to wal
+- Check if keep alive still works.
+- Create EmployeePosition class with, salary, description, minApprovalLimit and
   maxApprovalLimit etc.
   * Impl assigning multiple JobPosition to employee class.
-  * Postion names: Team Leader, Divisional Manager, Divisional Director, 
+  * Impl EmployeePosition dialog in hrm.
+  * Impl HRM as standalone app and test out employee and position dialogs.
+  * Position names: Team Leader, Divisional Manager, Divisional Director, 
     Finance Manager, Executive Director, Senior Engineer, Analyst, 
     Network Administrator, System Administrator etc
 - Design and include the dashboard and main tabs 
@@ -22,6 +27,9 @@
 - Get approval limits from Finance.
 - The orinator's department should be uneditable by the orginator unless they are
   the dept. head or system admin.
+
+# Deployment
+- Add UNIT and DESCRIPTION to CostComponent database.
 
 # Optional/Future
 - Deploy and configure activiti in gf3 on local PC for testing .
