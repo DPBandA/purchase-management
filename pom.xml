@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jm.com.dpbennett</groupId>
-    <artifactId>Purchasing</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>purchase-management</artifactId>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>Purchasing</name>
+    <name>Purchase Management</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -17,22 +17,29 @@
     <dependencies>       
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>wal</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
+            <artifactId>web-application-library</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>    
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>waccar</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>web-application-resources</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>  
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>system-management</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
             <type>war</type>
         </dependency>   
+        <!--
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>hrms</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
         </dependency>
+        -->
     </dependencies>
 
     <build>
@@ -99,4 +106,5 @@
             </plugin>
         </plugins>
     </build>
+    <description>An enterprise web application for managing purchases.</description>
 </project>
