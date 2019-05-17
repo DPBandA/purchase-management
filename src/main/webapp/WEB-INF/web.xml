@@ -34,13 +34,7 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
-    
-    <!--
-    <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>start</param-value>
-    </context-param>
-    -->
+
     <context-param>
         <param-name>primefaces.SUBMIT</param-name>
         <param-value>partial</param-value>
@@ -51,13 +45,6 @@
         <param-value>true</param-value>
     </context-param>
     
-    
-    <!-- Can be used to put managed beans in separate file
-    <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>WEB-INF/manage-beans.xml</param-value>
-    </context-param>  
-    -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
