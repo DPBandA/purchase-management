@@ -17,12 +17,20 @@
     </properties>
     
     <dependencies>   
+        <!--
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <scope>provided</scope>
             <version>6.2</version>
-        </dependency>                   
+        </dependency>  
+        -->  
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>web-application-library</artifactId>
+            <scope>provided</scope>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>                
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>financial-management</artifactId>
