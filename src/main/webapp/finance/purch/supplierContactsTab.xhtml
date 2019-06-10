@@ -1,0 +1,136 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <p:toolbar style="margin-bottom: 1px;">
+        <p:toolbarGroup align="left">
+            <p:commandButton value="New"
+                             icon="ui-icon-plus" 
+                             title="Add new contact"
+                             update=":contactForm"
+                             oncomplete="PF('contactFormDialog').show();"
+                             actionListener="#{financeManager.createNewSupplierContact}" 
+                             process="@this" >
+
+                <p:resetInput target=":contactForm" />
+
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar> 
+
+    <p:dataTable id="contactsTable"
+                 var="contact"   
+                 paginator="true"  
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 value="#{financeManager.supplierContactsModel}">
+
+        <f:facet name="header">
+            Contacts
+        </f:facet>                      
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Contact full name"/>
+            </f:facet>
+            <h:outputText value="#{contact.firstName} #{contact.lastName}" />
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Phone"/>
+            </f:facet>
+            <h:outputText value="#{contact.mainPhoneNumber.localNumber}" />
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Email"/>
+            </f:facet>
+            <h:outputText value="#{contact.internet.email1}" />
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Type"/>
+            </f:facet>
+            <h:outputText value="#{contact.type}" />
+        </p:column>
+
+        <p:column style="width:32px" >
+            <p:menuButton icon="ui-icon-pencil" title="Edit or delete this contact">
+                <p:menuitem>                       
+                    <p:commandButton value="Edit"
+                                     icon="ui-icon-pencil" 
+                                     style="width: 300%;text-align: left;background: none;border: 0;"
+                                     update=":contactForm"
+                                     oncomplete="PF('contactFormDialog').show();" 
+                                     process="@this"                             
+                                     title="View or edit contact detail">  
+
+                        <p:resetInput target=":contactForm" />
+
+                        <f:setPropertyActionListener value="#{contact}"
+                                                     target="#{financeManager.selectedSupplierContact}" />
+
+                    </p:commandButton>            
+                </p:menuitem>
+
+                <p:menuitem >       
+                    <p:commandButton 
+                        value="Delete"
+                        icon="ui-icon-trash" 
+                        style="width: 300%;text-align: left;background: none;border: 0;"
+                        oncomplete="PF('deleteContactDialog').show();"                                           
+                        process="@this"
+                        title="Delete this contact">
+
+                        <f:setPropertyActionListener value="#{contact}"
+                                                     target="#{financeManager.selectedSupplierContact}" />
+
+                    </p:commandButton>
+                </p:menuitem>
+            </p:menuButton>    
+        </p:column>
+
+    </p:dataTable>
+
+    <p:toolbar style="margin-top: 1px;">
+        <p:toolbarGroup align="left">
+            <p:commandButton value="New"
+                             icon="ui-icon-plus" 
+                             title="Add new contact"
+                             update=":contactForm"
+                             oncomplete="PF('contactFormDialog').show();"
+                             actionListener="#{financeManager.createNewSupplierContact}" 
+                             process="@this" >
+
+                <p:resetInput target=":contactForm" />
+
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar> 
+</html>
+
+

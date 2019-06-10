@@ -1,0 +1,100 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <p:toolbar style="margin-bottom: 1px;" >
+        <p:toolbarGroup align="left">
+            <p:menuButton value="New" >  
+
+                <p:menuitem>                       
+                    <p:commandButton value="Purchase requisition"
+                                     style="width: 100%;text-align: left;background: none;border: 0;"
+                                     title="Create new purchase requisition"
+                                     icon="ui-icon-plus"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     oncomplete="longProcessDialogVar.hide();"
+                                     actionListener="#{purchasingManager.createNewPurchaseReq}" 
+                                     process="@this" >
+
+                        <p:ajax event="dialogReturn" 
+                                update=":mainTabViewForm:mainTabView:purchasereqsTable"/>
+
+                    </p:commandButton>          
+                </p:menuitem>
+
+                <p:menuitem>                       
+                    <p:commandButton value="Supplier"
+                                     style="width: 100%;text-align: left;background: none;border: 0;"
+                                     title="Create new supplier"
+                                     icon="ui-icon-plus"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     oncomplete="longProcessDialogVar.hide();"
+                                     actionListener="#{purchasingManager.createNewSupplier}" 
+                                     process="@this" >
+
+                        <p:ajax event="dialogReturn" 
+                                update=":mainTabViewForm:mainTabView:suppliersTable"/>
+
+                    </p:commandButton>          
+                </p:menuitem>
+
+            </p:menuButton>    
+
+        </p:toolbarGroup>
+        <p:toolbarGroup align="right">
+
+            <p:menuButton value="Tools" >  
+
+                <p:menuitem>
+
+                    <p:commandButton value="Purchase Requisitions"
+                                     style="text-align: left;background: none;border: 0;"
+                                     title="Open purchase requisition tab"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     actionListener="#{purchasingManager.openPurchaseReqsTab}" 
+                                     oncomplete="longProcessDialogVar.hide();"
+                                     process="@this" />
+
+                </p:menuitem>
+
+                <p:menuitem>
+
+                    <p:commandButton value="Suppliers"
+                                     style="text-align: left;background: none;border: 0;"
+                                     title="Open suppliers tab"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     actionListener="#{purchasingManager.openSuppliersTab}" 
+                                     oncomplete="longProcessDialogVar.hide();"
+                                     process="@this" />
+
+                </p:menuitem>
+
+            </p:menuButton>         
+        </p:toolbarGroup>
+    </p:toolbar>
+
+    <ui:include src="search.xhtml"/> 
+
+</html>
+
+

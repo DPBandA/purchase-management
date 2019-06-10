@@ -1,0 +1,140 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+    <h:panelGrid id="generalDetailsPanelGrid" columns="3" cellspacing="5" >
+
+        <p:outputLabel for="supplierActive" value="Active: " style="font-weight: bold;" />  
+        <h:panelGroup>
+            <p:selectBooleanCheckbox style="vertical-align: middle"
+                                     id="supplierActive"
+                                     disabled="#{!financeManager.user.privilege.canBeJMTSAdministrator}"
+                                     value="#{financeManager.selectedSupplier.active}" >
+                <p:ajax listener="#{financeManager.updateSupplier}"
+                        event="change"                                      
+                        process="@this"/>
+            </p:selectBooleanCheckbox>            
+            <p:tooltip for="supplierActive" value="Check to activate this supplier" 
+                       showEffect="fade" hideEffect="fade" />            
+        </h:panelGroup>
+        <h:outputText value="" />
+
+        <h:outputText value="Name:" style="font-weight: bold;" />       
+        <p:inputText value="#{financeManager.selectedSupplier.name}"
+                     style="width: 150%;"
+                     id="supplierName"
+                     disabled="#{!financeManager.selectedSupplier.isNameAndIdEditable}"
+                     validator="supplierValidator">
+            
+            <p:ajax event="change"
+                    global="true"      
+                    update="supplierName"
+                    listener="#{financeManager.updateSupplierName}"
+                    process="@this"/>
+            
+        </p:inputText>     
+        <h:outputText value="" />
+
+        <h:outputText value="Identification type:" />        
+        <p:inputText value="#{financeManager.selectedSupplier.identificationType}"
+                     id="identificationType"
+                     disabled="#{!financeManager.selectedSupplier.isNameAndIdEditable}" >
+            <p:ajax event="change"                    
+                    global="true"                   
+                    listener="#{financeManager.updateSupplier}"
+                    process="@this"/>
+        </p:inputText>
+        <h:outputText value="" />
+        
+        <h:outputText value="Identification:" />        
+        <p:inputText value="#{financeManager.selectedSupplier.identification}"
+                     id="identification"
+                     disabled="#{!financeManager.selectedSupplier.isNameAndIdEditable}" >
+            <p:ajax event="change"                    
+                    global="true"                   
+                    listener="#{financeManager.updateSupplier}"
+                    process="@this"/>
+        </p:inputText>
+        <h:outputText value="" />
+
+        <h:outputText id="currentBillingAddress" value="Most recent billing address: " 
+                      style="font-weight: bold;"/> 
+        <h:panelGroup>
+            <h:outputText id="addressLine1" value="#{financeManager.supplierCurrentAddress.addressLine1FriendlyDisplay}"/>  
+            <p:watermark for="addressLine1" value="-- none --" />
+        </h:panelGroup>
+        <h:outputText value="" />
+        <ui:remove>
+            <p:menuButton icon="ui-icon-pencil" title="Add or edit address">
+                <p:menuitem>                       
+                    <p:commandButton value="Edit"
+                                     style="width: 300%;text-align: left;background: none;border: 0;"
+                                     icon="ui-icon-pencil"
+                                     title="Edit address"
+                                     update=":addressForm"
+                                     oncomplete="PF('addressFormDialog').show();"
+                                     actionListener="#{financeManager.editSupplierCurrentAddress}" 
+                                     process="@this" >
+
+                        <p:resetInput target=":addressForm" />
+
+                    </p:commandButton>          
+                </p:menuitem>
+                <p:menuitem>                       
+                    <p:commandButton value="New"
+                                     style="width: 300%;text-align: left;background: none;border: 0;"
+                                     icon="ui-icon-plus" 
+                                     title="Add new address"
+                                     update=":addressForm"
+                                     oncomplete="PF('addressFormDialog').show();"
+                                     actionListener="#{financeManager.createNewSupplierAddress}" 
+                                     process="@this" >
+
+                        <p:resetInput target=":addressForm" />
+
+                    </p:commandButton>          
+                </p:menuitem>
+            </p:menuButton>  
+        </ui:remove>
+
+        <h:outputText value="" />
+        <h:outputText value="#{financeManager.supplierCurrentAddress.addressLine2}" />
+        <h:outputText value="" />
+
+        <h:outputText value="" />
+        <h:outputText value="#{financeManager.supplierCurrentAddress.city}" />
+        <h:outputText value="" />
+
+        <h:outputText value="" />
+        <h:outputText value="#{financeManager.supplierCurrentAddress.stateOrProvince}" />
+        <h:outputText value="" />
+
+        <h:outputText id="currentContact" value="Most recent contact: " style="font-weight: bold"/>    
+        <h:outputText value="#{financeManager.supplierCurrentContact.friendlyName}" />
+        <h:outputText value="" />        
+    </h:panelGrid>                    
+
+</html>
+
+

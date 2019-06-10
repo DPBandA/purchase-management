@@ -1,0 +1,113 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">    
+    <p:toolbar style="margin-bottom: 1px;">
+        <p:toolbarGroup align="left">
+            <p:commandButton value="New"
+                             icon="ui-icon-plus" 
+                             update=":addressForm"
+                             title="Add new address"
+                             oncomplete="PF('addressFormDialog').show();"
+                             actionListener="#{financeManager.createNewSupplierAddress}" 
+                             process="@this" >
+
+                <p:resetInput target=":addressForm" />
+
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar>
+    <p:dataTable id="addressesTable"
+                 var="address"
+                 paginator="true"                                 
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 value="#{financeManager.supplierAddressesModel}">
+
+        <f:facet name="header">
+            Addresses
+        </f:facet>
+
+        <p:column headerText="Full address">                            
+            <h:outputText value="#{address}" />
+        </p:column>
+
+        <p:column headerText="Type">                            
+            <h:outputText value="#{address.type}" />
+        </p:column>
+
+        <p:column style="width:32px" >
+            <p:menuButton icon="ui-icon-pencil" title="Edit or delete this address">
+                <p:menuitem>                       
+                    <p:commandButton value="Edit"
+                                     icon="ui-icon-pencil" 
+                                     style="width: 300%;text-align: left;background: none;border: 0;"
+                                     update=":addressForm"
+                                     oncomplete="PF('addressFormDialog').show();" 
+                                     process="@this"                             
+                                     title="View or edit address detail">  
+
+                        <p:resetInput target=":addressForm" />
+
+                        <f:setPropertyActionListener value="#{address}"
+                                                     target="#{financeManager.selectedSupplierAddress}" />
+
+                    </p:commandButton>            
+                </p:menuitem>
+
+                <p:menuitem >       
+                    <p:commandButton 
+                        value="Delete"
+                        icon="ui-icon-trash" 
+                        style="width: 300%;text-align: left;background: none;border: 0;"
+                        oncomplete="PF('deleteAddressDialog').show();"                                            
+                        process="@this"
+                        title="Delete this address">
+
+                        <f:setPropertyActionListener value="#{address}"
+                                                     target="#{financeManager.selectedSupplierAddress}" />
+
+                    </p:commandButton>
+                </p:menuitem>
+            </p:menuButton>    
+        </p:column>
+
+    </p:dataTable>
+    <p:toolbar style="margin-top: 1px;">
+        <p:toolbarGroup align="left">
+            <p:commandButton value="New"
+                             icon="ui-icon-plus" 
+                             update=":addressForm"
+                             title="Add new address"
+                             oncomplete="PF('addressFormDialog').show();"
+                             actionListener="#{financeManager.createNewSupplierAddress}" 
+                             process="@this" >
+
+                <p:resetInput target=":addressForm" />
+
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar>
+</html>
+
+

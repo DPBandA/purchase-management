@@ -1,0 +1,291 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <p:panel style="margin-bottom: 1px;border: 0;" >
+        <h:panelGrid id="generalTabPanel" columns="2">            
+            <h:outputLabel value="No.: " style="font-weight: bold;font-size: 14px;" />
+            <h:panelGroup>
+                <h:panelGroup id="prNumberGroup">
+
+                    <h:outputText id="prNumber" 
+                                  rendered="#{purchasingManager.selectedPurchaseRequisition.autoGenerateNumber}"
+                                  value="#{purchasingManager.selectedPurchaseRequisition.number}" 
+                                  styleClass="pr-number"/>
+
+                    <p:inputText id="prNumberEdit"
+                                 rendered="#{!purchasingManager.selectedPurchaseRequisition.autoGenerateNumber}"
+                                 size="35"
+                                 maxlength="40"      
+                                 validator="purchaseReqNumberValidator"
+                                 title="#{purchasingManager.selectedPurchaseRequisition.number}"
+                                 value="#{purchasingManager.selectedPurchaseRequisition.number}">
+
+                        <f:attribute name="selectedPurchaseReqId" 
+                                     value="#{purchasingManager.selectedPurchaseRequisition.id}" />
+                        <f:attribute name="autoGeneratePRNumber" 
+                                     value="#{purchasingManager.selectedPurchaseRequisition.autoGenerateNumber}" />
+
+                        <p:ajax event="change"                            
+                                update=":purchreqDialogForm:purchreqDetailToolbar1"
+                                listener="#{purchasingManager.updatePurchaseReq}"
+                                process="@this"/>
+
+                    </p:inputText>
+                </h:panelGroup>
+                <p:spacer height="0" width="5"/>
+                <p:selectBooleanCheckbox id="autoGenerate" 
+                                         itemLabel="auto"
+                                         style="vertical-align: middle"
+                                         rendered="#{purchasingManager.user.privilege.canBeJMTSAdministrator}"
+                                         value="#{purchasingManager.selectedPurchaseRequisition.autoGenerateNumber}" >
+
+                    <p:ajax listener="#{purchasingManager.updateAutoGeneratePRNumber}" 
+                            event="change"
+                            update="prNumberGroup,:purchreqDialogForm:purchreqDetailToolbar1"
+                            global="false"                        
+                            process="@this"/>
+
+                </p:selectBooleanCheckbox>            
+                <p:tooltip for="autoGenerate" value="Check to auto-generate number" showEffect="fade" hideEffect="fade" />
+
+            </h:panelGroup>
+
+            <h:outputText value="Supplier: " style="font-weight: bold" />
+            <h:panelGroup>                
+                <p:autoComplete id="supplier"
+                                var="supplier"
+                                itemLabel="#{supplier.truncatedName}"
+                                itemValue="#{supplier}"
+                                size="35" 
+                                maxlength="40"                             
+                                dropdown="false"
+                                scrollHeight="200" 
+                                value="#{purchasingManager.selectedPurchaseRequisition.supplier}"   
+                                converter="activeSupplierConverter"
+                                validator="supplierValidator"
+                                forceSelection="true"
+                                completeMethod="#{financeManager.completeActiveSupplier}" >
+
+                    <p:ajax event="itemSelect"
+                            update="purchreqFormTabView:generalTabPanel,:purchreqDialogForm:purchreqDetailToolbar1"
+                            listener="#{purchasingManager.updatePurchaseReq}"
+                            process="@this"/>
+
+                </p:autoComplete>     
+
+                <p:menuButton id="supplierActionsMenu" icon="ui-icon-pencil" title="Add or edit supplier">
+                    <p:menuitem>                       
+                        <p:commandButton value="Edit supplier"
+                                         id="editSupplier"
+                                         icon="ui-icon-pencil" 
+                                         disabled="${!purchasingManager.isSupplierNameValid}"
+                                         style="width: 300%;text-align: left;background: none;border: 0;"
+                                         onstart="PF('longProcessDialogVar4').show();"   
+                                         oncomplete="PF('longProcessDialogVar4').hide();"                                  
+                                         actionListener="#{purchasingManager.editPurhaseReqSuppier}"  
+                                         process="@this,supplier"                             
+                                         title="View or edit this suppliers's detail">  
+
+                            <p:ajax event="dialogReturn" 
+                                    listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
+                                    update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
+
+                        </p:commandButton>            
+                    </p:menuitem>
+
+                    <p:menuitem >       
+                        <p:commandButton 
+                            value="Add new supplier"
+                            icon="ui-icon-plus" 
+                            style="width: 300%;text-align: left;background: none;border: 0;"
+                            onstart="PF('longProcessDialogVar4').show();"    
+                            oncomplete="PF('longProcessDialogVar4').hide();"                    
+                            disabled="#{!purchasingManager.user.privilege.canAddSupplier}"
+                            actionListener="#{purchasingManager.createNewPurhaseReqSupplier}"                                            
+                            process="@this"
+                            title="Add a new supplier">
+
+                            <p:ajax event="dialogReturn" 
+                                    listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
+                                    update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
+
+                        </p:commandButton>
+                    </p:menuitem>
+                </p:menuButton>      
+
+            </h:panelGroup>
+
+            <h:outputText value="Date: " style="font-weight: bold" />
+            <p:inputText readonly="true"
+                         style="background-color: lightyellow;"
+                         value="#{systemManager.getDateStr(purchasingManager.selectedPurchaseRequisition.requisitionDate)}" />           
+
+            <h:outputText value="Originator: " style="font-weight: bold" />       
+            <p:autoComplete id="originator"
+                            readonly="true"
+                            styleClass="read-only-inputfield"
+                            var="originator"                            
+                            maxlength="40" 
+                            value="#{purchasingManager.selectedPurchaseRequisition.originator}"
+                            itemLabel="#{originator.name}"
+                            itemValue="#{originator}"
+                            converter="activeEmployeeConverter"
+                            validator="businessEntityValidator"
+                            forceSelection="true"
+                            dropdown="false"
+                            scrollHeight="200" 
+                            completeMethod="#{humanResourceManager.completeActiveEmployee}" />
+
+            <h:outputText value="Originating dep't: " style="font-weight: bold" />
+            <p:autoComplete id="originatingDepartment"                          
+                            readonly="true"
+                            styleClass="read-only-inputfield"
+                            var="department"
+                            forceSelection="false"      
+                            dropdown="false"
+                            scrollHeight="200" 
+                            size="35"
+                            maxlength="40"
+                            value="#{purchasingManager.selectedPurchaseRequisition.originatingDepartment}"
+                            itemValue="#{department}"
+                            itemLabel="#{department.name}"
+                            converter="activeDepartmentConverter"
+                            validator="businessEntityValidator"
+                            completeMethod="#{humanResourceManager.completeActiveDepartment}" />             
+
+            <h:outputLabel value="Priority code: " 
+                           for="priorityCode"/>
+            <p:selectOneMenu id="priorityCode"     
+                             style="width: 100px;"
+                             value="#{purchasingManager.selectedPurchaseRequisition.priorityCode}">
+
+                <f:selectItems  value="#{purchasingManager.priorityCodes}"
+                                var="code"                            
+                                itemValue="#{code}"
+                                itemLabel="#{code}"/>
+
+                <p:ajax listener="#{purchasingManager.updatePurchaseReq}"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        global="false"
+                        process="@this"/>
+
+            </p:selectOneMenu>
+            
+            <h:outputText value="Purpose/Description: " style="font-weight: bold;vertical-align: top;" />       
+            <p:inputTextarea
+                id="description"
+                value="#{purchasingManager.selectedPurchaseRequisition.description}"
+                rows="3"
+                counter="descriptionCharsRemaining"
+                counterTemplate="{0} characters remaining."
+                autoResize="false"
+                maxlength="400"  
+                style="width: 100%;">
+
+                <f:validator validatorId="requiredFieldValidator" />
+
+                <p:ajax event="change"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}"
+                        process="@this"/>
+
+            </p:inputTextarea> 
+            <h:outputText value="&nbsp;&nbsp;" />
+            <h:outputText id="descriptionCharsRemaining" /> 
+            
+        </h:panelGrid>
+    </p:panel>
+
+    <p:panel id="approvalsPanel" style="border: 0;" >
+        <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
+            <p:toolbarGroup>
+                <p:commandButton title="Approve this purchase requisition"
+                                 value="Approve"
+                                 actionListener="#{purchasingManager.approveSelectedPurchaseRequisition}"
+                                 update=":purchreqDialogForm:purchreqDetailToolbar1,approvalsPanel,:purchreqDialogForm:purchreq_growl"
+                                 onstart="PF('longProcessDialogVar').show();"
+                                 oncomplete="PF('longProcessDialogVar').hide();"
+                                 process="@this">
+                </p:commandButton>
+            </p:toolbarGroup>                    
+        </p:toolbar>
+
+        <p:dataTable  var="approver"
+                      id="approverTable"
+                      value="#{purchasingManager.selectedPurchaseRequisition.approvers}">
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Approver" />
+                </f:facet>
+                <h:outputText value="#{approver.name}" />                    
+            </p:column>    
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Title(s)" />
+                </f:facet>
+                <h:outputText value="#{approver.allPositions}" />                    
+            </p:column>
+
+            <p:column >
+                <f:facet name="header">
+                    <h:outputText value="Date" />
+                </f:facet>
+                <h:outputText value="#{purchasingManager.getPRApprovalDate(approver.positions)}" />                    
+            </p:column>
+
+            <p:column style="width:32px" >                                   
+                <p:commandButton   
+                    onclick="purchreqApproverDeleteConfirmDialog.show();"
+                    disabled="#{!purchasingManager.user.privilege.canBeFinancialAdministrator}"
+                    title="Delete this approval"
+                    icon="ui-icon-trash"
+                    process="@this">
+
+                    <f:setPropertyActionListener value="#{approver}"
+                                                 target="#{purchasingManager.selectedApprover}" />
+
+                </p:commandButton>
+            </p:column>      
+
+        </p:dataTable>
+        <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
+            <p:toolbarGroup>
+                <p:commandButton title="Approve this purchase requisition"
+                                 value="Approve"
+                                 actionListener="#{purchasingManager.approveSelectedPurchaseRequisition}"
+                                 update=":purchreqDialogForm:purchreqDetailToolbar1,approvalsPanel,:purchreqDialogForm:purchreq_growl"
+                                 onstart="PF('longProcessDialogVar').show();"
+                                 oncomplete="PF('longProcessDialogVar').hide();"
+                                 process="@this">
+                </p:commandButton>
+            </p:toolbarGroup>                    
+        </p:toolbar>   
+    </p:panel>
+</html>
+
+

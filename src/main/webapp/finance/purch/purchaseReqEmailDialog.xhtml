@@ -1,0 +1,133 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="cache-control" content="max-age=0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <title>Purchase Requisition Email</title>
+        <link rel="stylesheet" href="../../css/main.css" />
+    </h:head>
+    <h:body >  
+        <ui:include src="/common/longProcessDialog.xhtml"/>     
+        <h:form id="purchaseReqEmailDialogForm">       
+
+            <p:growl id="purchaseReqEmailDialog_growl" life="5000" showDetail="true"/>
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Send"
+                                     actionListener="#{purchasingManager.sendGeneralPurchaseReqEmail}"
+                                     onstart="PF('longProcessDialogVar4').show();"
+                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     icon="ui-icon-mail-closed"
+                                     update="purchaseReqEmailDialog_growl"
+                                     process="@form"/>
+                    <p:spacer width="5" />
+                    <p:commandButton value="Cancel"  
+                                     immediate="true"
+                                     actionListener="#{purchasingManager.closeDialog}"
+                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     icon="ui-icon ui-icon-close" />  
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:panel style="margin-top: 1px;margin-bottom: 1px;">
+                <h:panelGrid columns="2">   
+
+                    <p:outputLabel for="fromEmployee" value="From:" style="font-weight: bold;" />
+                    <h:outputText id="fromEmployee" 
+                                  value="#{purchasingManager.user.employee.firstName} #{purchasingManager.user.employee.lastName}" />
+
+                    <p:outputLabel for="toEmployees" value="To:" style="font-weight: bold;" />       
+                    <p:autoComplete id="toEmployees"
+                                    var="employee"   
+                                    value="#{purchasingManager.toEmployees}"
+                                    itemLabel="#{employee.name}"
+                                    itemValue="#{employee}"
+                                    converter="activeEmployeeConverter"
+                                    forceSelection="true"                                    
+                                    dropdown="true"
+                                    required="true"
+                                    requiredMessage="Email recipients required"
+                                    scrollHeight="200"                         
+                                    multiple="true"
+                                    completeMethod="#{humanResourceManager.completeActiveEmployee}" />
+
+
+                    <h:outputLabel value="Subject:" for="emailSubject" style="font-weight: bold;" />
+                    <p:inputText value="#{purchasingManager.purchaseReqEmailSubject}"
+                                 id="emailSubject" 
+                                 style="width: 100%;" 
+                                 validator="requiredFieldValidator" />
+
+                    <h:outputLabel value="" for="emailContent" style="font-weight: bold;" />
+                    <p:inputTextarea
+                        id="emailContent"
+                        value="#{purchasingManager.purchaseReqEmailContent}"
+                        rows="18"
+                        counter="emailSubjectCharsRemaining"
+                        counterTemplate="{0} characters remaining."
+                        autoResize="false" 
+                        placeholder="Enter message..."
+                        maxlength="1000"  
+                        style="width: 100%;">
+
+                        <f:validator validatorId="requiredFieldValidator" />
+
+                    </p:inputTextarea>    
+                    
+                    <h:outputText value="&nbsp;&nbsp;" />
+                    <h:outputText id="emailSubjectCharsRemaining" /> 
+
+                </h:panelGrid>
+            </p:panel>
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Send"
+                                     actionListener="#{purchasingManager.sendGeneralPurchaseReqEmail}"
+                                     onstart="PF('longProcessDialogVar4').show();"
+                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     icon="ui-icon-mail-closed"
+                                     update="purchaseReqEmailDialog_growl"
+                                     process="@form"/>
+                    <p:spacer width="5" />
+                    <p:commandButton value="Cancel"  
+                                     immediate="true"
+                                     actionListener="#{purchasingManager.closeDialog}"
+                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     icon="ui-icon ui-icon-close" />  
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+        </h:form>
+    </h:body>
+</html>

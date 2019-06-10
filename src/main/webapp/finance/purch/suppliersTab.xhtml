@@ -1,0 +1,170 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:toolbar>
+        <p:toolbarGroup align="left" >               
+            <p:commandButton 
+                value="New"
+                icon="ui-icon-plus" 
+                onstart="PF('longProcessDialogVar4').show();"
+                oncomplete="longProcessDialogVar4.hide();"
+                actionListener="#{financeManager.addNewSupplier}"                                            
+                process="@this"
+                title="Add a new supplier" >
+
+                <p:ajax event="dialogReturn" 
+                        listener="#{financeManager.doSupplierSearch}"
+                        update=":mainTabViewForm:mainTabView:suppliersTable"/>
+
+            </p:commandButton>
+            <p:spacer width="20" rendered="#{!financeManager.user.privilege.canBeFinancialAdministrator}" />
+            <p:inputText id="supplierSearchText" 
+                         placeholder="Enter search text"
+                         style="width:200px" 
+                         rendered="#{!financeManager.user.privilege.canBeFinancialAdministrator}"
+                         value="#{financeManager.supplierSearchText}" >
+
+                <p:ajax event="keyup"                            
+                        global="false"
+                        update=":mainTabViewForm:mainTabView:suppliersTable"
+                        listener="#{financeManager.doSupplierSearch}"
+                        process="@this"/>
+
+            </p:inputText>
+        </p:toolbarGroup>
+
+        <p:toolbarGroup align="right" rendered="#{financeManager.user.privilege.canBeJMTSAdministrator}" >
+            <h:outputLabel value="Active suppliers only: " for="activeSuppliersOnly" />  
+            <h:panelGroup>
+                <p:selectBooleanCheckbox style="vertical-align: middle"
+                                         id="activeSuppliersOnly"
+                                         value="#{financeManager.isActiveSuppliersOnly}" >
+                    <p:ajax  update=":mainTabViewForm:mainTabView:suppliersTable"
+                             listener="#{financeManager.doSupplierSearch}"
+                             event="change"                                      
+                             process="@this"/>
+                </p:selectBooleanCheckbox>            
+                <p:tooltip for="activeSuppliersOnly" value="Check to search for activate suppliers only" 
+                           showEffect="fade" hideEffect="fade" />
+                <p:spacer width="15" />                
+            </h:panelGroup>
+        </p:toolbarGroup>
+    </p:toolbar>
+
+    <p:dataTable id="suppliersTable"
+                 var="supplier"
+                 style="margin-bottom: 1px;margin-top: 1px;"
+                 editable="true" 
+                 editMode="cell"
+                 paginator="true"                                 
+                 rows="15"
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 value="#{financeManager.foundSuppliers}">                        
+
+        <p:ajax event="cellEdit" listener="#{financeManager.onSupplierCellEdit}" />
+
+        <f:facet name="header">
+            <h:outputText value="Search Results (found: #{financeManager.numOfSuppliersFound})" />
+        </f:facet>
+
+        <p:column sortBy="#{supplier.name}">
+            <f:facet name="header">
+                <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{supplier.name}" />
+        </p:column>
+
+        <p:column sortBy="#{supplier.editedBy}">
+            <f:facet name="header">
+                <h:outputText value="Last edited by"/>
+            </f:facet>
+            <h:outputText value="#{supplier.editedBy}" />
+        </p:column>
+
+        <p:column sortBy="#{supplier.dateEdited}">
+            <f:facet name="header">
+                <h:outputText value="Date last edited"/>
+            </f:facet>
+            <h:outputText value="#{supplier.dateEdited}">
+                <f:convertDateTime pattern="MMM dd, yyyy"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column headerText="Active?" 
+                  rendered="#{financeManager.user.privilege.canAddSupplier}">                                                                         
+            <p:cellEditor>                
+                <f:facet name="output">
+                    <h:outputText value="#{supplier.isActive}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:selectOneMenu value="#{supplier.isActive}" style="width:96%">
+                        <f:selectItem itemLabel="Yes" itemValue="Yes"/>
+                        <f:selectItem itemLabel="No" itemValue="No"/>
+                    </p:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>         
+        </p:column>
+
+        <p:column style="width:32px">
+            <p:commandButton icon="ui-icon-pencil"
+                             onstart="PF('longProcessDialogVar4').show();"                               
+                             oncomplete="PF('longProcessDialogVar4').hide();"
+                             actionListener="#{financeManager.editSelectedSupplier}"
+                             process="@this"
+                             title="View or edit this supplier's detail">
+
+                <f:setPropertyActionListener value="#{supplier}" 
+                                             target="#{financeManager.selectedSupplier}" />
+
+                <p:ajax event="dialogReturn" 
+                        update=":mainTabViewForm:mainTabView:suppliersTable"/>
+
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
+    <p:toolbar>
+        <p:toolbarGroup align="left" >              
+            <p:commandButton 
+                value="New"
+                icon="ui-icon-plus" 
+                onstart="PF('longProcessDialogVar4').show();"
+                oncomplete="longProcessDialogVar4.hide();"
+                actionListener="#{financeManager.addNewSupplier}"                                            
+                process="@this"
+                title="Add a new supplier" >
+
+                <p:ajax event="dialogReturn" 
+                        update=":mainTabViewForm:mainTabView:suppliersTable"/>
+
+            </p:commandButton>
+
+        </p:toolbarGroup>
+    </p:toolbar>
+
+</html>
+

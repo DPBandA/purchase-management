@@ -1,0 +1,156 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <p:panel id="purhReqStatusAndTracking" header="Status" 
+             style="margin-bottom: 1px;" > 
+        <h:panelGrid columns="1" >
+            <h:panelGroup>
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Work progress: " 
+                                   style="font-weight: bold;"
+                                   for="workProgress"/>
+                    <p:selectOneMenu id="workProgress"     
+                                     style="width: 200px;"
+                                     value="#{purchasingManager.selectedPurchaseRequisition.workProgress}">
+
+                        <f:selectItems  value="#{systemManager.workProgressList}"
+                                        var="progress"                            
+                                        itemValue="#{progress}"
+                                        itemLabel="#{progress}"/>
+
+                        <p:ajax listener="#{purchasingManager.updateWorkProgress}"
+                                global="false"
+                                update="purhReqStatusAndTracking,:purchreqDialogForm:purchreq_growl,:purchreqDialogForm:purchreqDetailToolbar1,@this"
+                                process="@this"/>
+
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Purchasing department: " style="font-weight: bold" />
+                    <p:autoComplete id="purchasingDepartment"                          
+                                    readonly="true"
+                                    styleClass="read-only-inputfield"
+                                    var="purchasingDepartment"
+                                    forceSelection="false"      
+                                    dropdown="false"
+                                    scrollHeight="200" 
+                                    size="35"
+                                    maxlength="40"
+                                    value="#{purchasingManager.selectedPurchaseRequisition.purchasingDepartment}"
+                                    itemValue="#{purchasingDepartment}"
+                                    itemLabel="#{purchasingDepartment.name}"
+                                    converter="activeDepartmentConverter"
+                                    validator="businessEntityValidator"
+                                    completeMethod="#{humanResourceManager.completeActiveDepartment}" /> 
+
+                    <h:outputText value="Procurement officer: " style="font-weight: bold" />       
+                    <p:autoComplete id="officer"
+                                    readonly="true"
+                                    styleClass="read-only-inputfield"
+                                    var="officer"                            
+                                    maxlength="40" 
+                                    value="#{purchasingManager.selectedPurchaseRequisition.procurementOfficer}"
+                                    itemLabel="#{officer.name}"
+                                    itemValue="#{officer}"
+                                    converter="activeEmployeeConverter"
+                                    validator="businessEntityValidator"
+                                    forceSelection="true"
+                                    dropdown="false"
+                                    scrollHeight="200" 
+                                    completeMethod="#{humanResourceManager.completeActiveEmployee}" />
+
+                    <h:outputText value="Completion date: " />
+                    <p:inputText readonly="true"
+                                 style="background-color: lightyellow"
+                                 value="#{systemManager.getDateStr(purchasingManager.selectedPurchaseRequisition.dateOfCompletion)}" />
+
+                    <h:outputText value="Last edited by: "/>
+                    <p:inputText readonly="true"
+                                 maxlength="250"
+                                 style="background-color: lightgrey"
+                                 value="#{purchasingManager.selectedPurchaseRequisition.editedBy.firstName} #{purchasingManager.selectedPurchaseRequisition.editedBy.lastName}" />
+
+                    <h:outputText value="Date edited: " />
+                    <p:inputText readonly="true"
+                                 style="background-color: lightgray;"
+                                 value="#{systemManager.getDateStr(purchasingManager.selectedPurchaseRequisition.dateEdited)}" />  
+                    
+                    <h:outputText value="Date required: "/>
+                    <p:calendar pattern="MMM dd, yyyy"
+                                navigator="true"          
+                                readonlyInput="true"
+                                value="#{purchasingManager.selectedPurchaseRequisition.dateRequired}" >
+
+                        <p:ajax event="dateSelect"   
+                                update=":purchreqDialogForm:purchreqDetailToolbar1"
+                                listener="#{purchasingManager.updatePurchaseReq}"/>
+
+                        <p:ajax event="change"  
+                                update=":purchreqDialogForm:purchreqDetailToolbar1"
+                                listener="#{purchasingManager.updatePurchaseReq}"/>
+
+                    </p:calendar>
+
+                    <h:outputText value="Expected date of completion: "/>
+                    <p:calendar pattern="MMM dd, yyyy"
+                                navigator="true"          
+                                readonlyInput="true"
+                                value="#{purchasingManager.selectedPurchaseRequisition.expectedDateOfCompletion}" >
+
+                        <p:ajax event="dateSelect"   
+                                update=":purchreqDialogForm:purchreqDetailToolbar1"
+                                listener="#{purchasingManager.updatePurchaseReq}"/>
+
+                        <p:ajax event="change"  
+                                update=":purchreqDialogForm:purchreqDetailToolbar1"
+                                listener="#{purchasingManager.updatePurchaseReq}"/>
+
+                    </p:calendar>                   
+
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:panelGrid>
+    </p:panel>
+    <p:panel id="statusNote" header="Status Note" rendered="#{true}" >
+        <p:inputTextarea
+            value="#{purchasingManager.selectedPurchaseRequisition.status}"
+            rows="5"
+            counter="statusNoteCharsRemaining"
+            counterTemplate="{0} characters remaining."
+            maxlength="1000"
+            style="width: 500px;">
+
+            <p:ajax event="change"
+                    global="false"        
+                    update=":purchreqDialogForm:purchreqDetailToolbar1"
+                    listener="#{purchasingManager.updatePurchaseReq}"
+                    process="@this"/>
+
+        </p:inputTextarea>
+        <br/>
+        <h:outputText id="statusNoteCharsRemaining" /> 
+    </p:panel>
+
+
+</html>

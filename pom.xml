@@ -17,14 +17,6 @@
     </properties>
     
     <dependencies>   
-        <!--
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <scope>provided</scope>
-            <version>6.2</version>
-        </dependency>  
-        -->  
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>web-application-library</artifactId>
@@ -33,7 +25,7 @@
         </dependency>                
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>financial-management</artifactId>
+            <artifactId>system-management</artifactId>
             <version>1.0.0</version>
             <type>war</type>
         </dependency>       
@@ -65,7 +57,7 @@
                     <overlays>
                         <overlay>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>financial-management</artifactId>
+                            <artifactId>system-management</artifactId>
                         </overlay>
                     </overlays>  
                 </configuration>

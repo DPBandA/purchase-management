@@ -1,0 +1,171 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">   
+
+    <h:form id="contactForm">
+        <p:dialog width="450"
+                  height="370"
+                  draggable="true"
+                  closable="false"
+                  modal="true"
+                  widgetVar="contactFormDialog"
+                  header="Contact Detail" >
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Ok"
+                                     actionListener="#{financeManager.okContact}"
+                                     icon="ui-icon-check"                                
+                                     update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:contactsTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
+                                     process="@form"/>
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Cancel"                                 
+                                     icon="ui-icon-close"
+                                     oncomplete="PF('contactFormDialog').hide();"
+                                     process="@this" />
+                </p:toolbarGroup>
+            </p:toolbar>                
+            <p:panel style="margin-top: 1px;margin-bottom: 1px;">
+                <h:panelGrid columns="2" style="width: 85%">
+
+                    <h:outputText value="Type:" style="font-weight: bold" />
+                    <p:selectOneMenu value="#{financeManager.selectedSupplierContact.type}"
+                                     id="contactType" 
+                                     maxlength="50"
+                                     validator="contactValidator">
+                        <p:ajax
+                            event="change"
+                            global="true"
+                            listener="#{financeManager.updateSupplierContact}"
+                            process="@this" />
+                        <f:selectItem itemLabel="Main" itemValue="Main" />
+                        <f:selectItem itemLabel="General" itemValue="General" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Title:" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.title}"
+                                 maxlength="50"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>               
+
+                    <h:outputText value="Firstname:" style="font-weight: bold" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.firstName}"
+                                 id="contactFirstname"
+                                 maxlength="50"
+                                 validator="contactValidator"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Lastname:" style="font-weight: bold" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.lastName}"
+                                 id="contactLastname"
+                                 maxlength="50"
+                                 validator="contactValidator"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Position:" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.position}"
+                                 maxlength="50"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Phone:" />
+                    <p:inputText 
+                        value="#{financeManager.selectedSupplierContact.mainPhoneNumber.localNumber}"
+                                 maxlength="50"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Email:" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.internet.email1}"
+                                 maxlength="50"
+                                 style="width: 100%" >                
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Website:" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.internet.website1}"
+                                 maxlength="50"
+                                 style="width: 100%" >
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Fax:" />
+                    <p:inputText value="#{financeManager.selectedSupplierContact.mainFaxNumber.localNumber}"
+                                 maxlength="50"
+                                 style="width: 100%">
+                        <p:ajax event="change"
+                                global="true"                                    
+                                listener="#{financeManager.updateSupplierContact}"
+                                process="@this"/>
+                    </p:inputText>
+
+                </h:panelGrid>
+            </p:panel>
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Ok"
+                                     actionListener="#{financeManager.okContact}"
+                                     icon="ui-icon-check"                                
+                                     update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:contactsTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
+                                     process="@form"/>
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Cancel"                                 
+                                     icon="ui-icon-close"
+                                     oncomplete="PF('contactFormDialog').hide();"
+                                     process="@this" />
+                </p:toolbarGroup>
+            </p:toolbar>         
+
+        </p:dialog>
+    </h:form>    
+</html>

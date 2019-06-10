@@ -1,0 +1,221 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form id="purchreqCostingCompDialogForm">
+        <p:dialog width="450"
+                  height="auto"
+                  draggable="true"
+                  modal="true"
+                  widgetVar="purchreqCostingCompDialog"
+                  header="Goods or Service Costing Component" >   
+            <p:toolbar style="margin-bottom: 1px;">
+                <p:toolbarGroup>
+                    <p:commandButton value="Ok"
+                                     actionListener="#{purchasingManager.okCostingComponent}"
+                                     update=":purchreqDialogForm:purchreqDetailToolbar1,:purchreqDialogForm:purchreqFormTabView:costComponentTable,:purchreqDialogForm:purchreq_growl"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     oncomplete="PF('longProcessDialogVar').hide();"
+                                     icon="ui-icon ui-icon-check"
+                                     process="@form"/>
+                    <p:spacer width="5" />
+                    <p:commandButton value="Cancel" 
+                                     immediate="true"
+                                     actionListener="#{purchasingManager.cancelCostComponentEdit}"
+                                     update=""
+                                     onstart="PF('longProcessDialogVar').show();"                              
+                                     oncomplete="PF('purchreqCostingCompDialog').hide();PF('longProcessDialogVar').hide();"
+                                     icon="ui-icon-close"/>
+                </p:toolbarGroup>
+            </p:toolbar>            
+            <p:panel>
+                <h:panelGrid id="costingComponentPanelGrid" columns="3" style="width: 100%">
+                    <h:outputLabel value="Cost type:" for="costComponentType" style="font-weight: bold;" />
+                    <p:spacer height="0" width="10"/>
+                    <p:selectOneMenu id="costComponentType" 
+                                     value="#{purchasingManager.selectedCostComponent.type}">
+
+                        <f:selectItems  value="#{purchasingManager.costTypeList}"
+                                        var="type"                            
+                                        itemValue="#{type}"
+                                        itemLabel="#{type}"/>
+
+                        <p:ajax listener="#{purchasingManager.updateCostType}"
+                                update="costingComponentPanelGrid"
+                                process="@this" />
+                        
+                    </p:selectOneMenu>    
+                    
+                    <h:outputLabel value="Cost code:" 
+                                   rendered="#{!purchasingManager.selectedCostComponent.isHeading}" />
+                    <p:spacer height="0" width="10"
+                              rendered="#{!purchasingManager.selectedCostComponent.isHeading}" />
+                    <p:inputText id="costCode"
+                                 value="#{purchasingManager.selectedCostComponent.code}"
+                                 rendered="#{!purchasingManager.selectedCostComponent.isHeading}"
+                                 styleClass="number-field"
+                                 style="width: 90%">
+                        <p:ajax event="keyup"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                process="@this"/>
+                        <p:ajax event="change"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputLabel value="Component:" style="font-weight: bold" />
+                    <p:spacer height="0" width="10"/>                   
+                    <p:inputTextarea  value="#{purchasingManager.selectedCostComponent.name}"
+                                      id="costComponentName"
+                                      validator="requiredFieldValidator"
+                                      maxlength="250"
+                                      rows="2"
+                                      autoResize="false"
+                                      style="width: 90%;" >
+                        
+                        <p:ajax event="change"
+                                    global="false" 
+                                    listener="#{purchasingManager.updateSelectedCostComponent}" 
+                                    process="@this"/>
+                        
+                    </p:inputTextarea>
+
+                    <h:outputLabel rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                                   value="Hours/Qty:" 
+                                   style="font-weight: bold;" />
+                    <p:spacer rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                              height="0" width="10"/>
+                    <p:inputText rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                                 id="costComponentHoursOrQuantity"
+                                 value="#{purchasingManager.selectedCostComponent.hoursOrQuantity}"
+                                 styleClass="number-field"
+                                 validator="requiredFieldValidator"
+                                 converterMessage="Invalid Component Hours/Quantity"
+                                 style="width: 90%">
+                        <f:convertNumber />
+                        <p:ajax event="keyup"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                update="purchreqCostingCompDialogForm:costComponentCost"
+                                process="@this"/>
+                        <p:ajax event="change"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                update="purchreqCostingCompDialogForm:costComponentCost"
+                                process="@this"/>
+                    </p:inputText>
+
+                    <h:outputLabel rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                                   value="Rate ($/hr/qty):" style="font-weight: bold;" />
+                    <p:spacer rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                              height="0" width="10"/>
+                    <p:inputText rendered="#{!purchasingManager.selectedCostComponent.renderFixedCostingComponentFormFields}" 
+                                 id="costComponentRate"
+                                 value="#{purchasingManager.selectedCostComponent.rate}"
+                                 style="width: 90%"
+                                 styleClass="number-field" 
+                                 validator="requiredFieldValidator"
+                                 converterMessage="Invalid Component Rate" >
+                        <f:convertNumber />
+                        <p:ajax event="keyup"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                update="purchreqCostingCompDialogForm:costComponentCost"
+                                process="@this"/>
+                        <p:ajax event="change"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                update="purchreqCostingCompDialogForm:costComponentCost"
+                                process="@this"/>
+                    </p:inputText>
+                    
+                    <h:outputLabel  rendered="#{!purchasingManager.selectedCostComponent.isHeading}"
+                                   value="Unit:" />
+                    <p:spacer  rendered="#{!purchasingManager.selectedCostComponent.isHeading}" 
+                              height="0" width="10"/>
+                    <p:inputText  rendered="#{!purchasingManager.selectedCostComponent.isHeading}" 
+                                 id="costComponentUnit"
+                                 value="#{purchasingManager.selectedCostComponent.unit}"
+                                 style="width: 90%" >
+                        
+                        <p:ajax event="keyup"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                process="@this"/>
+                        
+                        <p:ajax event="change"
+                                global="false"
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                process="@this"/>
+                        
+                    </p:inputText>
+
+                    <h:outputLabel rendered="#{!purchasingManager.selectedCostComponent.isHeading}" 
+                                   value="Cost ($):" style="font-weight: bold;" />
+                    <p:spacer rendered="#{!purchasingManager.selectedCostComponent.isHeading}" height="0" width="10"/>
+                    <p:inputText id="costComponentCost"
+                                 style="width: 90%;"
+                                 rendered="#{!purchasingManager.selectedCostComponent.isHeading}"                            
+                                 value="#{purchasingManager.selectedCostComponent.cost}"
+                                 readonly="#{purchasingManager.selectedCostComponent.isCostReadOnly}"
+                                 validator="requiredFieldValidator"
+                                 converterMessage="Invalid Component Cost"
+                                 styleClass="number-field #{purchasingManager.selectedCostComponent.isCostReadOnly ? 'editableclass' : null}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        <p:ajax event="change"
+                                global="false"                            
+                                listener="#{purchasingManager.updateSelectedCostComponent}"
+                                process="@this"/>
+                    </p:inputText>
+                    <h:outputText value=" "
+                                  rendered="#{purchasingManager.selectedCostComponent.isHeading}" />
+                </h:panelGrid>
+            </p:panel>            
+            <p:toolbar style="margin-top: 1px;">
+                <p:toolbarGroup>
+                    <p:toolbarGroup>
+                    <p:commandButton value="Ok"
+                                     actionListener="#{purchasingManager.okCostingComponent}"
+                                     update=":purchreqDialogForm:purchreqDetailToolbar1,:purchreqDialogForm:purchreqFormTabView:costComponentTable,:purchreqDialogForm:purchreq_growl"
+                                     onstart="PF('longProcessDialogVar').show();" 
+                                     oncomplete="PF('longProcessDialogVar').hide();"
+                                     icon="ui-icon ui-icon-check"
+                                     process="@form"/>
+                    <p:spacer width="5" />
+                    <p:commandButton value="Cancel" 
+                                     immediate="true"
+                                     actionListener="#{purchasingManager.cancelCostComponentEdit}"
+                                     update=""
+                                     onstart="PF('longProcessDialogVar').show();"                              
+                                     oncomplete="PF('purchreqCostingCompDialog').hide();PF('longProcessDialogVar').hide();"
+                                     icon="ui-icon-close"/>
+                </p:toolbarGroup>
+                </p:toolbarGroup>
+            </p:toolbar> 
+            <p/>
+        </p:dialog>
+    </h:form>    
+</html>

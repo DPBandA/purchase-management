@@ -1,0 +1,53 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <p:growl id="purchreq_growl" life="5000" showDetail="true" />
+
+    <ui:include src="purchreqDetailTopToolbar.xhtml"/>
+
+    <p:tabView id="purchreqFormTabView"
+               style="margin-top: 1px;margin-bottom: 1px;"               
+               widgetVar="purchreqFormTabVar" >
+
+        <p:tab title="General" >
+            <ui:include src="purchreqGeneralTab.xhtml"/>
+        </p:tab>  
+
+        <p:tab title="Goods and Services" >
+            <ui:include src="purchreqGoodsAndServices.xhtml"/>
+        </p:tab>        
+        
+        <p:tab title="Order Detail" >
+            <ui:include src="orderDetailTab.xhtml" />
+        </p:tab>
+
+        <p:tab title="Status &amp; Tracking" >
+            <ui:include src="purchreqStatusAndTrackingTab.xhtml" />
+        </p:tab>            
+
+    </p:tabView>
+
+    <ui:include src="purchreqDetailBottomToolbar.xhtml"/>
+
+    <p/>       
+</html>

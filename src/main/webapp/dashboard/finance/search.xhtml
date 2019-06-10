@@ -1,0 +1,109 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:panel id="purchSearchPanel" header="Search" >
+
+        <h:panelGrid columns="2" cellspacing="5">
+            <h:outputText value="Search type: " />
+            <p:selectOneMenu value="#{purchasingManager.searchType}" 
+                             style="width: 95%;">
+
+                <f:selectItems value="#{purchasingManager.searchTypes}" />
+
+                <p:ajax update="purchSearchPanel" 
+                        process="@this" />
+
+            </p:selectOneMenu>
+
+            <h:outputText id="purchDateFieldLabel" value="Date field: " 
+                          rendered="#{purchasingManager.renderDateSearchFields}" />
+            <p:selectOneMenu value="#{purchasingManager.dateSearchPeriod.dateField}" 
+                             id="purchDateField"
+                             rendered="#{purchasingManager.renderDateSearchFields}"
+                             style="width: 95%;" >
+                <p:ajax                        
+                    listener="#{purchasingManager.updateDateSearchField}"
+                    process="@this" />
+
+                <f:selectItems value="#{purchasingManager.dateSearchFields}" />
+
+            </p:selectOneMenu>
+
+            <h:outputText value="Date period: " rendered="#{purchasingManager.renderDateSearchFields}" />               
+            <p:selectOneMenu value= "#{purchasingManager.dateSearchPeriod.name}" 
+                             rendered="#{purchasingManager.renderDateSearchFields}"
+                             id="purchDatePeriod"
+                             style="width: 95%;" >
+
+                <p:ajax listener="#{purchasingManager.dateSearchPeriod.initDatePeriod}"
+                        update="purchStartSearchDate,purchEndSearchDate"
+                        process="@this" />
+
+                <f:selectItems value="#{systemManager.datePeriods}"/>
+
+            </p:selectOneMenu>
+            <h:outputText value="Start:"  
+                          rendered="#{purchasingManager.renderDateSearchFields}" />
+            <p:calendar id="purchStartSearchDate"
+                        rendered="#{purchasingManager.renderDateSearchFields}"
+                        value="#{purchasingManager.dateSearchPeriod.startDate}"                    
+                        size="17"
+                        navigator="true"
+                        validator="requiredFieldValidator"
+                        disabled="#{purchasingManager.dateSearchPeriod.startDateDisabled}"
+                        pattern="MMM dd, yyyy" />
+
+            <h:outputText value="End:" rendered="#{purchasingManager.renderDateSearchFields}" />
+            <p:calendar id="purchEndSearchDate"
+                        rendered="#{purchasingManager.renderDateSearchFields}"
+                        value="#{purchasingManager.dateSearchPeriod.endDate}"
+                        size="17"
+                        navigator="true"
+                        validator="requiredFieldValidator"
+                        disabled="#{purchasingManager.dateSearchPeriod.endDateDisabled}"
+                        pattern="MMM dd, yyyy" />
+
+        </h:panelGrid>   
+        <p:toolbar>
+            <p:toolbarGroup align="right" >
+                <p:inputText value="#{purchasingManager.searchText}"  
+                             id="searchText2"
+                             style="width: 50%;" />  
+
+                <p:spacer width="5" />
+                <p:commandButton value="Search"
+                                 onstart="PF('longProcessDialogVar').show();"
+                                 actionListener="#{purchasingManager.doSearch}"
+                                 oncomplete="PF('longProcessDialogVar').hide();"
+                                 onerror="PF('connectionErrorDialog').show();"
+                                 update=":headerForm:growl3"
+                                 icon="ui-icon-search"
+                                 process="@form"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+        <p:watermark value="Enter search text" for="searchText2" />   
+    </p:panel>
+</html>
