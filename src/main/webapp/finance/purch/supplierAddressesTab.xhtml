@@ -30,7 +30,7 @@ Email: info@dpbennett.com.jm
                              update=":addressForm"
                              title="Add new address"
                              oncomplete="PF('addressFormDialog').show();"
-                             actionListener="#{financeManager.createNewSupplierAddress}" 
+                             actionListener="#{purchasingManager.createNewSupplierAddress}" 
                              process="@this" >
 
                 <p:resetInput target=":addressForm" />
@@ -42,7 +42,7 @@ Email: info@dpbennett.com.jm
                  var="address"
                  paginator="true"                                 
                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 value="#{financeManager.supplierAddressesModel}">
+                 value="#{purchasingManager.supplierAddressesModel}">
 
         <f:facet name="header">
             Addresses
@@ -70,7 +70,7 @@ Email: info@dpbennett.com.jm
                         <p:resetInput target=":addressForm" />
 
                         <f:setPropertyActionListener value="#{address}"
-                                                     target="#{financeManager.selectedSupplierAddress}" />
+                                                     target="#{purchasingManager.selectedSupplierAddress}" />
 
                     </p:commandButton>            
                 </p:menuitem>
@@ -85,7 +85,7 @@ Email: info@dpbennett.com.jm
                         title="Delete this address">
 
                         <f:setPropertyActionListener value="#{address}"
-                                                     target="#{financeManager.selectedSupplierAddress}" />
+                                                     target="#{purchasingManager.selectedSupplierAddress}" />
 
                     </p:commandButton>
                 </p:menuitem>
@@ -100,7 +100,7 @@ Email: info@dpbennett.com.jm
                              update=":addressForm"
                              title="Add new address"
                              oncomplete="PF('addressFormDialog').show();"
-                             actionListener="#{financeManager.createNewSupplierAddress}" 
+                             actionListener="#{purchasingManager.createNewSupplierAddress}" 
                              process="@this" >
 
                 <p:resetInput target=":addressForm" />

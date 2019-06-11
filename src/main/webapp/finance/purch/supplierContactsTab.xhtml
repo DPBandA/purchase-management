@@ -31,7 +31,7 @@ Email: info@dpbennett.com.jm
                              title="Add new contact"
                              update=":contactForm"
                              oncomplete="PF('contactFormDialog').show();"
-                             actionListener="#{financeManager.createNewSupplierContact}" 
+                             actionListener="#{purchasingManager.createNewSupplierContact}" 
                              process="@this" >
 
                 <p:resetInput target=":contactForm" />
@@ -44,7 +44,7 @@ Email: info@dpbennett.com.jm
                  var="contact"   
                  paginator="true"  
                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 value="#{financeManager.supplierContactsModel}">
+                 value="#{purchasingManager.supplierContactsModel}">
 
         <f:facet name="header">
             Contacts
@@ -92,7 +92,7 @@ Email: info@dpbennett.com.jm
                         <p:resetInput target=":contactForm" />
 
                         <f:setPropertyActionListener value="#{contact}"
-                                                     target="#{financeManager.selectedSupplierContact}" />
+                                                     target="#{purchasingManager.selectedSupplierContact}" />
 
                     </p:commandButton>            
                 </p:menuitem>
@@ -107,7 +107,7 @@ Email: info@dpbennett.com.jm
                         title="Delete this contact">
 
                         <f:setPropertyActionListener value="#{contact}"
-                                                     target="#{financeManager.selectedSupplierContact}" />
+                                                     target="#{purchasingManager.selectedSupplierContact}" />
 
                     </p:commandButton>
                 </p:menuitem>
@@ -123,7 +123,7 @@ Email: info@dpbennett.com.jm
                              title="Add new contact"
                              update=":contactForm"
                              oncomplete="PF('contactFormDialog').show();"
-                             actionListener="#{financeManager.createNewSupplierContact}" 
+                             actionListener="#{purchasingManager.createNewSupplierContact}" 
                              process="@this" >
 
                 <p:resetInput target=":contactForm" />

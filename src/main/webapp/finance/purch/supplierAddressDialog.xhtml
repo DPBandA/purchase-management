@@ -34,7 +34,7 @@ Email: info@dpbennett.com.jm
             <p:toolbar>
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Ok"
-                                     actionListener="#{financeManager.okSupplierAddress}"
+                                     actionListener="#{purchasingManager.okSupplierAddress}"
                                      icon="ui-icon-check"
                                      update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:addressesTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
                                      process="@form" />
@@ -48,14 +48,14 @@ Email: info@dpbennett.com.jm
             <p:panel style="margin-top: 1px;margin-bottom: 1px;">
                 <h:panelGrid columns="2" style="width: 85%">       
                     <h:outputText value="Type:" style="font-weight: bold" />
-                    <p:selectOneMenu value="#{financeManager.selectedSupplierAddress.type}"
+                    <p:selectOneMenu value="#{purchasingManager.selectedSupplierAddress.type}"
                                      id="addressType"
                                      validator="addressLineValidator"
                                      editable="true" >
                         <p:ajax
                             event="change"
                             global="true"
-                            listener="#{financeManager.updateSupplierAddress}"
+                            listener="#{purchasingManager.updateSupplierAddress}"
                             process="@this" />
 
                         <f:selectItem itemLabel="Billing" itemValue="Billing" />
@@ -63,44 +63,44 @@ Email: info@dpbennett.com.jm
                     </p:selectOneMenu>
 
                     <h:outputText value="Address (line 1):" style="font-weight: bold" />
-                    <p:inputText value="#{financeManager.selectedSupplierAddress.addressLine1}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierAddress.addressLine1}"
                                  id="addressLine1"
                                  maxlength="50"
                                  validator="addressLineValidator"
                                  style="width: 100%">
                         <p:ajax event="change"
                                 global="true"
-                                listener="#{financeManager.updateSupplierAddress}"
+                                listener="#{purchasingManager.updateSupplierAddress}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Address (line 2):" />
-                    <p:inputText value="#{financeManager.selectedSupplierAddress.addressLine2}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierAddress.addressLine2}"
                                  id="addressLine2"     
                                  maxlength="50"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"
-                                listener="#{financeManager.updateSupplierAddress}"
+                                listener="#{purchasingManager.updateSupplierAddress}"
                                 process="@this"/>
                     </p:inputText>                
 
                     <h:outputText value="Nearest City/Town:" style="font-weight: bold"/>
-                    <p:inputText value="#{financeManager.selectedSupplierAddress.city}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierAddress.city}"
                                  id="addressCity"
                                  maxlength="50"
                                  validator="addressLineValidator"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"
-                                listener="#{financeManager.updateSupplierAddress}"
+                                listener="#{purchasingManager.updateSupplierAddress}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Parish/State/Province:" style="font-weight: bold" />
                     <h:panelGroup>
                         <p:selectOneMenu
-                            value="#{financeManager.selectedSupplierAddress.stateOrProvince}"   
+                            value="#{purchasingManager.selectedSupplierAddress.stateOrProvince}"   
                             id="parishStateProvince"
                             maxlength="50"
                             validator="addressLineValidator"
@@ -108,7 +108,7 @@ Email: info@dpbennett.com.jm
                             <p:ajax
                                 global="true"
                                 event="change"
-                                listener="#{financeManager.updateSupplierAddress}"
+                                listener="#{purchasingManager.updateSupplierAddress}"
                                 process="@this" />
                             <f:selectItems value="#{systemManager.jamaicaParishes}" />
                         </p:selectOneMenu>  
@@ -116,7 +116,7 @@ Email: info@dpbennett.com.jm
                     </h:panelGroup>
 
                     <h:outputText value="Country:" />
-                    <p:autoComplete value="#{financeManager.selectedSupplierAddress.country}"     
+                    <p:autoComplete value="#{purchasingManager.selectedSupplierAddress.country}"     
                                     id="country"
                                     forceSelection="true"  
                                     maxlength="40"
@@ -125,11 +125,11 @@ Email: info@dpbennett.com.jm
                                     completeMethod="#{systemManager.completeCountry}" >
 
                                     <p:ajax event="itemSelect"                              
-                            listener="#{financeManager.updateSupplierAddress}"
+                            listener="#{purchasingManager.updateSupplierAddress}"
                             process="@this" />      
 
                         <p:ajax event="change"                              
-                                listener="#{financeManager.updateSupplierAddress}"
+                                listener="#{purchasingManager.updateSupplierAddress}"
                                 process="@this" />    
 
                     </p:autoComplete>
@@ -139,7 +139,7 @@ Email: info@dpbennett.com.jm
             <p:toolbar>
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Ok"
-                                     actionListener="#{financeManager.okSupplierAddress}"
+                                     actionListener="#{purchasingManager.okSupplierAddress}"
                                      icon="ui-icon-check"
                                      update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:addressesTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
                                      process="@form" />

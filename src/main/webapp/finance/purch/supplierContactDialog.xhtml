@@ -36,7 +36,7 @@ Email: info@dpbennett.com.jm
             <p:toolbar>
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Ok"
-                                     actionListener="#{financeManager.okContact}"
+                                     actionListener="#{purchasingManager.okContact}"
                                      icon="ui-icon-check"                                
                                      update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:contactsTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
                                      process="@form"/>
@@ -51,101 +51,101 @@ Email: info@dpbennett.com.jm
                 <h:panelGrid columns="2" style="width: 85%">
 
                     <h:outputText value="Type:" style="font-weight: bold" />
-                    <p:selectOneMenu value="#{financeManager.selectedSupplierContact.type}"
+                    <p:selectOneMenu value="#{purchasingManager.selectedSupplierContact.type}"
                                      id="contactType" 
                                      maxlength="50"
                                      validator="contactValidator">
                         <p:ajax
                             event="change"
                             global="true"
-                            listener="#{financeManager.updateSupplierContact}"
+                            listener="#{purchasingManager.updateSupplierContact}"
                             process="@this" />
                         <f:selectItem itemLabel="Main" itemValue="Main" />
                         <f:selectItem itemLabel="General" itemValue="General" />
                     </p:selectOneMenu>
 
                     <h:outputText value="Title:" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.title}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.title}"
                                  maxlength="50"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>               
 
                     <h:outputText value="Firstname:" style="font-weight: bold" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.firstName}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.firstName}"
                                  id="contactFirstname"
                                  maxlength="50"
                                  validator="contactValidator"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Lastname:" style="font-weight: bold" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.lastName}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.lastName}"
                                  id="contactLastname"
                                  maxlength="50"
                                  validator="contactValidator"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Position:" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.position}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.position}"
                                  maxlength="50"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Phone:" />
                     <p:inputText 
-                        value="#{financeManager.selectedSupplierContact.mainPhoneNumber.localNumber}"
+                        value="#{purchasingManager.selectedSupplierContact.mainPhoneNumber.localNumber}"
                                  maxlength="50"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Email:" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.internet.email1}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.internet.email1}"
                                  maxlength="50"
                                  style="width: 100%" >                
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Website:" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.internet.website1}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.internet.website1}"
                                  maxlength="50"
                                  style="width: 100%" >
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
                     <h:outputText value="Fax:" />
-                    <p:inputText value="#{financeManager.selectedSupplierContact.mainFaxNumber.localNumber}"
+                    <p:inputText value="#{purchasingManager.selectedSupplierContact.mainFaxNumber.localNumber}"
                                  maxlength="50"
                                  style="width: 100%">
                         <p:ajax event="change"
                                 global="true"                                    
-                                listener="#{financeManager.updateSupplierContact}"
+                                listener="#{purchasingManager.updateSupplierContact}"
                                 process="@this"/>
                     </p:inputText>
 
@@ -154,7 +154,7 @@ Email: info@dpbennett.com.jm
             <p:toolbar>
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Ok"
-                                     actionListener="#{financeManager.okContact}"
+                                     actionListener="#{purchasingManager.okContact}"
                                      icon="ui-icon-check"                                
                                      update=":supplierForm:supplier_growl,:supplierForm:supplierFormTabView:contactsTable,:supplierForm:supplierFormTabView:generalDetailsPanelGrid"
                                      process="@form"/>
