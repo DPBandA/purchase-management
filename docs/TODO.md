@@ -1,6 +1,6 @@
 ### Initial Implementation
 - Move/Update PR/PM related code from FM to PM.
-  * Update files in purch folder to user PM and not FM.
+  * Update files in purch folder to user PM and not FM. Continue with supplierDialog.xhtml.
 - Ensure that component ids and code are updated to reflect the move of PM out of 
   FM and vice versa.
 - Move purchasing related files from FM to PM. Make PM independent of FM as much as possible.
