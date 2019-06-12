@@ -1,6 +1,12 @@
+### JMTS A/R Update:
+* Complete update of FM. Check why search does not work in fin admin.
+* Ensure PM and FM still work with JMTS
+* Insert order number into invoices spreadsheet
+* Build and deploy updated JMTS
+* Prepare and send invoice to RA.
+
 ### Initial Implementation
-- Move/Update PR/PM related code from FM to PM.
-  * Update files in purch folder to user PM and not FM. Continue with supplierDialog.xhtml.
+- Allow searching for suppliers with no search text.
 - Ensure that component ids and code are updated to reflect the move of PM out of 
   FM and vice versa.
 - Move purchasing related files from FM to PM. Make PM independent of FM as much as possible.
@@ -46,6 +52,6 @@ implement Asset class
 
 ### Database Update
 - costcomponent table:
-- Add currency class by running BEL code.
+- Add currency table by running BEL code.
 
 

@@ -26,24 +26,24 @@ Email: info@dpbennett.com.jm
     <h:panelGrid columns="4" cellspacing="10">
 
         <h:outputText value="Entered by:" />           
-        <p:inputText value="#{financeManager.selectedSupplier.enteredBy.name}"
+        <p:inputText value="#{purchasingManager.selectedSupplier.enteredBy.name}"
                      readonly="true" 
                      style="background-color: lightgray !important;" />  
 
         <h:outputText value="Date entered: " />
-        <p:calendar value="#{financeManager.selectedSupplier.dateEntered}"                                                            
+        <p:calendar value="#{purchasingManager.selectedSupplier.dateEntered}"                                                            
                     readonly="true"
                     readonlyInput="true"
                     showOn="none"   
                     pattern="MMM dd, yyyy" />     
 
         <h:outputText value="Edited by:" />            
-        <p:inputText value="#{financeManager.selectedSupplier.editedBy.name}"                        
+        <p:inputText value="#{purchasingManager.selectedSupplier.editedBy.name}"                        
                      readonly="true" 
                      style="background-color: lightgray !important;" />  
 
         <h:outputText value="Date edited: " />
-        <p:calendar value="#{financeManager.selectedSupplier.dateEdited}"  
+        <p:calendar value="#{purchasingManager.selectedSupplier.dateEdited}"  
                     readonly="true"
                     readonlyInput="true"
                     showOn="none"   
