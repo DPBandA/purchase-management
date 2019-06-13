@@ -1,5 +1,4 @@
 ### JMTS A/R Update:
-* Complete update of FM. Check why search does not work in fin admin.
 * Ensure PM and FM still work with JMTS
 * Insert order number into invoices spreadsheet
 * Build and deploy updated JMTS
@@ -43,6 +42,9 @@
 - Remove the default values from all parameters.
 - Implement feature to send PO to supplier.
 - Implement editing cost components in the table in the PR dialog?
+- Add "CANACCESSPROCUREMENTUNIT" to the Privilege class to control access to PM. 
+  This is temp cause the Module along with the Privilege class will be used in 
+  future to control module access.
 
 
 ### UI Design
@@ -52,6 +54,7 @@ implement Asset class
 
 ### Database Update
 - costcomponent table:
+- privilege table: CANACCESSPROCUREMENTUNIT
 - Add currency table by running BEL code.
 
 
