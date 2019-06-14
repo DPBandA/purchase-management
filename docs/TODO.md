@@ -1,8 +1,7 @@
 ### JMTS A/R Update:
-* Ensure PM and FM still work with JMTS
-* Insert order number into invoices spreadsheet
-* Build and deploy updated JMTS
-* Prepare and send invoice to RA.
+* Build and release on github.
+* Deploy updated JMTS
+* Prepare and send proforma/invoice to RA.
 
 ### Initial Implementation
 - Allow searching for suppliers with no search text.
