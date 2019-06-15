@@ -1,5 +1,5 @@
 ### Initial Implementation
-- Allow searching for suppliers with no search text.
+- Allow searching for suppliers with no search text..
 - Ensure that component ids and code are updated to reflect the move of PM out of 
   FM and vice versa.
 - Move purchasing related files from FM to PM. Make PM independent of FM as much as possible.
