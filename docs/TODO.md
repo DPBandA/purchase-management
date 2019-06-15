@@ -1,8 +1,3 @@
-### JMTS A/R Update:
-* Build and release on github.
-* Deploy updated JMTS
-* Prepare and send proforma/invoice to RA.
-
 ### Initial Implementation
 - Allow searching for suppliers with no search text.
 - Ensure that component ids and code are updated to reflect the move of PM out of 
