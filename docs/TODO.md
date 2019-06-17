@@ -50,7 +50,7 @@ implement Asset class
 ### Database Update
 - costcomponent table:
 - privilege table: CANACCESSPROCUREMENTUNIT
-- purchaserequisition table: DELIVERYDATEREQUIRED
+- purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
 - Add currency table by running BEL code.
 
 
