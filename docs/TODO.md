@@ -39,7 +39,8 @@
 - Add "CANACCESSPROCUREMENTUNIT" to the Privilege class to control access to PM. 
   This is temp cause the Module along with the Privilege class will be used in 
   future to control module access.
-
+- Let add supplier privilege be true by default?
+- Parish/State/Province autocomplete does not seem to work. Fix.
 
 ### UI Design
 - Look where the help button or menu is out in the PrimeFaces demos.
@@ -49,6 +50,7 @@ implement Asset class
 ### Database Update
 - costcomponent table:
 - privilege table: CANACCESSPROCUREMENTUNIT
+- purchaserequisition table: DELIVERYDATEREQUIRED
 - Add currency table by running BEL code.
 
 
