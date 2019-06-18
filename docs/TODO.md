@@ -1,4 +1,5 @@
 ### Initial Implementation
+- Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases.
   * Add PO fields in the PR class to the PR form "Order Details" tab.
