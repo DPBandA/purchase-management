@@ -1,6 +1,4 @@
 ### Initial Implementation
-- Allow searching for suppliers with no search text..
-- Move purchasing related files from FM to PM. Make PM independent of FM as much as possible.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases.
   * Add PO fields in the PR class to the PR form "Order Details" tab.
