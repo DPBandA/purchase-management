@@ -1,4 +1,5 @@
 ### Initial Implementation
+- Put checkbox in menu item for selecting module in "User" menu.
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases.
