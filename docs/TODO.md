@@ -1,8 +1,7 @@
 ### Initial Implementation
-- Put checkbox in menu item for selecting module in "User" menu.
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
-  * Add new PO fields to ALL databases.
+  * Add new PO fields to ALL databases..
   * Add PO fields in the PR class to the PR form "Order Details" tab.
 - For PO form get the terms and conditions from the printed form and place after the page break in the jasper form.
 - Use "Regular" and "Urgent" as priority codes.
