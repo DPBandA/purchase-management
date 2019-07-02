@@ -17,6 +17,8 @@
 - Link to Accpac and do budget allocation.Canceling a PR/PO should reverse Accpac budget allocation.
 - Create report to show Accpac budget allocations.
 - Get suppliers from Accpac.
+- Create currency class and add it to the CostComponent class. Let Currency class
+implement Asset class.
 - Only allow one of the set positions to approve otherwise an approval date will not be shown. Add system option that sets the positions that can approve PR.
 - Indicate the number of approvals in the email template?
 - Add the supplier address to the PR and PO form.
@@ -40,9 +42,7 @@
 - Parish/State/Province autocomplete does not seem to work. Fix.
 
 ### UI Design
-- Look where the help button or menu is out in the PrimeFaces demos.
-- Create currency class and add it to the CostComponent class. Let Currency class
-implement Asset class
+- Put "Help" and "About" menu items in the "User" menu.
 
 ### Database Update
 - costcomponent table:
