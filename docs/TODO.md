@@ -1,4 +1,6 @@
 ### Initial Implementation
+- Implement adding links to attachments or uploading to server.
+  * Implement the Attachment class and use it create list of attachments to PR   
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases..
@@ -12,7 +14,6 @@
 - Add the total amount to the PR emails templates.
 - Send automatic PR emails to admin assistant of a department/division.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class to facilitate conversion between currencies using static methods. Currency class should have the ISO symbol and abbreviation.
-- Implement adding links to attachments or uploading to server.
 - The "on hand now" field to the PR should link to inventory.
 - Link to Accpac and do budget allocation.Canceling a PR/PO should reverse Accpac budget allocation.
 - Create report to show Accpac budget allocations.
