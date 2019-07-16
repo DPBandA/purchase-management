@@ -1,6 +1,7 @@
 ### Initial Implementation
 - Implement adding links to attachments or uploading to server.
-  * Implement the Attachment class and use it create list of attachments to PR   
+  * Implement the Attachment class and use it create list of attachments to PR 
+  * Add table of attachments to PR dialog.  
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases..
