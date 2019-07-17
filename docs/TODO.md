@@ -36,12 +36,8 @@ implement Asset class.
 - Centre "Suggested Supplier:" static text with the text field. It is not centred when exported to PDF on Linux. See if it is the same on Windows.
 - Remove the default values from all parameters.
 - Implement feature to send PO to supplier.
-- Implement editing cost components in the table in the PR dialog?
+- Implement enabling a module for a user.
 - Add "CANACCESSPROCUREMENTUNIT" to the Privilege class to control access to PM. 
-  This is temp cause the Module along with the Privilege class will be used in 
-  future to control module access.
-- Let add supplier privilege be true by default?
-- Parish/State/Province autocomplete does not seem to work. Fix.
 
 ### UI Design
 - Put "Help" and "About" menu items in the "User" menu.
@@ -50,6 +46,7 @@ implement Asset class.
 - costcomponent table:
 - privilege table: CANACCESSPROCUREMENTUNIT
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
+- Add attachment table by running BEL code
 - Add currency table by running BEL code.
 
 
