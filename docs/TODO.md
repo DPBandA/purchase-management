@@ -30,17 +30,15 @@ implement Asset class.
 - Fix up PR jasper form by removing the overlapping line and put in missing borders.
 - Values that are 0 set them n/a in the PR form and change the corresponding parameter types to String.
 - Make sure that more than one person with the same position cannot approve PR.
-- Take the approvers section out of the page footer of the PR form and put it at the end of the report.
-- Make the PO box the same width as the Rate and Cost column heading width combined.
-- Right justify the total cost in the PR form.
-- Centre "Suggested Supplier:" static text with the text field. It is not centred when exported to PDF on Linux. See if it is the same on Windows.
-- Remove the default values from all parameters.
-- Implement feature to send PO to supplier.
-- Implement enabling a module for a user.
-- Add "CANACCESSPROCUREMENTUNIT" to the Privilege class to control access to PM. 
 
 ### UI Design
 - Put "Help" and "About" menu items in the "User" menu.
+PR/PO form:
+- Take the approvers section out of the page footer of the PR form and put it at the end of the report.
+- Make the PO box the same width as the Rate and Cost column heading width combined.
+- Right justify the total cost in the PR form.
+- Centre "Suggested Supplier:" static text with the text field. It is not centred. 
+  when exported to PDF on Linux. See if it is the same on Windows.
 
 ### Database Update
 - costcomponent table:
