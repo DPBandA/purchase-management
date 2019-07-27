@@ -1,8 +1,10 @@
 ### Initial Implementation
-- Implement adding links to attachments or uploading to server.
-  * Edit attachments.xhtml and add as tab in purchreqDetail.xhtml.
-  * Implement the Attachment class and use it create list of attachments to PR 
-  * Add table of attachments to PR dialog.  
+- Implement uploading attachments to server:
+* Impl FileUploadManager using FileManager.  
+* Create attachmentDialog.xhtml. See web test app for ideas.
+* Edit attachments.xhtml and add as tab in purchreqDetail.xhtml.
+* Implement the Attachment class and use it create list of attachments to PR 
+* Add table of attachments to PR dialog.  
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases..
