@@ -1,0 +1,180 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
+        <p:toolbarGroup>
+            <p:commandButton title="Add new attachment(s)"
+                             value="Add"
+                             actionListener="#{purchasingManager.addNewAttachment}"
+                             update=""
+                             onstart="PF('longProcessDialogVar').show();"
+                             oncomplete="PF('longProcessDialogVar').hide();"
+                             icon="ui-icon-plus"
+                             process="@this">
+            </p:commandButton>
+        </p:toolbarGroup>                    
+    </p:toolbar>
+
+    <p:dataTable  var="attachment"
+                  id="attachmentTable"
+                  value="#{purchasingManager.selectedAttachment}">
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Attachment" />
+            </f:facet>
+            <h:outputText value="#{attachment.name}" />                    
+        </p:column>
+
+        <p:column rendered="#{!costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value="Type" />
+            </f:facet>
+            <h:outputText value="#{costComponent.type}" />
+        </p:column>
+
+        <p:column rendered="#{costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value=" " />
+            </f:facet>
+            <h:outputText value=" " />
+        </p:column>
+
+        <p:column rendered="#{!costComponent.isHeading}" >
+            <f:facet name="header">
+                <h:outputText value="Hours/Qty"/>
+            </f:facet>
+            <h:outputText value="#{costComponent.hoursOrQuantity}"
+                          styleClass="datatable-number-field" >
+                <f:convertNumber />
+            </h:outputText>
+        </p:column>
+
+        <p:column rendered="#{costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value=" " />
+            </f:facet>
+            <h:outputText value=" " />
+        </p:column>
+
+        <p:column  rendered="#{!costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value="Rate ($/hr/qty)" />
+            </f:facet>
+            <h:outputText value="#{costComponent.rate}" 
+                          styleClass="datatable-number-field" >
+                <f:convertNumber />
+            </h:outputText>
+            <f:facet name="footer">
+                <h:outputText value="Total ($):"  />
+            </f:facet>
+        </p:column>
+
+        <p:column rendered="#{costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value=" " />
+            </f:facet>
+            <h:outputText value=" " />
+        </p:column>
+
+        <p:column rendered="#{!costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value="Cost ($)" />
+            </f:facet>
+            <h:outputText value="#{costComponent.cost}"
+                          styleClass="datatable-number-field" >
+                <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+            </h:outputText>
+            <f:facet name="footer">
+                <h:outputText value="#{purchasingManager.selectedPurchaseRequisition.totalCost}" 
+                              styleClass="datatable-number-field" >
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                </h:outputText>
+            </f:facet>
+        </p:column>
+
+        <p:column rendered="#{costComponent.isHeading}">
+            <f:facet name="header">
+                <h:outputText value=" " />
+            </f:facet>
+            <h:outputText value=" " />
+        </p:column>
+
+        <p:column style="width:32px" >
+            <p:menuButton id="toolsButton" 
+                          title="Edit or delete cost component"
+                          icon="ui-icon-pencil" >
+                <p:menuitem>                       
+                    <p:commandButton   
+                        value="Edit"
+                        style="width: 300%;text-align: left;background: none;border: 0;"
+                        actionListener="#{purchasingManager.editCostComponent}"
+                        disabled="#{!costComponent.isEditable}"
+                        update=":purchreqCostingCompDialogForm"
+                        oncomplete="PF('purchreqCostingCompDialog').show();"
+                        icon="ui-icon ui-icon-pencil"
+                        process="@this" >
+
+                        <f:setPropertyActionListener value="#{costComponent}"
+                                                     target="#{purchasingManager.selectedCostComponent}" />
+
+                    </p:commandButton>                       
+                </p:menuitem>
+
+                <p:menuitem >                       
+                    <p:commandButton   
+                        value="Delete"
+                        style="width: 300%;text-align: left;background: none;border: 0;"
+                        onclick="purchreqCostCompDeleteConfirmDialog.show();"
+                        icon="ui-icon-trash"
+                        process="@this">
+
+                        <f:setPropertyActionListener value="#{costComponent}"
+                                                     target="#{purchasingManager.selectedCostComponent}" />
+
+                    </p:commandButton>
+                </p:menuitem>                   
+
+            </p:menuButton>                   
+        </p:column>      
+
+    </p:dataTable>
+    <p:toolbar style="margin-top: 1px;">
+        <p:toolbarGroup>
+            <<p:commandButton title="Add new attachment(s)"
+                              value="Add"
+                              actionListener="#{purchasingManager.addNewAttachment}"
+                              update=""
+                              onstart="PF('longProcessDialogVar').show();"
+                              oncomplete="PF('longProcessDialogVar').hide();"
+                              icon="ui-icon-plus"
+                              process="@this">
+            </p:commandButton>
+        </p:toolbarGroup>
+    </p:toolbar>    
+
+</html>
+
+
