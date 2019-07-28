@@ -1,4 +1,5 @@
 ### Initial Implementation
+- Move PurchaseManager to PM project until development is done then move it to PM lib project.
 - Implement uploading attachments to server:
 * Impl FileUploadManager using FileManager.  
 * Create attachmentDialog.xhtml. See web test app for ideas.
