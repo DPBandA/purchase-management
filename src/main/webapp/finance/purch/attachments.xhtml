@@ -24,22 +24,11 @@ Email: info@dpbennett.com.jm
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
 
-    <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
-        <p:toolbarGroup>
-            <p:commandButton title="Add new attachment(s)"
-                             value="Add"
-                             actionListener="#{purchasingManager.addNewAttachment}"
-                             onstart="PF('longProcessDialogVar').show();"
-                             oncomplete="PF('longProcessDialogVar').hide();"
-                             icon="ui-icon-plus"
-                             process="@this">
-            </p:commandButton>
-        </p:toolbarGroup>                    
-    </p:toolbar>
+    <ui:include src="purchreqAttachmentsToolbar.xhtml"/>
 
     <p:dataTable  var="attachment"
                   id="attachmentTable"
-                  value="#{purchasingManager.selectedAttachment}">
+                  value="#{purchasingManager.selectedPurchaseRequisition.attachments}">
         <p:column>
             <f:facet name="header">
                 <h:outputText value="Attachment" />
@@ -63,8 +52,8 @@ Email: info@dpbennett.com.jm
                 icon="ui-icon-trash"
                 process="@this">
 
-                <f:setPropertyActionListener value="#{costComponent}"
-                                             target="#{purchasingManager.selectedCostComponent}" />
+                <f:setPropertyActionListener value="#{attachment}"
+                                             target="#{purchasingManager.selectedAttachment}" />
 
             </p:commandButton>
         </p:column>
@@ -72,18 +61,7 @@ Email: info@dpbennett.com.jm
 
     </p:dataTable>
 
-    <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
-        <p:toolbarGroup>
-            <p:commandButton title="Add new attachment(s)"
-                             value="Add"
-                             actionListener="#{purchasingManager.addNewAttachment}"
-                             onstart="PF('longProcessDialogVar').show();"
-                             oncomplete="PF('longProcessDialogVar').hide();"
-                             icon="ui-icon-plus"
-                             process="@this">
-            </p:commandButton>
-        </p:toolbarGroup>                    
-    </p:toolbar>
+    <ui:include src="purchreqAttachmentsToolbar.xhtml"/>
 
 </html>
 

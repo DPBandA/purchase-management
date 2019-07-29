@@ -45,10 +45,11 @@ PR/PO form:
   when exported to PDF on Linux. See if it is the same on Windows.
 
 ### Database Update
-- costcomponent table:
+- Run new PR(); to create the database tables for the attachment field in the PR class.
+- Add attachment table by running BEL code.
+- costcomponent table: CURRENCY_ID
 - privilege table: CANACCESSPROCUREMENTUNIT
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
-- Add attachment table by running BEL code
 - Add currency table by running BEL code.
 
 
