@@ -77,7 +77,7 @@ import org.primefaces.model.DefaultStreamedContent;
  *
  * @author Desmond Bennett
  */
-public class PurchasingManager implements Serializable, 
+public class PurchasingManager implements Serializable,
         SearchActionListener, LoginActionListener {
 
     @PersistenceUnit(unitName = "JMTSPU")
@@ -112,31 +112,57 @@ public class PurchasingManager implements Serializable,
     public PurchasingManager() {
         init();
     }
-    
+
     /**
      * Gets the title of the application which may be saved in a database.
-     * @return 
+     *
+     * @return
      */
     public String getTitle() {
         return "Purchase Management";
     }
 
+    /**
+     * Gets the general search text.
+     *
+     * @return
+     */
     public String getSearchText() {
         return searchText;
     }
 
+    /**
+     * Sets the general search text.
+     *
+     * @param searchText
+     */
     public void setSearchText(String searchText) {
         this.searchText = searchText;
     }
 
+    /**
+     * Gets the supplier's search text.
+     *
+     * @return
+     */
     public String getSupplierSearchText() {
         return supplierSearchText;
     }
 
+    /**
+     * Sets the supplier's search text.
+     *
+     * @param supplierSearchText
+     */
     public void setSupplierSearchText(String supplierSearchText) {
         this.supplierSearchText = supplierSearchText;
     }
 
+    /**
+     * Gets the selected supplier.
+     *
+     * @return
+     */
     public Supplier getSelectedSupplier() {
         if (selectedSupplier == null) {
             return new Supplier("");
@@ -144,6 +170,11 @@ public class PurchasingManager implements Serializable,
         return selectedSupplier;
     }
 
+    /**
+     * Sets the selected supplier.
+     *
+     * @param selectedSupplier
+     */
     public void setSelectedSupplier(Supplier selectedSupplier) {
         this.selectedSupplier = selectedSupplier;
     }
@@ -442,7 +473,7 @@ public class PurchasingManager implements Serializable,
     }
 
     public void doSearch() {
-       
+
         switch (searchType) {
             case "Purchase requisitions":
                 doPurchaseReqSearch(dateSearchPeriod, searchType, searchText, null);
@@ -452,7 +483,7 @@ public class PurchasingManager implements Serializable,
                 doSupplierSearch(searchText);
                 openSuppliersTab();
                 break;
-            default:                
+            default:
                 break;
         }
 
@@ -1110,7 +1141,7 @@ public class PurchasingManager implements Serializable,
     public void setSelectedAttachment(Attachment selectedAttachment) {
         this.selectedAttachment = selectedAttachment;
     }
-    
+
     public void saveSelectedPurchaseRequisition() {
 
         if (getSelectedPurchaseRequisition().getIsDirty()) {
@@ -1465,7 +1496,6 @@ public class PurchasingManager implements Serializable,
         getSystemManager().addSingleLoginActionListener(this);
     }
 
-
     public void reset() {
         init();
     }
@@ -1617,9 +1647,17 @@ public class PurchasingManager implements Serializable,
         selectedCostComponent = new CostComponent();
         setEdit(false);
     }
-    
+
     public void addNewAttachment(ActionEvent event) {
-       
+        System.out.println("Adding new attachment"); // tk
+        
+        addAttachment(); // tk
+    } 
+    
+    // tk
+    public void addAttachment() {
+        
+        PrimeFacesUtils.openDialog(null, "/common/attachmentDialog", true, true, true, 450, 700);
     }
 
     public void approveSelectedPurchaseRequisition(ActionEvent event) {

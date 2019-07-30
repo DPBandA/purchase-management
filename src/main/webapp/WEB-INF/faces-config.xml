@@ -194,6 +194,13 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
+            <from-outcome>attachmentDialog</from-outcome>
+            <to-view-id>/common/attachmentDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
             <from-outcome>employeePositionDialog</from-outcome>
             <to-view-id>/hrm/employeePositionDialog.xhtml</to-view-id>
         </navigation-case>
@@ -455,15 +462,19 @@
         <managed-bean-name>reportManager</managed-bean-name>
         <managed-bean-class>jm.com.dpbennett.wal.managers.ReportManager</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-          
+    </managed-bean>          
     
     <managed-bean>
         <managed-bean-name>financeManager</managed-bean-name>
         <managed-bean-class>jm.com.dpbennett.wal.managers.FinanceManager</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    </managed-bean>    
     
+    <managed-bean>
+        <managed-bean-name>fileUploadManager</managed-bean-name>
+        <managed-bean-class>jm.com.dpbennett.wal.managers.FileUploadManager</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
     
     <managed-bean>
         <managed-bean-name>purchasingManager</managed-bean-name>
