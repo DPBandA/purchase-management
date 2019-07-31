@@ -23,23 +23,11 @@ Email: info@dpbennett.com.jm
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" >
 
-    <p:toolbarGroup>
-        <ui:remove>
-            <p:commandButton value="Ok"
-                             actionListener="#{fileUploadManager.okAttachment}"
-                             update="attachmentDialog_growl"
-                             onstart="PF('longProcessDialogVar').show();" 
-                             oncomplete="PF('longProcessDialogVar').hide();"
-                             icon="ui-icon ui-icon-check"
-                             process="@form"/>
-            <p:spacer width="5" />
-        </ui:remove>
-        <p:commandButton value="Close" 
-                         immediate="true"
-                         actionListener="#{fileUploadManager.closeDialog}"
-                         onstart="PF('longProcessDialogVar').show();"                              
-                         oncomplete="PF('longProcessDialogVar').hide();"
-                         icon="ui-icon-close"/>
-    </p:toolbarGroup>
+    <p:fileUpload value="#{purchasingManager.uploadedFile}" 
+                  fileUploadListener="#{purchasingManager.handleFileUpload}"
+                  update=":purchreqDialogForm:purchreq_growl,attachmentTable"                          
+                  label="Add" 
+                  multiple="true"
+                  auto="true" />
 
 </html>

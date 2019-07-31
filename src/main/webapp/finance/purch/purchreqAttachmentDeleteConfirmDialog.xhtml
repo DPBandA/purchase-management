@@ -23,21 +23,21 @@ Email: info@dpbennett.com.jm
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">    
-    <h:form id="purchreqCostCompDeleteConfirmDialogForm">
+    <h:form id="purchreqAttachmentDeleteConfirmDialogForm">
         <p:confirmDialog severity="alert"
-                         message="Are you sure you wish to delete this cost component?"
-                         header="Delete Cost Component"
-                         widgetVar="purchreqCostCompDeleteConfirmDialog"
+                         message="Are you sure you wish to remove this attachment?"
+                         header="Remove Attachment"
+                         widgetVar="purchreqAttachmentDeleteConfirmDialog"
                          width="400">
             <p:commandButton value="Yes"      
-                             actionListener="#{purchasingManager.deleteCostComponent}"
-                             update=":purchreqDialogForm:purchreqFormTabView:costComponentTable,:purchreqDialogForm:purchreqDetailToolbar1"
+                             actionListener="#{purchasingManager.deleteAttachment}"
+                             update=":purchreqDialogForm:purchreqFormTabView:attachmentTable,:purchreqDialogForm:purchreqDetailToolbar1"
                              onstart="PF('longProcessDialogVar').show();"
-                             oncomplete="PF('purchreqCostCompDeleteConfirmDialog').hide();PF('longProcessDialogVar').hide();"
+                             oncomplete="PF('purchreqAttachmentDeleteConfirmDialog').hide();PF('longProcessDialogVar').hide();"
                              icon="ui-icon ui-icon-check"
                              process="@this"/>
             <p:commandButton value="No"
-                             onclick="purchreqCostCompDeleteConfirmDialog.hide();"
+                             onclick="purchreqAttachmentDeleteConfirmDialog.hide();"
                              icon="ui-icon-close"/>       
         </p:confirmDialog>
     </h:form>

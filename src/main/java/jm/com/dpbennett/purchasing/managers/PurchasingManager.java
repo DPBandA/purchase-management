@@ -20,12 +20,18 @@ Email: info@dpbennett.com.jm
 package jm.com.dpbennett.purchasing.managers;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -54,6 +60,7 @@ import org.primefaces.model.StreamedContent;
 import jm.com.dpbennett.business.entity.utils.BusinessEntityUtils;
 import jm.com.dpbennett.business.entity.utils.ReturnMessage;
 import jm.com.dpbennett.wal.Authentication;
+import jm.com.dpbennett.wal.managers.FileUploadManager;
 import jm.com.dpbennett.wal.managers.SystemManager;
 import jm.com.dpbennett.wal.managers.SystemManager.LoginActionListener;
 import jm.com.dpbennett.wal.managers.SystemManager.SearchActionListener;
@@ -71,7 +78,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -105,12 +114,50 @@ public class PurchasingManager implements Serializable,
     private Boolean isActiveSuppliersOnly;
     private List<Supplier> foundSuppliers;
     private Attachment selectedAttachment;
+    private UploadedFile uploadedFile;
 
     /**
      * Creates a new instance of PurchasingManager
      */
     public PurchasingManager() {
         init();
+    }
+
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
+            OutputStream outputStream;
+
+            // Save file
+            String uploadedFilePath = SystemOption.getOptionValueObject(getEntityManager1(),
+                    "purchReqUploadFolder")
+                    + event.getFile().getFileName();
+            File fileToSave
+                    = new File(uploadedFilePath);
+            outputStream = new FileOutputStream(fileToSave);
+            outputStream.write(event.getFile().getContents());
+            outputStream.close();
+
+            // Create attachment and save PR.
+            getSelectedPurchaseRequisition().getAttachments().
+                    add(new Attachment(event.getFile().getFileName(), uploadedFilePath));
+
+            if (getSelectedPurchaseRequisition().getId() != null) {
+                getSelectedPurchaseRequisition().save(getEntityManager1());
+            }
+
+            PrimeFacesUtils.addMessage("Succesful", event.getFile().getFileName() + " was uploaded.", FacesMessage.SEVERITY_INFO);
+
+        } catch (IOException ex) {
+            Logger.getLogger(FileUploadManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -726,6 +773,10 @@ public class PurchasingManager implements Serializable,
 
     public void deleteCostComponent() {
         deleteCostComponentByName(selectedCostComponent.getName());
+    }
+    
+    public void deleteAttachment() {
+        deleteAttachmentByName(selectedAttachment.getName());
     }
 
     public void deleteSelectedPRApprover() {
@@ -1631,7 +1682,24 @@ public class PurchasingManager implements Serializable,
         for (CostComponent costComponent : components) {
             if (costComponent.getName().equals(componentName)) {
                 components.remove(index);
-                getSelectedPurchaseRequisition().setIsDirty(true);
+                //getSelectedPurchaseRequisition().setIsDirty(true);
+                updatePurchaseReq(null);
+
+                break;
+            }
+            ++index;
+        }
+    }
+
+    public void deleteAttachmentByName(String attachmentName) {
+
+        List<Attachment> attachments = getSelectedPurchaseRequisition().getAttachments();
+        int index = 0;
+        for (Attachment attachment : attachments) {
+            if (attachment.getName().equals(attachmentName)) {
+                attachments.remove(index);
+                //getSelectedPurchaseRequisition().setIsDirty(true);
+                updatePurchaseReq(null);
 
                 break;
             }
@@ -1650,13 +1718,13 @@ public class PurchasingManager implements Serializable,
 
     public void addNewAttachment(ActionEvent event) {
         System.out.println("Adding new attachment"); // tk
-        
+
         addAttachment(); // tk
-    } 
-    
+    }
+
     // tk
     public void addAttachment() {
-        
+
         PrimeFacesUtils.openDialog(null, "/common/attachmentDialog", true, true, true, 450, 700);
     }
 

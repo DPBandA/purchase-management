@@ -24,9 +24,10 @@ Email: info@dpbennett.com.jm
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
 
-    <ui:include src="purchreqAttachmentsToolbar.xhtml"/>
+    <ui:include src="attachmentsTableHeader.xhtml"/>
 
     <p:dataTable  var="attachment"
+                  style="margin-top: 1px;margin-bottom: 1px;"
                   id="attachmentTable"
                   value="#{purchasingManager.selectedPurchaseRequisition.attachments}">
         <p:column>
@@ -45,10 +46,10 @@ Email: info@dpbennett.com.jm
 
         <p:column style="width:32px" >
             <p:commandButton   
-                title="Delete attachment"
+                title="Remove attachment"
                 value=""
                 style="width: 300%;text-align: left;background: none;border: 0;"
-
+                onclick="purchreqAttachmentDeleteConfirmDialog.show();"
                 icon="ui-icon-trash"
                 process="@this">
 
@@ -58,10 +59,9 @@ Email: info@dpbennett.com.jm
             </p:commandButton>
         </p:column>
 
-
     </p:dataTable>
-
-    <ui:include src="purchreqAttachmentsToolbar.xhtml"/>
+    
+    <ui:include src="attachmentsTableHeader.xhtml"/>   
 
 </html>
 
