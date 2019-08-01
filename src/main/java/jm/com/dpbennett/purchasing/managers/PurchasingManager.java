@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -122,6 +123,18 @@ public class PurchasingManager implements Serializable,
     public PurchasingManager() {
         init();
     }
+    
+    public void onAttachmentCellEdit(CellEditEvent event) {
+        System.out.println("attachment edited...");
+        updatePurchaseReq(null);
+        //BusinessEntityUtils.saveBusinessEntityInTransaction(getEntityManager(), getFoundClassifications().get(event.getRowIndex()));
+    }
+
+    public StreamedContent getFileAttachment(Attachment attachment) {
+        return new DefaultStreamedContent(attachment.getFileInputStream(), 
+                attachment.getContentType(),
+                attachment.getSourceURL());
+    }
 
     public UploadedFile getUploadedFile() {
         return uploadedFile;
@@ -145,15 +158,20 @@ public class PurchasingManager implements Serializable,
             outputStream.write(event.getFile().getContents());
             outputStream.close();
 
-            // Create attachment and save PR.
+            // Create attachment and save PR.            
             getSelectedPurchaseRequisition().getAttachments().
-                    add(new Attachment(event.getFile().getFileName(), uploadedFilePath));
+                    add(new Attachment(event.getFile().getFileName(),
+                            event.getFile().getFileName(),
+                            uploadedFilePath,
+                            event.getFile().getContentType()));
+
+            updatePurchaseReq(null);
+            
+            PrimeFacesUtils.addMessage("Succesful", event.getFile().getFileName() + " was uploaded.", FacesMessage.SEVERITY_INFO);
 
             if (getSelectedPurchaseRequisition().getId() != null) {
-                getSelectedPurchaseRequisition().save(getEntityManager1());
-            }
-
-            PrimeFacesUtils.addMessage("Succesful", event.getFile().getFileName() + " was uploaded.", FacesMessage.SEVERITY_INFO);
+                saveSelectedPurchaseRequisition();
+            }            
 
         } catch (IOException ex) {
             Logger.getLogger(FileUploadManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -774,7 +792,7 @@ public class PurchasingManager implements Serializable,
     public void deleteCostComponent() {
         deleteCostComponentByName(selectedCostComponent.getName());
     }
-    
+
     public void deleteAttachment() {
         deleteAttachmentByName(selectedAttachment.getName());
     }
@@ -1682,7 +1700,6 @@ public class PurchasingManager implements Serializable,
         for (CostComponent costComponent : components) {
             if (costComponent.getName().equals(componentName)) {
                 components.remove(index);
-                //getSelectedPurchaseRequisition().setIsDirty(true);
                 updatePurchaseReq(null);
 
                 break;
@@ -1698,8 +1715,9 @@ public class PurchasingManager implements Serializable,
         for (Attachment attachment : attachments) {
             if (attachment.getName().equals(attachmentName)) {
                 attachments.remove(index);
-                //getSelectedPurchaseRequisition().setIsDirty(true);
+                attachment.deleteFile();
                 updatePurchaseReq(null);
+                saveSelectedPurchaseRequisition();
 
                 break;
             }

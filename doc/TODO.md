@@ -1,8 +1,6 @@
 ### Initial Implementation
-- Impl deleting attachment for attachments table. Delete file also?
-- Impl downloading of attachments. Make the attachment field in the table a download link:
-* Impl attachment delete confirmation dialog.
-- Impl editing description in attachments table.
+- Impl editing description in attachments table:
+* Set the attachment as dirty when the cell is edted.
 - Setup template to export purchase order.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases..
