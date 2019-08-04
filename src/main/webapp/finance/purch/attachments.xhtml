@@ -31,10 +31,10 @@ Email: info@dpbennett.com.jm
                   editMode="cell"
                   style="margin-top: 1px;margin-bottom: 1px;"
                   id="attachmentTable"
-                  value="#{purchasingManager.selectedPurchaseRequisition.attachments}">
+                  value="#{purchasingManager.selectedPurchaseRequisition.allSortedAttachments}">
         
         <p:ajax event="cellEdit" 
-                update=":purchreqDialogForm:purchreq_growl"  
+                update=":purchreqDialogForm:purchreqDetailToolbar1,:purchreqDialogForm:purchreq_growl"  
                 listener="#{purchasingManager.onAttachmentCellEdit}" />
         
         <p:column>

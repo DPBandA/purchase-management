@@ -125,9 +125,9 @@ public class PurchasingManager implements Serializable,
     }
     
     public void onAttachmentCellEdit(CellEditEvent event) {
-        System.out.println("attachment edited...");
-        updatePurchaseReq(null);
-        //BusinessEntityUtils.saveBusinessEntityInTransaction(getEntityManager(), getFoundClassifications().get(event.getRowIndex()));
+        getSelectedPurchaseRequisition().getAllSortedAttachments().
+                get(event.getRowIndex()).setIsDirty(true);
+        updatePurchaseReq(null);        
     }
 
     public StreamedContent getFileAttachment(Attachment attachment) {

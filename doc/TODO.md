@@ -1,7 +1,6 @@
 ### Initial Implementation
-- Impl editing description in attachments table:
-* Set the attachment as dirty when the cell is edted.
-- Setup template to export purchase order.
+- Setup template to export purchase order:
+* Busy wait still shows after PO/PR forms are exported. Use Monitor Status...see PF manual.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add new PO fields to ALL databases..
   * Add PO fields in the PR class to the PR form "Order Details" tab.
@@ -14,13 +13,14 @@ R is fully approved (2 or 3 approvals) to arrive at the default "Expected date o
 - Send automatic email to persons that can approve the PR based on the given criteria. Note only persons in the originator's division should get this email.
 - Add the total amount to the PR emails templates.
 - Send automatic PR emails to admin assistant of a department/division.
+- Create Currency class and add it to the CostComponent class. Let Currency class
+implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
+- Create CurrencyConversion for storing currency conversions such as USD to JMD.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class to facilitate conversion between currencies using static methods. Currency class should have the ISO symbol and abbreviation.
 - The "on hand now" field to the PR should link to inventory.
 - Link to Accpac and do budget allocation.Canceling a PR/PO should reverse Accpac budget allocation.
 - Create report to show Accpac budget allocations.
 - Get suppliers from Accpac.
-- Create currency class and add it to the CostComponent class. Let Currency class
-implement Asset class.
 - Only allow one of the set positions to approve otherwise an approval date will not be shown. Add system option that sets the positions that can approve PR.
 - Indicate the number of approvals in the email template?
 - Add the supplier address to the PR and PO form.
