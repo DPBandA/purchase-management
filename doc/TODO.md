@@ -1,10 +1,8 @@
 ### Initial Implementation
-- Setup template to export purchase order:
-* Busy wait still shows after PO/PR forms are exported. Use Monitor Status...see PF manual.
 - Add a "Order Detail" tab that allows entry of information for the PO:
-  * Add new PO fields to ALL databases..
   * Add PO fields in the PR class to the PR form "Order Details" tab.
-- For PO form get the terms and conditions from the printed form and place after the page break in the jasper form.
+- For PO form get the terms and conditions from the printed form and place after 
+  the page break in the jasper form. See the pho
 - Use "Regular" and "Urgent" as priority codes.
 - Allow only the PO to cancel a PR once it is saved.
 - Add a default of 2 weeks to the date when the P
@@ -16,15 +14,12 @@ R is fully approved (2 or 3 approvals) to arrive at the default "Expected date o
 - Create Currency class and add it to the CostComponent class. Let Currency class
 implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Create CurrencyConversion for storing currency conversions such as USD to JMD.
-- Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class to facilitate conversion between currencies using static methods. Currency class should have the ISO symbol and abbreviation.
-- The "on hand now" field to the PR should link to inventory.
-- Link to Accpac and do budget allocation.Canceling a PR/PO should reverse Accpac budget allocation.
-- Create report to show Accpac budget allocations.
-- Get suppliers from Accpac.
+- Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
+  to facilitate conversion between currencies using static methods. 
+  Currency class should have the ISO symbol and abbreviation.
 - Only allow one of the set positions to approve otherwise an approval date will not be shown. Add system option that sets the positions that can approve PR.
 - Indicate the number of approvals in the email template?
 - Add the supplier address to the PR and PO form.
-- Do proposal to get cost codes, budgets and suppliers from Accpac.
 - Open the purchase requisition tab by default for now but allow user to choose which tab to open by default for financial admin module.
 - Add purchase requisition forms to the Form templates tab in Business entities tab and stop using system options to get the files.
 - Fix up PR jasper form by removing the overlapping line and put in missing borders.
@@ -49,5 +44,9 @@ PR/PO form:
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option.
+- Add new PO fields to ALL databases.
 
+
+### Training
+- How can the order date be set automatically?
 
