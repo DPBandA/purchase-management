@@ -1,4 +1,5 @@
 ### Initial Implementation
+- Implement PF status monitor for file downloads and remove code the deals with it otherwise.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add PO fields in the PR class to the PR form "Order Details" tab.
 - For PO form get the terms and conditions from the printed form and place after 
