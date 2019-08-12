@@ -91,9 +91,8 @@ Email: info@dpbennett.com.jm
                 <p:menuitem value="Purchase Requisition"
                             ajax="false" 
                             immediate="true"
-                            disabled="#{!purchasingManager.canExportPurchaseReqForm}"                   
-                            update="longProgressDialogForm4"
-                            onclick="PF('longProcessDialogVar4').show();" >
+                            disabled="#{!purchasingManager.canExportPurchaseReqForm}" 
+                            onclick="PrimeFaces.monitorDownload(showLongProcessDialog, hideLongProcessDialog)" >
 
                     <p:fileDownload value="#{purchasingManager.purchaseReqFile}" />
 
@@ -101,9 +100,8 @@ Email: info@dpbennett.com.jm
                 <p:menuitem value="Purchase Order"
                             ajax="false" 
                             immediate="true"
-                            disabled="#{!purchasingManager.canExportPurchaseOrderForm}"                   
-                            update="longProgressDialogForm4"
-                            onclick="PF('longProcessDialogVar4').show();" >
+                            disabled="#{!purchasingManager.canExportPurchaseOrderForm}"    
+                            onclick="PrimeFaces.monitorDownload(showLongProcessDialog, hideLongProcessDialog)" >
 
                     <p:fileDownload value="#{purchasingManager.purchaseOrderFile}" />
 

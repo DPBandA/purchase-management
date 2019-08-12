@@ -25,6 +25,15 @@
             <artifactId>web-application-library</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+         <!-- The wbusiness-entity-library dependency is not needed since it is already added to 
+          the web-application-library project. It is added to avoid the need to web-application-library
+          before building this project -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>business-entity-library</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -39,10 +48,15 @@
         </dependency>   
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>purchase-management-library</artifactId>
+            <version>1.0.0</version>
+        </dependency>        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>financial-management</artifactId>
             <version>1.0.0</version>
             <type>war</type>
-        </dependency>    
+        </dependency>       
     </dependencies>
 
     <build>
@@ -72,7 +86,7 @@
                         <overlay>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>system-management</artifactId>
-                        </overlay>
+                        </overlay>                        
                         <overlay>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>financial-management</artifactId>

@@ -26,16 +26,21 @@ Email: info@dpbennett.com.jm
              style="margin-bottom: 1px;" > 
         <h:panelGrid columns="2">
 
-            <h:outputText value="Quotation number:" />
-            <p:inputText disabled="#{!purchasingManager.isProcurementOfficer}" 
-                         value="#{purchasingManager.selectedPurchaseRequisition.quotationNumber}" > 
+            <h:outputText value="Order Date:" />
+            <p:calendar value="#{purchasingManager.selectedPurchaseRequisition.purchaseOrderDate}" 
+                        readonlyInput="false"
+                        navigator="true" 
+                        pattern="MMM dd, yyyy" >
 
-                <p:ajax event="change"                            
+                <p:ajax event="dateSelect"
                         update=":purchreqDialogForm:purchreqDetailToolbar1"
-                        listener="#{purchasingManager.updatePurchaseReq}"
-                        process="@this"/>
+                        listener="#{purchasingManager.updatePurchaseReq}" />
 
-            </p:inputText>
+                <p:ajax event="keyup"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}" />
+
+            </p:calendar>
             
             <h:outputText value="Quotation number:" />
             <p:inputText disabled="#{!purchasingManager.isProcurementOfficer}" 
@@ -47,6 +52,49 @@ Email: info@dpbennett.com.jm
                         process="@this"/>
 
             </p:inputText>
+
+            <h:outputText value="Import licence no.:" />
+            <p:inputText disabled="#{!purchasingManager.isProcurementOfficer}" 
+                         value="#{purchasingManager.selectedPurchaseRequisition.importLicenceNum}" > 
+
+                <p:ajax event="change"                            
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}"
+                        process="@this"/>
+
+            </p:inputText>
+
+            <h:outputText value="Import license date:" />
+            <p:calendar value="#{purchasingManager.selectedPurchaseRequisition.importLicenceDate}" 
+                        readonlyInput="false"
+                        navigator="true" 
+                        pattern="MMM dd, yyyy" >
+
+                <p:ajax event="dateSelect"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}" />
+
+                <p:ajax event="keyup"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}" />
+
+            </p:calendar>
+            
+            <h:outputText value="Delivery date required:" />
+            <p:calendar value="#{purchasingManager.selectedPurchaseRequisition.deliveryDateRequired}" 
+                        readonlyInput="false"
+                        navigator="true" 
+                        pattern="MMM dd, yyyy" >
+
+                <p:ajax event="dateSelect"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}" />
+
+                <p:ajax event="keyup"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}" />
+
+            </p:calendar>
 
         </h:panelGrid>
     </p:panel>

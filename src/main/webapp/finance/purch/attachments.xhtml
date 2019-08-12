@@ -1,0 +1,80 @@
+<!--
+Job Management & Tracking System (JMTS) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <ui:include src="attachmentsTableHeader.xhtml"/>
+
+    <p:dataTable  var="attachment"
+                  editable="true" 
+                  editMode="cell"
+                  style="margin-top: 1px;margin-bottom: 1px;"
+                  id="attachmentTable"
+                  value="#{purchasingManager.selectedPurchaseRequisition.allSortedAttachments}">
+        
+        <p:ajax event="cellEdit" 
+                update=":purchreqDialogForm:purchreqDetailToolbar1,:purchreqDialogForm:purchreq_growl"  
+                listener="#{purchasingManager.onAttachmentCellEdit}" />
+        
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Attachment" />
+            </f:facet>
+            <p:commandLink value="#{attachment.name}" ajax="false" style="color: blue;">
+                <p:fileDownload value="#{purchasingManager.getFileAttachment(attachment)}"/>
+            </p:commandLink>
+        </p:column>
+        
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Description" />
+            </f:facet>
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{attachment.description}" /></f:facet>
+                <f:facet name="input"><p:inputTextarea value="#{attachment.description}" style="width:96%"/></f:facet>
+            </p:cellEditor>                                         
+        </p:column>
+
+        <p:column style="width:32px" >
+            <p:commandButton   
+                title="Remove attachment"
+                value=""
+                style="width: 300%;text-align: left;background: none;border: 0;"
+                onclick="purchreqAttachmentDeleteConfirmDialog.show();"
+                icon="ui-icon-trash"
+                process="@this">
+
+                <f:setPropertyActionListener value="#{attachment}"
+                                             target="#{purchasingManager.selectedAttachment}" />
+
+            </p:commandButton>
+        </p:column>
+
+    </p:dataTable>
+
+    <ui:include src="attachmentsTableHeader.xhtml"/>   
+
+</html>
+
+
