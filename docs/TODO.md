@@ -1,4 +1,5 @@
 ### Initial Implementation
+- Install and use Payara 4??
 - Implement adding links to attachments or uploading to server.
   * Implement the Attachment class and use it create list of attachments to PR 
   * Add table of attachments to PR dialog.  
