@@ -1,9 +1,12 @@
 ### Initial Implementation
 - Add a "Order Detail" tab that allows entry of information for the PO:
-  * Change quotation Number parameter to quotationNumber in all files.
+  * Fill out all parameter in jasper report.
+  * Add form fields to the "Order" and any other remaining tab.
   * Quotation Number label not in line with quotation number.
   * Add terms and pleaseSupply and other PO fields to "order tab".
   * Add PO fields in the PR class to the PR form "Order Details" tab.
+  * Fix Order Date to show "August 08, 2019" and not "August 8, 2019" for example.
+  * Quotation # should be automatically filled out. Make read only.
 - For PO form get the terms and conditions from the printed form and place after 
   the page break in the jasper form. See the pho
 - Use "Regular" and "Urgent" as priority codes.
@@ -44,7 +47,8 @@ PR/PO form:
 - Add attachment table by running BEL code.
 - costcomponent table: CURRENCY_ID
 - privilege table: CANACCESSPROCUREMENTUNIT
-- purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
+- purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM,
+  SHIPPINGINSTRUCTIONS (VARCHAR: 1024), PLEASESUPPLYNOTE (VARCHAR: 1024)
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.

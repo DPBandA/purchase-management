@@ -1091,14 +1091,20 @@ public class PurchasingManager implements Serializable,
             parameters.put("suggestedSupplier", getSelectedPurchaseRequisition()
                     .getSupplier().getName());
 
-            parameters.put("shippingInstructions", "");
-            parameters.put("terms", "CREDIT");
+            // Purchase Order fields
+            parameters.put("shippingInstructions", 
+                    getSelectedPurchaseRequisition().getShippingInstructions());
+            parameters.put("terms", getSelectedPurchaseRequisition().getTerms());
             parameters.put("originatingDeptCode",
                     getSelectedPurchaseRequisition().getOriginatingDepartment().getCode());
-            parameters.put("importLicenceNo", "");
-            parameters.put("deliveryDateRequired", "");
-            parameters.put("pleaseSupply", "");
-            parameters.put("importLicenseDate", "");
+            parameters.put("importLicenceNo", getSelectedPurchaseRequisition().getImportLicenceNum());
+            parameters.put("deliveryDateRequired", 
+                    BusinessEntityUtils.getDateInMediumDateFormat(getSelectedPurchaseRequisition().
+                            getDeliveryDateRequired()));
+            parameters.put("pleaseSupply", getSelectedPurchaseRequisition().getPleaseSupplyNote());
+            parameters.put("importLicenseDate", 
+                    BusinessEntityUtils.getDateInMediumDateFormat(getSelectedPurchaseRequisition().
+                            getImportLicenceDate()));
             parameters.put("quotationNumber", getSelectedPurchaseRequisition().getQuotationNumber());
 
             parameters.put("requisitionDate",

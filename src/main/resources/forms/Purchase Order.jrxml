@@ -149,7 +149,7 @@ WHERE
 	<parameter name="importLicenseDate" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["Dec 23, 2018"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="quotation Number" class="java.lang.String" isForPrompting="false">
+	<parameter name="quotationNumber" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["QN-0001"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
