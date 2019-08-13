@@ -1099,7 +1099,7 @@ public class PurchasingManager implements Serializable,
             parameters.put("deliveryDateRequired", "");
             parameters.put("pleaseSupply", "");
             parameters.put("importLicenseDate", "");
-            parameters.put("quotation Number", "");
+            parameters.put("quotationNumber", getSelectedPurchaseRequisition().getQuotationNumber());
 
             parameters.put("requisitionDate",
                     BusinessEntityUtils.getDateInMediumDateFormat(getSelectedPurchaseRequisition().

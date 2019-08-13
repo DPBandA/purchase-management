@@ -1,5 +1,8 @@
 ### Initial Implementation
 - Add a "Order Detail" tab that allows entry of information for the PO:
+  * Change quotation Number parameter to quotationNumber in all files.
+  * Quotation Number label not in line with quotation number.
+  * Add terms and pleaseSupply and other PO fields to "order tab".
   * Add PO fields in the PR class to the PR form "Order Details" tab.
 - For PO form get the terms and conditions from the printed form and place after 
   the page break in the jasper form. See the pho
