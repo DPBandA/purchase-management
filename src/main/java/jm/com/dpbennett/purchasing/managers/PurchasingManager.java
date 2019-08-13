@@ -1067,11 +1067,9 @@ public class PurchasingManager implements Serializable,
         try {
 
             streamContent = getPurchaseOrderStreamContent(getEntityManager1());
-            setLongProcessProgress(100);
 
         } catch (Exception e) {
             System.out.println(e);
-            setLongProcessProgress(0);
         }
 
         return streamContent;
@@ -1135,8 +1133,6 @@ public class PurchasingManager implements Serializable,
 
                     streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(fileBytes),
                             "application/pdf", "Purchase Order - " + getSelectedPurchaseRequisition().getPurchaseOrderNumber() + ".pdf");
-
-                    setLongProcessProgress(100);
 
                     return streamedContent;
 

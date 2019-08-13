@@ -1,7 +1,4 @@
 ### Initial Implementation
-- Check why status monitor dialog not showing. May be need to build SM
-- Check why PR attachment file not being deleted. Remove "/" from coded URL and 
-  put "\" or "/" at the end of the URL in the system option.
 - Add a "Order Detail" tab that allows entry of information for the PO:
   * Add PO fields in the PR class to the PR form "Order Details" tab.
 - For PO form get the terms and conditions from the printed form and place after 
@@ -46,7 +43,7 @@ PR/PO form:
 - privilege table: CANACCESSPROCUREMENTUNIT
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM
 - Add currency table by running BEL code.
-- Add "purchReqUploadFolder" system option.
+- Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
 
 

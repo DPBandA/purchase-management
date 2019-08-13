@@ -41,7 +41,10 @@ Email: info@dpbennett.com.jm
             <f:facet name="header">
                 <h:outputText value="Attachment" />
             </f:facet>
-            <p:commandLink value="#{attachment.name}" ajax="false" style="color: blue;">
+            <p:commandLink value="#{attachment.name}" 
+                           onclick="PrimeFaces.monitorDownload(showLongProcessDialog, hideLongProcessDialog)"
+                           ajax="false" 
+                           style="color: blue;">
                 <p:fileDownload value="#{purchasingManager.getFileAttachment(attachment)}"/>
             </p:commandLink>
         </p:column>
