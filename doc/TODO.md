@@ -2,6 +2,7 @@
 - Add a "Order Detail" tab that allows entry of information for the PO:  
   * Create field groups for Quotation # as is done for PR #. Update PO "auto number"
   group when PR "auto number" checkbox is updated.
+  * Test PO/PR number validation.
 - Add PR priorityCodes codes as system option.
 - For PO form get the terms and conditions from the printed form and place after 
   the page break in the jasper form. See the pho
