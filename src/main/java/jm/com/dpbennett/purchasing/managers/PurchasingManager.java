@@ -1171,6 +1171,15 @@ public class PurchasingManager implements Serializable,
 
         updatePurchaseReq(null);
     }
+    
+    public void updateAutoGeneratePONumber() {
+
+        if (getSelectedPurchaseRequisition().getAutoGenerateNumber()) {
+            getSelectedPurchaseRequisition().generatePurchaseOrderNumber();
+        }
+
+        updatePurchaseReq(null);
+    }
 
     public void closeDialog() {
         PrimeFacesUtils.closeDialog(null);

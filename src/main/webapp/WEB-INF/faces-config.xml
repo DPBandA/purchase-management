@@ -158,6 +158,10 @@
         <validator-class>jm.com.dpbennett.wal.validator.PurchaseReqNumberValidator</validator-class>
     </validator>
     <validator>
+        <validator-id>purchaseOrderNumberValidator</validator-id>
+        <validator-class>jm.com.dpbennett.wal.validator.PurchaseOrderNumberValidator</validator-class>
+    </validator>
+    <validator>
         <validator-id>subcontractedDepartmentValidator</validator-id>
         <validator-class>jm.com.dpbennett.wal.validator.SubcontractedDepartmentValidator</validator-class>
     </validator>
