@@ -1,12 +1,8 @@
 ### Initial Implementation
 - Add a "Order Detail" tab that allows entry of information for the PO:
-  * Fill out all parameter in jasper report.
-  * Add form fields to the "Order" and any other remaining tab.
-  * Quotation Number label not in line with quotation number.
-  * Add terms and pleaseSupply and other PO fields to "order tab".
-  * Add PO fields in the PR class to the PR form "Order Details" tab.
   * Fix Order Date to show "August 08, 2019" and not "August 8, 2019" for example.
-  * Quotation # should be automatically filled out. Make read only.
+  * Create field groups for Quotation # as is done for PR #.
+- Add PR priorityCodes codes as system option.
 - For PO form get the terms and conditions from the printed form and place after 
   the page break in the jasper form. See the pho
 - Use "Regular" and "Urgent" as priority codes.
@@ -34,6 +30,9 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Move PurchaseManager to PM project until development is done then move it to PM lib project.
 
 ### UI Design
+- Fix up PO from as follows:
+  * Quotation Number label not in line with quotation number. Fix for other labels.
+    Note that this may be the case only on Linux.
 - Put "Help" and "About" menu items in the "User" menu.
 PR/PO form:
 - Take the approvers section out of the page footer of the PR form and put it at the end of the report.

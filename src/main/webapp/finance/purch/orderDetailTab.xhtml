@@ -95,6 +95,62 @@ Email: info@dpbennett.com.jm
                         listener="#{purchasingManager.updatePurchaseReq}" />
 
             </p:calendar>
+            
+            <h:outputText value="Terms:" />       
+            <p:inputText disabled="#{!purchasingManager.isProcurementOfficer}" 
+                         maxlength="20"
+                         value="#{purchasingManager.selectedPurchaseRequisition.terms}" > 
+
+                <p:ajax event="change"                            
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}"
+                        process="@this"/>
+
+            </p:inputText>
+            
+            <h:outputText value="Shipping instructions:" />       
+            <p:inputTextarea
+                id="shippingInstructions"
+                value="#{purchasingManager.selectedPurchaseRequisition.shippingInstructions}"
+                rows="2"
+                counter="shippingInstructionsCharsRemaining"
+                counterTemplate="{0} characters remaining."
+                autoResize="false"
+                maxlength="80"  
+                style="width: 150%;">
+
+                <f:validator validatorId="requiredFieldValidator" />
+
+                <p:ajax event="change"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}"
+                        process="@this"/>
+
+            </p:inputTextarea> 
+            <h:outputText value="&nbsp;&nbsp;" />
+            <h:outputText id="shippingInstructionsCharsRemaining" /> 
+            
+            <h:outputText value="Please supply:" />       
+            <p:inputTextarea
+                id="pleaseSupply"
+                value="#{purchasingManager.selectedPurchaseRequisition.pleaseSupplyNote}"
+                rows="2"
+                counter="pleaseSupplyCharsRemaining"
+                counterTemplate="{0} characters remaining."
+                autoResize="false"
+                maxlength="80"  
+                style="width: 150%;">
+
+                <f:validator validatorId="requiredFieldValidator" />
+
+                <p:ajax event="change"
+                        update=":purchreqDialogForm:purchreqDetailToolbar1"
+                        listener="#{purchasingManager.updatePurchaseReq}"
+                        process="@this"/>
+
+            </p:inputTextarea> 
+            <h:outputText value="&nbsp;&nbsp;" />
+            <h:outputText id="pleaseSupplyCharsRemaining" /> 
 
         </h:panelGrid>
     </p:panel>
