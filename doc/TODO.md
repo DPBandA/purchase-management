@@ -1,13 +1,8 @@
 ### Initial Implementation
-- Add a "Order Detail" tab that allows entry of information for the PO:  
-  * Create field groups for Quotation # as is done for PR #. Update PO "auto number"
-  group when PR "auto number" checkbox is updated.
-  * Test PO/PR number validation.
-- Add PR priorityCodes codes as system option.
-- For PO form get the terms and conditions from the printed form and place after 
-  the page break in the jasper form. See the pho
-- Use "Regular" and "Urgent" as priority codes.
-- Allow only the PO to cancel a PR once it is saved.
+- Add PR priorityCodes codes as system option:
+* Use  public static List<SelectItem> getStringListAsSelectItems(EntityManager em,
+            String systemOption) in SM  for Use "Regular" and "Urgent" as priority codes.
+- Allow only a procurement officer to cancel a PR once it is saved.
 - Add a default of 2 weeks to the date when the P
 R is fully approved (2 or 3 approvals) to arrive at the default "Expected date of completion". Allow changing this default period in fin options.
 - Set the limit in fin options when a PR needs to go to procurement. 1.5M is the current limit. Show an alert when the total cost exceeds this limit. Put a note in the status note section stating that the limit was exceeded.
@@ -20,7 +15,8 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
-- Only allow one of the set positions to approve otherwise an approval date will not be shown. Add system option that sets the positions that can approve PR.
+- Only allow one of the set positions to approve otherwise an approval date will 
+  not be shown. Add system option that sets the positions that can approve PR.
 - Indicate the number of approvals in the email template?
 - Add the supplier address to the PR and PO form.
 - Open the purchase requisition tab by default for now but allow user to choose which tab to open by default for financial admin module.

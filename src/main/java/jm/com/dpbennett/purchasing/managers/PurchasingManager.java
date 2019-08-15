@@ -1167,6 +1167,7 @@ public class PurchasingManager implements Serializable,
 
         if (getSelectedPurchaseRequisition().getAutoGenerateNumber()) {
             getSelectedPurchaseRequisition().generateNumber();
+            getSelectedPurchaseRequisition().generatePurchaseOrderNumber();
         }
 
         updatePurchaseReq(null);
@@ -1176,6 +1177,7 @@ public class PurchasingManager implements Serializable,
 
         if (getSelectedPurchaseRequisition().getAutoGenerateNumber()) {
             getSelectedPurchaseRequisition().generatePurchaseOrderNumber();
+            getSelectedPurchaseRequisition().generateNumber();
         }
 
         updatePurchaseReq(null);
@@ -1861,11 +1863,9 @@ public class PurchasingManager implements Serializable,
     public List getPriorityCodes() {
         ArrayList codes = new ArrayList();
 
-        codes.add(new SelectItem("", ""));
-        codes.add(new SelectItem("A", "A"));
-        codes.add(new SelectItem("B", "B"));
-        codes.add(new SelectItem("C", "C"));
-
+        codes.add(new SelectItem("Regular", "Regular"));
+        codes.add(new SelectItem("Urgent", "Urgent"));
+       
         return codes;
     }
 
