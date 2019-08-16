@@ -1,10 +1,9 @@
 ### Initial Implementation
-- Add PR priorityCodes codes as system option:
-* Use  public static List<SelectItem> getStringListAsSelectItems(EntityManager em,
-            String systemOption) in SM  for Use "Regular" and "Urgent" as priority codes.
-- Allow only a procurement officer to cancel a PR once it is saved.
-- Add a default of 2 weeks to the date when the P
-R is fully approved (2 or 3 approvals) to arrive at the default "Expected date of completion". Allow changing this default period in fin options.
+- Allow only a procurement officer to cancel a PR once it is saved:
+  * When progress is changed the PR is not flagged dirty. Fix by calling updatePurchaseReq(null);
+- Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
+  to arrive at the default "Expected date of completion". Allow changing this default 
+  period in fin options.
 - Set the limit in fin options when a PR needs to go to procurement. 1.5M is the current limit. Show an alert when the total cost exceeds this limit. Put a note in the status note section stating that the limit was exceeded.
 - Send automatic email to persons that can approve the PR based on the given criteria. Note only persons in the originator's division should get this email.
 - Add the total amount to the PR emails templates.
@@ -49,6 +48,7 @@ PR/PO form:
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
+- Add prPriorityCodes system option.
 
 
 ### Training

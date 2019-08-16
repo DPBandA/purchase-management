@@ -64,6 +64,7 @@ import jm.com.dpbennett.wal.managers.FileUploadManager;
 import jm.com.dpbennett.wal.managers.SystemManager;
 import jm.com.dpbennett.wal.managers.SystemManager.LoginActionListener;
 import jm.com.dpbennett.wal.managers.SystemManager.SearchActionListener;
+import static jm.com.dpbennett.wal.managers.SystemManager.getStringListAsSelectItems;
 import jm.com.dpbennett.wal.utils.BeanUtils;
 import jm.com.dpbennett.wal.utils.FinancialUtils;
 import jm.com.dpbennett.wal.utils.MainTabView;
@@ -121,15 +122,15 @@ public class PurchasingManager implements Serializable,
     public PurchasingManager() {
         init();
     }
-    
+
     public void onAttachmentCellEdit(CellEditEvent event) {
         getSelectedPurchaseRequisition().getAllSortedAttachments().
                 get(event.getRowIndex()).setIsDirty(true);
-        updatePurchaseReq(null);        
+        updatePurchaseReq(null);
     }
 
     public StreamedContent getFileAttachment(Attachment attachment) {
-        return new DefaultStreamedContent(attachment.getFileInputStream(), 
+        return new DefaultStreamedContent(attachment.getFileInputStream(),
                 attachment.getContentType(),
                 attachment.getSourceURL());
     }
@@ -164,12 +165,12 @@ public class PurchasingManager implements Serializable,
                             event.getFile().getContentType()));
 
             updatePurchaseReq(null);
-            
+
             PrimeFacesUtils.addMessage("Succesful", event.getFile().getFileName() + " was uploaded.", FacesMessage.SEVERITY_INFO);
 
             if (getSelectedPurchaseRequisition().getId() != null) {
                 saveSelectedPurchaseRequisition();
-            }            
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(FileUploadManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -685,13 +686,26 @@ public class PurchasingManager implements Serializable,
 
     public Boolean checkPRWorkProgressReadinessToBeChanged() {
         EntityManager em = getEntityManager1();
-
-        // Find the currently stored PR and check it's work status
+        
         if (getSelectedPurchaseRequisition().getId() != null) {
 
+            // Find the currently stored PR and check it's work status
             PurchaseRequisition savedPurchaseRequisition
                     = PurchaseRequisition.findById(em, getSelectedPurchaseRequisition().getId());
 
+            // Procurement officer required to cancel PR.
+            if (savedPurchaseRequisition != null) {
+                if (!getUser().getEmployee().isProcurementOfficer()
+                        && getSelectedPurchaseRequisition().getWorkProgress().equals("Cancelled")) {
+                    PrimeFacesUtils.addMessage("Procurement Officer Required",
+                            "You are not a procurement officer so you cannot cancel this purchase requisition.",
+                            FacesMessage.SEVERITY_WARN);
+
+                    return false;
+                }
+            }
+
+            // Procurement officer required to mark job completed.
             if (savedPurchaseRequisition != null) {
                 if (!getUser().getEmployee().isProcurementOfficer()
                         && !getSelectedPurchaseRequisition().getWorkProgress().equals("Completed")
@@ -704,7 +718,7 @@ public class PurchasingManager implements Serializable,
                 }
             }
 
-            // Procurement officer is required to approve PRs
+            // Procurement officer is required to approve PRs.
             if (!getUser().getEmployee().isProcurementOfficer()
                     && getSelectedPurchaseRequisition().getWorkProgress().equals("Completed")) {
 
@@ -715,7 +729,7 @@ public class PurchasingManager implements Serializable,
                 return false;
             }
 
-            // Do not allow flagging PR as completed unless it is approved             
+            // Do not allow flagging PR as completed unless it is approved.             
             if (!getSelectedPurchaseRequisition().isApproved(2) // tk required num. to be made system option
                     && getSelectedPurchaseRequisition().getWorkProgress().equals("Completed")) {
 
@@ -769,6 +783,8 @@ public class PurchasingManager implements Serializable,
 
                 getSelectedPurchaseRequisition().addAction(BusinessEntity.Action.COMPLETE);
             }
+            
+            updatePurchaseReq(null);
 
         } else {
             if (getSelectedPurchaseRequisition().getId() != null) {
@@ -1092,17 +1108,17 @@ public class PurchasingManager implements Serializable,
                     .getSupplier().getName());
 
             // Purchase Order fields
-            parameters.put("shippingInstructions", 
+            parameters.put("shippingInstructions",
                     getSelectedPurchaseRequisition().getShippingInstructions());
             parameters.put("terms", getSelectedPurchaseRequisition().getTerms());
             parameters.put("originatingDeptCode",
                     getSelectedPurchaseRequisition().getOriginatingDepartment().getCode());
             parameters.put("importLicenceNo", getSelectedPurchaseRequisition().getImportLicenceNum());
-            parameters.put("deliveryDateRequired", 
+            parameters.put("deliveryDateRequired",
                     BusinessEntityUtils.getDateInMediumDateFormat(getSelectedPurchaseRequisition().
                             getDeliveryDateRequired()));
             parameters.put("pleaseSupply", getSelectedPurchaseRequisition().getPleaseSupplyNote());
-            parameters.put("importLicenseDate", 
+            parameters.put("importLicenseDate",
                     BusinessEntityUtils.getDateInMediumDateFormat(getSelectedPurchaseRequisition().
                             getImportLicenceDate()));
             parameters.put("quotationNumber", getSelectedPurchaseRequisition().getQuotationNumber());
@@ -1172,7 +1188,7 @@ public class PurchasingManager implements Serializable,
 
         updatePurchaseReq(null);
     }
-    
+
     public void updateAutoGeneratePONumber() {
 
         if (getSelectedPurchaseRequisition().getAutoGenerateNumber()) {
@@ -1860,13 +1876,10 @@ public class PurchasingManager implements Serializable,
         this.searchType = searchType;
     }
 
-    public List getPriorityCodes() {
-        ArrayList codes = new ArrayList();
+    public List<SelectItem> getPriorityCodes() {
 
-        codes.add(new SelectItem("Regular", "Regular"));
-        codes.add(new SelectItem("Urgent", "Urgent"));
-       
-        return codes;
+        return getStringListAsSelectItems(getEntityManager1(),
+                "prPriorityCodes");
     }
 
     @Override
