@@ -465,7 +465,7 @@
         <managed-bean-name>financeManager</managed-bean-name>
         <managed-bean-class>jm.com.dpbennett.wal.managers.FinanceManager</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
+    </managed-bean>
     
     <managed-bean>
         <managed-bean-name>purchasingManager</managed-bean-name>

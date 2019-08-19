@@ -22,20 +22,16 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
   Currency class should have the ISO symbol and abbreviation.
 - Only allow one of the set positions to approve otherwise an approval date will 
   not be shown. Add system option that sets the positions that can approve PR.
-- Indicate the number of approvals in the email template?
-- Add the supplier address to the PR and PO form.
-- Open the purchase requisition tab by default for now but allow user to choose which tab to open by default for financial admin module.
-- Add purchase requisition forms to the Form templates tab in Business entities tab and stop using system options to get the files.
-- Fix up PR jasper form by removing the overlapping line and put in missing borders.
-- Values that are 0 set them n/a in the PR form and change the corresponding parameter types to String.
-- Make sure that more than one person with the same position cannot approve PR.
-- Move PurchaseManager to PM project until development is done then move it to PM lib project.
 
 ### UI Design
-- Fix up PO form as follows:
+- Address PO/PR forms as follows:
   * Quotation Number label not in line with quotation number. Fix for other labels.
     Note that this may be the case only on Linux.
   * Fix Order Date to show "August 08, 2019" and not "August 8, 2019" for example.
+  * Values that are 0 set them n/a in the PR form and change the corresponding parameter types to String.
+  * Fix up PR jasper form by removing the overlapping line and put in missing borders.
+  * Add purchase requisition forms to the Form templates tab in FinAdmin. 
+    tab and stop using system options to get the files.
 - Put "Help" and "About" menu items in the "User" menu.
 PR/PO form:
 - Take the approvers section out of the page footer of the PR form and put it at the end of the report.
