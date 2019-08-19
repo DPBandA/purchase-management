@@ -114,7 +114,8 @@ Email: info@dpbennett.com.jm
 
                     <h:outputText value="Expected date of completion: "/>
                     <p:calendar pattern="MMM dd, yyyy"
-                                navigator="true"          
+                                navigator="true"     
+                                disabled="#{!purchasingManager.isProcurementOfficer}"
                                 readonlyInput="true"
                                 value="#{purchasingManager.selectedPurchaseRequisition.expectedDateOfCompletion}" >
 

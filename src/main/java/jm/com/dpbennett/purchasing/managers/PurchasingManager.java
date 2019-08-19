@@ -823,7 +823,7 @@ public class PurchasingManager implements Serializable,
             if (employee.getName().equals(approverName)) {
                 employees.remove(index);
                 removePRApprovalDate(employee.getPositions());
-                getSelectedPurchaseRequisition().setIsDirty(true);
+                updatePurchaseReq(null);
                 getSelectedPurchaseRequisition().addAction(BusinessEntity.Action.EDIT);
 
                 break;
@@ -1233,17 +1233,20 @@ public class PurchasingManager implements Serializable,
     public void setSelectedAttachment(Attachment selectedAttachment) {
         this.selectedAttachment = selectedAttachment;
     }
+    
+    public void savePurchaseRequisition(
+            PurchaseRequisition pr,
+            String msgSavedSummary,
+            String msgSavedDetail) {
 
-    public void saveSelectedPurchaseRequisition() {
-
-        if (getSelectedPurchaseRequisition().getIsDirty()) {
+        if (pr.getIsDirty()) {
             ReturnMessage returnMessage;
 
-            returnMessage = getSelectedPurchaseRequisition().prepareAndSave(getEntityManager1(), getUser());
+            returnMessage = pr.prepareAndSave(getEntityManager1(), getUser());
 
             if (returnMessage.isSuccess()) {
-                PrimeFacesUtils.addMessage("Saved!", "Purchase requisition was saved", FacesMessage.SEVERITY_INFO);
-                getSelectedPurchaseRequisition().setEditStatus(" ");
+                PrimeFacesUtils.addMessage(msgSavedSummary, msgSavedDetail, FacesMessage.SEVERITY_INFO);
+                pr.setEditStatus(" ");
 
             } else {
                 PrimeFacesUtils.addMessage(returnMessage.getHeader(),
@@ -1252,7 +1255,7 @@ public class PurchasingManager implements Serializable,
 
                 Utils.sendErrorEmail("An error occurred while saving a purchase requisition! - "
                         + returnMessage.getHeader(),
-                        "Purchase requisition number: " + getSelectedPurchaseRequisition().getNumber()
+                        "Purchase requisition number: " + pr.getNumber()
                         + "\nJMTS User: " + getUser().getUsername()
                         + "\nDate/time: " + new Date()
                         + "\nDetail: " + returnMessage.getDetail(),
@@ -1264,6 +1267,11 @@ public class PurchasingManager implements Serializable,
                     FacesMessage.SEVERITY_INFO);
         }
 
+    }
+
+    public void saveSelectedPurchaseRequisition() {        
+        savePurchaseRequisition(getSelectedPurchaseRequisition(), 
+                "Saved", "Purchase requisition was saved");
     }
 
     private void emailProcurementOfficers(String action) {
@@ -1780,6 +1788,12 @@ public class PurchasingManager implements Serializable,
 
             updatePurchaseReq(null);
             getSelectedPurchaseRequisition().addAction(BusinessEntity.Action.APPROVE);
+            
+            if (getSelectedPurchaseRequisition().getId() != null) {
+                savePurchaseRequisition(getSelectedPurchaseRequisition(), 
+                        "Approved and Saved", 
+                        "This purchase requisition was successfully approved and saved");
+            }
 
         } else {
 

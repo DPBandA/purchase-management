@@ -1,11 +1,17 @@
 ### Initial Implementation
-- Allow only a procurement officer to cancel a PR once it is saved:
-  * When progress is changed the PR is not flagged dirty. Fix by calling updatePurchaseReq(null);
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
-  period in fin options.
-- Set the limit in fin options when a PR needs to go to procurement. 1.5M is the current limit. Show an alert when the total cost exceeds this limit. Put a note in the status note section stating that the limit was exceeded.
-- Send automatic email to persons that can approve the PR based on the given criteria. Note only persons in the originator's division should get this email.
+  period in fin options:
+  * When approval is deleted "edited" is not shown. Fix.
+  * Implement adding the "daysAfterPRApprovalForEDOC" to the final approval date to 
+    arrive at the EDOC.
+  * Add system option for the number of days after to be added to the approval date
+    to arrive at the "Expected date of completion". Use daysAfterPRApprovalForEDOC.
+- Set the limit in fin options when a PR needs to go to procurement. 
+  1.5M is the current limit. Show an alert when the total cost exceeds this limit. 
+  Put a note in the status note section stating that the limit was exceeded.
+- Send automatic email to persons that can approve the PR based on the given criteria. 
+  Note only persons in the originator's division should get this email.
 - Add the total amount to the PR emails templates.
 - Send automatic PR emails to admin assistant of a department/division.
 - Create Currency class and add it to the CostComponent class. Let Currency class
@@ -49,6 +55,7 @@ PR/PO form:
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
 - Add prPriorityCodes system option.
+- Add daysAfterPRApprovalForEDOC system option.
 
 
 ### Training
