@@ -2,7 +2,8 @@
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
-  * When approval is deleted "edited" is not shown. Fix.
+  * Add system option for the number of approvals required (prRequiredApprovals). Show the number of 
+    required approvals in the growl message.  
   * Implement adding the "daysAfterPRApprovalForEDOC" to the final approval date to 
     arrive at the EDOC.
   * Add system option for the number of days after to be added to the approval date
@@ -20,8 +21,6 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
-- Only allow one of the set positions to approve otherwise an approval date will 
-  not be shown. Add system option that sets the positions that can approve PR.
 
 ### UI Design
 - Address PO/PR forms as follows:
