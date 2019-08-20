@@ -2,8 +2,8 @@
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
-  * Add system option for the number of approvals required (prRequiredApprovals). Show the number of 
-    required approvals in the growl message.  
+  * Add system option for the number of approvals required (requiredPRApprovals). 
+    Show the number of required approvals in the growl message.  
   * Implement adding the "daysAfterPRApprovalForEDOC" to the final approval date to 
     arrive at the EDOC.
   * Add system option for the number of days after to be added to the approval date
