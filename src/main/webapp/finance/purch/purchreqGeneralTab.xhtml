@@ -220,20 +220,11 @@ Email: info@dpbennett.com.jm
     </p:panel>
 
     <p:panel id="approvalsPanel" style="border: 0;" >
-        <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
-            <p:toolbarGroup>
-                <p:commandButton title="Approve this purchase requisition"
-                                 value="Approve"
-                                 actionListener="#{purchasingManager.approveSelectedPurchaseRequisition}"
-                                 update=":purchreqDialogForm:purchreqDetailToolbar1,approvalsPanel,:purchreqDialogForm:purchreq_growl"
-                                 onstart="PF('longProcessDialogVar').show();"
-                                 oncomplete="PF('longProcessDialogVar').hide();"
-                                 process="@this">
-                </p:commandButton>
-            </p:toolbarGroup>                    
-        </p:toolbar>
-
+        
+        <ui:include src="purchreqApprovalsToolbar.xhtml"/>
+        
         <p:dataTable  var="approver"
+                      style="margin-top: 1px;margin-bottom: 1px;"
                       id="approverTable"
                       value="#{purchasingManager.selectedPurchaseRequisition.approvers}">
 
@@ -272,20 +263,10 @@ Email: info@dpbennett.com.jm
                 </p:commandButton>
             </p:column>      
 
-        </p:dataTable>
+        </p:dataTable>        
         
-        <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
-            <p:toolbarGroup>
-                <p:commandButton title="Approve this purchase requisition"
-                                 value="Approve"
-                                 actionListener="#{purchasingManager.approveSelectedPurchaseRequisition}"
-                                 update=":purchreqDialogForm:purchreqDetailToolbar1,approvalsPanel,:purchreqDialogForm:purchreq_growl"
-                                 onstart="PF('longProcessDialogVar').show();"
-                                 oncomplete="PF('longProcessDialogVar').hide();"
-                                 process="@this">
-                </p:commandButton>
-            </p:toolbarGroup>                    
-        </p:toolbar>   
+        <ui:include src="purchreqApprovalsToolbar.xhtml"/>
+      
     </p:panel>
 </html>
 
