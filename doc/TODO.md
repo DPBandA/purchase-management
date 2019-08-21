@@ -1,6 +1,8 @@
 ### Initial Implementation
-- Add pr-email-template email template and see what is causing the exception:
-  "Error processing PR actions: java.lang.NullPointerException
+- Add pr-email-template email template and see what is causing the exception 
+  "Error processing PR actions: java.lang.NullPointerException". 
+  Calling processPurchaseReqActions() in Thread() seems to be the problem when getUser() is called. 
+  Find a workaround.
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
