@@ -1,0 +1,14 @@
+Dear {title} {surname},
+
+You are being requested to {action} the following purchase requisition via the Job Management & Tracking System (JMTS) ({JMTSURL});
+
+Request date: {requisitionDate}
+Purchase requisition number: {purchaseRequisitionNumber}
+Originator: {originator}
+Department: {department}
+Description: {description}
+
+You are being requested to {action} this purchase requisition in your role as {role}.
+
+Signed
+{sender}

@@ -1,4 +1,6 @@
 ### Initial Implementation
+- Add pr-email-template email template and see what is causing the exception:
+  "Error processing PR actions: java.lang.NullPointerException
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
@@ -24,6 +26,7 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 
 ### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
+- Mention know the change from department to branch and team leader to manager. 
 - Re-enable authentication for RA, DM and MA.
 
 ### UI Design
