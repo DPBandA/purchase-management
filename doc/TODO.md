@@ -22,8 +22,9 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
 
-### Note for email to RA etc
+### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
+- Re-enable authentication for RA, DM and MA.
 
 ### UI Design
 - Address PO/PR forms as follows:
