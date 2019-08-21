@@ -22,6 +22,9 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
 
+### Note for email to RA etc
+- The user interface is similar to the JMTS to ease the learning curve.
+
 ### UI Design
 - Address PO/PR forms as follows:
   * Quotation Number label not in line with quotation number. Fix for other labels.
@@ -38,6 +41,7 @@ PR/PO form:
 - Right justify the total cost in the PR form.
 - Centre "Suggested Supplier:" static text with the text field. It is not centred. 
   when exported to PDF on Linux. See if it is the same on Windows.
+- Make "Category" in system option read only for all except sysadmin.
 
 ### Database Update
 - Run new PR(); to create the database tables for the attachment field in the PR class.
@@ -49,8 +53,9 @@ PR/PO form:
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
-- Add prPriorityCodes system option.
+- Add prPriorityCodes (Regular;Urgent)system option.
 - Add daysAfterPRApprovalForEDOC system option.
+- Add requiredPRApprovals system option.
 
 
 ### Training
