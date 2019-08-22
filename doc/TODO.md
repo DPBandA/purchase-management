@@ -1,16 +1,10 @@
 ### Initial Implementation
-- Fix the "Request approval..." and "Send message..." menu items under the "Tools" menu:
-  * "Request approval"
-  * "Send message..."
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
-  * Add system option for the number of approvals required (requiredPRApprovals). 
-    Show the number of required approvals in the growl message.  
-  * Implement adding the "daysAfterPRApprovalForEDOC" to the final approval date to 
-    arrive at the EDOC.
   * Add system option for the number of days after to be added to the approval date
     to arrive at the "Expected date of completion". Use daysAfterPRApprovalForEDOC.
+    Add the date only if it is null.
 - Set the limit in fin options when a PR needs to go to procurement. 
   1.5M is the current limit. Show an alert when the total cost exceeds this limit. 
   Put a note in the status note section stating that the limit was exceeded.
@@ -24,7 +18,8 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
-- Add "procurement" as an official module that can be activated.
+- Add "procurement" as an official module that can be activated and make use of 
+  CANACCESSPROCUREMENTUNIT.
 
 ### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
