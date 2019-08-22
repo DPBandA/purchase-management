@@ -1,8 +1,7 @@
 ### Initial Implementation
-- Add pr-email-template email template and see what is causing the exception 
-  "Error processing PR actions: java.lang.NullPointerException". 
-  Calling processPurchaseReqActions() in Thread() seems to be the problem when getUser() is called. 
-  Find a workaround.
+- Fix the "Request approval..." and "Send message..." menu items under the "Tools" menu:
+  * "Request approval"
+  * "Send message..."
 - Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
   to arrive at the default "Expected date of completion". Allow changing this default 
   period in fin options:
@@ -25,6 +24,7 @@ implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
   to facilitate conversion between currencies using static methods. 
   Currency class should have the ISO symbol and abbreviation.
+- Add "procurement" as an official module that can be activated.
 
 ### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
