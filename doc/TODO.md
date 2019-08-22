@@ -1,13 +1,10 @@
 ### Initial Implementation
-- Add a default of 2 weeks to the date when the PR is fully approved (2 or 3 approvals) 
-  to arrive at the default "Expected date of completion". Allow changing this default 
-  period in fin options:
-  * Add system option for the number of days after to be added to the approval date
-    to arrive at the "Expected date of completion". Use daysAfterPRApprovalForEDOC.
-    Add the date only if it is null.
+- Impl "Double" system option type.
 - Set the limit in fin options when a PR needs to go to procurement. 
   1.5M is the current limit. Show an alert when the total cost exceeds this limit. 
   Put a note in the status note section stating that the limit was exceeded.
+  * Add maxAmountForPRProcurement system option.
+  * Impl getSelectedPRProcurementAmountNote() to indicate if procurement amount reached.
 - Send automatic email to persons that can approve the PR based on the given criteria. 
   Note only persons in the originator's division should get this email.
 - Add the total amount to the PR emails templates.
@@ -57,6 +54,7 @@ PR/PO form:
 - Add prPriorityCodes (Regular;Urgent)system option.
 - Add daysAfterPRApprovalForEDOC system option.
 - Add requiredPRApprovals system option.
+- Add maxAmountForPRProcurement system option.
 
 
 ### Training
