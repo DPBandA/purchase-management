@@ -1,7 +1,11 @@
 ### Initial Implementation
-- Send automatic PR emails to admin assistant of a department/division.
-- Create Currency class and add it to the CostComponent class. Let Currency class
-implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
+- Create Currency class. Let Currency class implement Asset class. 
+  Add symbol (eg $) and code (eg JMD) fields to the class:
+  * Add currency class to PR and Component classes
+  * Impl currency table in FinAdmin.
+  * Impl conversion between currencies when finding the total cost using the currency of the PR class.
+    Impl CurrencyConversion class for this?
+  * Add system option for the currency by symbol or name.
 - Create CurrencyConversion for storing currency conversions such as USD to JMD.
 - Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
   to facilitate conversion between currencies using static methods. 
@@ -35,11 +39,12 @@ PR/PO form:
 
 ### Database Update
 - Run new PR(); to create the database tables for the attachment field in the PR class.
-- Add attachment table by running BEL code.
+- Add attachment, currency tables by running BEL code.
 - costcomponent table: CURRENCY_ID
 - privilege table: CANACCESSPROCUREMENTUNIT
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM,
-  SHIPPINGINSTRUCTIONS (VARCHAR: 1024), PLEASESUPPLYNOTE (VARCHAR: 1024)
+  SHIPPINGINSTRUCTIONS (VARCHAR: 1024), PLEASESUPPLYNOTE (VARCHAR: 1024),
+  CURRENCY_ID (BIGINT, index)
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
