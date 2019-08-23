@@ -23,7 +23,7 @@ Email: info@dpbennett.com.jm
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
-    
+
     <p:toolbar style="margin-top: 1px;margin-bottom: 1px;">
         <p:toolbarGroup>
             <p:commandButton title="Add new cost component"
@@ -176,7 +176,11 @@ Email: info@dpbennett.com.jm
             </p:commandButton>
 
         </p:toolbarGroup>
-    </p:toolbar>    
+    </p:toolbar>   
+
+    <h:outputText 
+        style="font-weight: bold;color: orange;"
+        value="#{purchasingManager.selectedPRProcurementAmountNote}" />
 
 </html>
 

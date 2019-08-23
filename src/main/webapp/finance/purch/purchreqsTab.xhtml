@@ -158,6 +158,13 @@ Email: info@dpbennett.com.jm
             </h:outputText>
         </p:column>
 
+        <p:column sortBy="#{pr.workProgress}">
+            <f:facet name="header">
+                <h:outputText value="Progress"/>
+            </f:facet>
+            <h:outputText value="#{pr.workProgress}" />                
+        </p:column>
+        
         <p:column sortBy="#{pr.description}">
             <f:facet name="header">
                 <h:outputText value="Description"/>

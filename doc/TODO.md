@@ -1,14 +1,4 @@
 ### Initial Implementation
-- Set the limit in fin options when a PR needs to go to procurement. 
-  1.5M is the current limit. Show an alert when the total cost exceeds this limit. 
-  Put a note in the status note section stating that the limit was exceeded.
-  * Impl method in NumberUtils to format number as currency.
-  * Impl getSelectedPRProcurementAmountNote() to indicate if procurement amount reached.
-    Display the amount in the message formatted as currency.
-- Do not allow saving of changes to the PR once marked completed.
-- Send automatic email to persons that can approve the PR based on the given criteria. 
-  Note only persons in the originator's division should get this email.
-- Add the total amount to the PR emails templates.
 - Send automatic PR emails to admin assistant of a department/division.
 - Create Currency class and add it to the CostComponent class. Let Currency class
 implement Asset class. Add symbol (eg $) and code (eg JMD) fields to the class.
