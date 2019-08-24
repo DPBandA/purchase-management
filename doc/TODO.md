@@ -1,8 +1,9 @@
 ### Initial Implementation
 - Create Currency class. Let Currency class implement Asset class. 
   Add symbol (eg $) and code (eg JMD) fields to the class:
-  * Add currency class to PR and Component classes
-  * Impl currency table in FinAdmin.
+  * Impl all find and other query based methods in the Currency class.
+  * Create currency converter and validator and out them in faces-config.
+  * Impl currency table in FinAdmin. Finish editing currenciesTab.xhtml.
   * Impl conversion between currencies when finding the total cost using the currency of the PR class.
     Impl CurrencyConversion class for this?
   * Add system option for the currency by symbol or name.
@@ -40,7 +41,7 @@ PR/PO form:
 ### Database Update
 - Run new PR(); to create the database tables for the attachment field in the PR class.
 - Add attachment, currency tables by running BEL code.
-- costcomponent table: CURRENCY_ID
+- costcomponent table: CURRENCY_ID (BIGINT, index)
 - privilege table: CANACCESSPROCUREMENTUNIT
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM,
   SHIPPINGINSTRUCTIONS (VARCHAR: 1024), PLEASESUPPLYNOTE (VARCHAR: 1024),
