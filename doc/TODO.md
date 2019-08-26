@@ -2,10 +2,8 @@
 - Create Currency class. Let Currency class implement Asset class. 
   Add symbol (eg $) and code (eg JMD) fields to the class:
   * Impl all find and other query based methods in the Currency class.
-  * Create currency converter and validator and out them in faces-config.
+  * Create currency converter and validator and add them in faces-config.
   * Impl currency table in FinAdmin. Finish editing currenciesTab.xhtml.
-  * Impl conversion between currencies when finding the total cost using the currency of the PR class.
-    Impl CurrencyConversion class for this?
   * Add system option for the default currency by symbol or name.
 - Add "procurement" as an official module that can be activated and make use of 
   CANACCESSPROCUREMENTUNIT.
@@ -23,6 +21,7 @@
 - Mention know the change from department to branch and team leader to manager. 
 - Re-enable authentication for RA, DM and MA.
 - Further update cannot be done until the JMTS maintenance program is initiated.
+- PM to activated and tested in the JMTS.
 
 ### UI Design
 - Address PO/PR forms as follows:
