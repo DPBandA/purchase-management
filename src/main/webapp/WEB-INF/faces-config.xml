@@ -38,6 +38,10 @@
         <converter-class>jm.com.dpbennett.wal.converter.AccountingCodeConverter</converter-class>
     </converter>
     <converter>
+        <converter-id>currencyConverter</converter-id>
+        <converter-class>jm.com.dpbennett.wal.converter.CurrencyConverter</converter-class>
+    </converter>
+    <converter>
         <converter-id>taxConverter</converter-id>
         <converter-class>jm.com.dpbennett.wal.converter.TaxConverter</converter-class>
     </converter>
@@ -113,6 +117,10 @@
         <validator-id>accountingCodeValidator</validator-id>
         <validator-class>jm.com.dpbennett.wal.validator.AccountingCodeValidator</validator-class>
     </validator>  
+    <validator>
+        <validator-id>currencyValidator</validator-id>
+        <validator-class>jm.com.dpbennett.wal.validator.CurrencyValidator</validator-class>
+    </validator>
     <validator>
         <validator-id>taxValidator</validator-id>
         <validator-class>jm.com.dpbennett.wal.validator.TaxValidator</validator-class>
@@ -354,6 +362,13 @@
         <navigation-case>
             <from-outcome>accountingCodeDialog</from-outcome>
             <to-view-id>/finance/accountingCodeDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>currencyDialog</from-outcome>
+            <to-view-id>/finance/currencyDialog.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

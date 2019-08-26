@@ -2,7 +2,7 @@
 - Create Currency class. Let Currency class implement Asset class. 
   Add symbol (eg $) and code (eg JMD) fields to the class:
   * Impl all find and other query based methods in the Currency class.
-  * Create currency converter and validator and add them in faces-config.
+    Use the Tax class as example.
   * Impl currency table in FinAdmin. Finish editing currenciesTab.xhtml.
   * Add system option for the default currency by symbol or name.
 - Add "procurement" as an official module that can be activated and make use of 
