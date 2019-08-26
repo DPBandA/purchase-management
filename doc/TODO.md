@@ -1,12 +1,5 @@
 ### Initial Implementation
-- Create Currency class. Let Currency class implement Asset class. 
-  Add symbol (eg $) and code (eg JMD) fields to the class:
-  * Impl all find and other query based methods in the Currency class.
-    Use the Tax class as example.
-  * Impl currency table in FinAdmin. Finish editing currenciesTab.xhtml.
-  * Add system option for the default currency by symbol or name.
-- Add "procurement" as an official module that can be activated and make use of 
-  CANACCESSPROCUREMENTUNIT.
+- Deploy, activate authentication and test entry, editing and form export.
 
 ### Later Issues
 - Create CurrencyConversion entity class for storing currency conversions such as USD to JMD:
@@ -14,12 +7,14 @@
   * Multiple from by rate to get to.
   * Look at ratec conversion in GnuCash
   * Implement selecting the currency in the costcomponent.
-- Note that a PR can use multiple currencies.
+  * Add system option for the default currency by symbol or name.
+- Note that a PR can use multiple currencies. Impl conversion of all currencies to
+  the base currencies.
 
 ### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
 - Mention know the change from department to branch and team leader to manager. 
-- Re-enable authentication for RA, DM and MA.
+- Re-enable authentication for GG, RA, DM and MA.
 - Further update cannot be done until the JMTS maintenance program is initiated.
 - PM to activated and tested in the JMTS.
 
@@ -49,6 +44,7 @@ PR/PO form:
 - purchaserequisition table: DELIVERYDATEREQUIRED, IMPORTLICENCEDATE, IMPORTLICENCENUM,
   SHIPPINGINSTRUCTIONS (VARCHAR: 1024), PLEASESUPPLYNOTE (VARCHAR: 1024),
   CURRENCY_ID (BIGINT, index)
+- modules table: PURCHASEMANAGEMENTMODULE
 - Add currency table by running BEL code.
 - Add "purchReqUploadFolder" system option. Add "/" to purchReqUploadFolder system option.
 - Add new PO fields to ALL databases.
