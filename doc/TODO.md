@@ -6,13 +6,17 @@
   * Impl currency table in FinAdmin. Finish editing currenciesTab.xhtml.
   * Impl conversion between currencies when finding the total cost using the currency of the PR class.
     Impl CurrencyConversion class for this?
-  * Add system option for the currency by symbol or name.
-- Create CurrencyConversion for storing currency conversions such as USD to JMD.
-- Implement selecting the currency in the costcomponent. Implement "Currency"/ entity class 
-  to facilitate conversion between currencies using static methods. 
-  Currency class should have the ISO symbol and abbreviation.
+  * Add system option for the default currency by symbol or name.
 - Add "procurement" as an official module that can be activated and make use of 
   CANACCESSPROCUREMENTUNIT.
+
+### Later Issues
+- Create CurrencyConversion entity class for storing currency conversions such as USD to JMD:
+  * Fields: from, to, rate
+  * Multiple from by rate to get to.
+  * Look at ratec conversion in GnuCash
+  * Implement selecting the currency in the costcomponent.
+- Note that a PR can use multiple currencies.
 
 ### Notes for deployment and email to RA etc.
 - The user interface is similar to the JMTS to ease the learning curve.
