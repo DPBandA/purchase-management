@@ -2,7 +2,7 @@
 - Fix creating new and searching for suppliers:
   * Fix searching for supplier in tab...search text field not shown. 
     Search for active suppliers by default.
-  * Add search text field in another issue
+  * Add search text field in another issue??
 - Deploy, activate authentication and test entry, editing and form export:
   * Check that default search still works.
 - Do invoice.
