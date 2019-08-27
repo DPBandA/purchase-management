@@ -1,5 +1,18 @@
 ### Initial Implementation
-- Deploy, activate authentication and test entry, editing and form export.
+- Fix creating new and searching for suppliers:
+  * Fix searching for supplier in tab...search text field not shown. 
+    Search for active suppliers by default.
+  * Add search text field in another issue
+- Deploy, activate authentication and test entry, editing and form export:
+  * Check that default search still works.
+- Do invoice.
+
+### Notes for deployment and email to RA etc.
+- The user interface is similar to the JMTS to ease the learning curve.
+- Mention know the change from department to branch and team leader to manager. 
+- Re-enable authentication for GG, RA, DM and MA.
+- Further update cannot be done until the JMTS maintenance program is initiated.
+- PM to activated and tested in the JMTS.
 
 ### Later Issues
 - Create CurrencyConversion entity class for storing currency conversions such as USD to JMD:
@@ -10,13 +23,6 @@
   * Add system option for the default currency by symbol or name.
 - Note that a PR can use multiple currencies. Impl conversion of all currencies to
   the base currencies.
-
-### Notes for deployment and email to RA etc.
-- The user interface is similar to the JMTS to ease the learning curve.
-- Mention know the change from department to branch and team leader to manager. 
-- Re-enable authentication for GG, RA, DM and MA.
-- Further update cannot be done until the JMTS maintenance program is initiated.
-- PM to activated and tested in the JMTS.
 
 ### UI Design
 - Address PO/PR forms as follows:

@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BSJ JMTS MySQL"/>
 	<property name="com.jaspersoft.studio.report.description" value="Purchase Order"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="763"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="224"/>
@@ -17,21 +17,21 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString>
-			<![CDATA[SELECT jmts.purchaserequisition.`ID`,
-	jmts.costcomponent.`RATE`,
-	jmts.costcomponent.`HOURS`,
-	jmts.costcomponent.`NAME`,
-	jmts.costcomponent.`CODE`,
-	jmts.costcomponent.`HOURSORQUANTITY`,
-	jmts.costcomponent.`COST`,
-	jmts.costcomponent.`UNIT`
-FROM jmts.purchaserequisition_costcomponent
-	INNER JOIN jmts.costcomponent ON 
-	 jmts.purchaserequisition_costcomponent.`costComponents_ID` = jmts.costcomponent.`ID` 
-	INNER JOIN jmts.purchaserequisition ON 
-	 jmts.purchaserequisition_costcomponent.`PurchaseRequisition_ID` = jmts.purchaserequisition.`ID` 
+			<![CDATA[SELECT purchaserequisition.`ID`,
+	costcomponent.`RATE`,
+	costcomponent.`HOURS`,
+	costcomponent.`NAME`,
+	costcomponent.`CODE`,
+	costcomponent.`HOURSORQUANTITY`,
+	costcomponent.`COST`,
+	costcomponent.`UNIT`
+FROM purchaserequisition_costcomponent
+	INNER JOIN costcomponent ON 
+	 purchaserequisition_costcomponent.`costComponents_ID` = costcomponent.`ID` 
+	INNER JOIN purchaserequisition ON 
+	 purchaserequisition_costcomponent.`PurchaseRequisition_ID` = purchaserequisition.`ID` 
 WHERE 
-	 $P!{costComponent_prId} = jmts.purchaserequisition.`ID`]]>
+	 $P!{costComponent_prId} = purchaserequisition.`ID`]]>
 		</queryString>
 		<field name="ID" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.label" value="ID"/>
@@ -69,8 +69,8 @@ WHERE
 			<variableExpression><![CDATA[$F{ID}]]></variableExpression>
 		</variable>
 	</subDataset>
-	<parameter name="prId" class="java.lang.Long" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1386101L]]></defaultValueExpression>
+	<parameter name="prId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[320958L]]></defaultValueExpression>
 	</parameter>
 	<parameter name="purchReqNo" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["PR-09038992533"]]></defaultValueExpression>
@@ -153,22 +153,22 @@ WHERE
 		<defaultValueExpression><![CDATA["QN-0001"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT jmts.purchaserequisition.`ID`,
-	jmts.purchaserequisition.`DESCRIPTION`,
-	jmts.purchaserequisition.`DATEREQUIRED`,
-	jmts.purchaserequisition.`NUMBER`,
-	jmts.purchaserequisition.`PRIORITYCODE`,
-	jmts.purchaserequisition.`PURCHASEORDERDATE`,
-	jmts.purchaserequisition.`PURCHASEORDERNUMBER`,
-	jmts.purchaserequisition.`REQUISITIONDATE`,
-	jmts.purchaserequisition.`ORIGINATINGDEPARTMENT_ID`,
-	jmts.purchaserequisition.`ORIGINATOR_ID`,
-	jmts.supplier.`NAME` AS supplierName
-FROM jmts.purchaserequisition
-	INNER JOIN jmts.supplier ON 
-	 jmts.purchaserequisition.`SUPPLIER_ID` = jmts.supplier.`ID` 
+		<![CDATA[SELECT purchaserequisition.`ID`,
+	purchaserequisition.`DESCRIPTION`,
+	purchaserequisition.`DATEREQUIRED`,
+	purchaserequisition.`NUMBER`,
+	purchaserequisition.`PRIORITYCODE`,
+	purchaserequisition.`PURCHASEORDERDATE`,
+	purchaserequisition.`PURCHASEORDERNUMBER`,
+	purchaserequisition.`REQUISITIONDATE`,
+	purchaserequisition.`ORIGINATINGDEPARTMENT_ID`,
+	purchaserequisition.`ORIGINATOR_ID`,
+	supplier.`NAME` AS supplierName
+FROM purchaserequisition
+	INNER JOIN supplier ON 
+	 purchaserequisition.`SUPPLIER_ID` = supplier.`ID` 
 WHERE 
-	 jmts.purchaserequisition.`ID` = $P{prId}]]>
+	 purchaserequisition.`ID` = $P{prId}]]>
 	</queryString>
 	<field name="ID" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="ID"/>
