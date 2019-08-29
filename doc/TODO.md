@@ -1,4 +1,9 @@
 ### Initial Implementation
+- Fix attachment feature:
+  * It seems the file to be uploaded is being looked for on the server machine and 
+    and not from where it is selected. Check out the fileToSave variable. The
+    argument to new File() should not be uploadedFilePath
+- See paper for changes to be implemented
 - Deploy, activate authentication and test entry, editing and form export:
   * Check that default search still works.
 - Do invoice.
