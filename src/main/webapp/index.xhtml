@@ -95,11 +95,6 @@ Email: info@dpbennett.com.jm
                                      update="headerForm"
                                      process="@this"/>
 
-
-                    <p:remoteCommand name="auth" autoRun="true" 
-                                     actionListener="#{systemManager.setupAuthentication}" />
-
-
                     <p:remoteCommand name="keepAliveRequest"
                                      actionListener="#{systemManager.handleKeepAlive}"
                                      onerror="PF('connectionErrorDialog').show();"

@@ -16,47 +16,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
-    <dependencies>  
-        <!-- The web-application-library dependency is not needed since it is already added to 
-          the system-management project. It is added to avoid the need to build system-management
-          before building this project -->
+    <dependencies>          
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>web-application-library</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-         <!-- The wbusiness-entity-library dependency is not needed since it is already added to 
-          the web-application-library project. It is added to avoid the need to web-application-library
-          before building this project -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>business-entity-library</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <scope>provided</scope>
-            <version>6.2</version>
-        </dependency>                  
+            <artifactId>purchase-management-library</artifactId>
+            <version>1.0.0</version>
+        </dependency>                         
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>system-management</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <type>war</type>
-        </dependency>   
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>purchase-management-library</artifactId>
-            <version>1.0.0</version>
-        </dependency>        
+        </dependency>     
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>financial-management</artifactId>
             <version>1.0.0</version>
             <type>war</type>
-        </dependency>       
+        </dependency>     
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>human-resource-management</artifactId>
+            <version>1.0.0</version>
+            <type>war</type>
+        </dependency>  
     </dependencies>
 
     <build>
@@ -80,7 +63,9 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>                   
                     <dependentWarExcludes>
-                        WEB-INF/web.xml, WEB-INF/glassfish-web.xml, WEB-INF/faces-config.xml, index.xhtml                        
+                        WEB-INF/web.xml, 
+                        WEB-INF/glassfish-web.xml, 
+                        index.xhtml                        
                     </dependentWarExcludes>
                     <overlays>
                         <overlay>
@@ -91,6 +76,11 @@
                             <groupId>${project.groupId}</groupId>
                             <artifactId>financial-management</artifactId>
                         </overlay>
+                        <overlay>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>human-resource-management</artifactId>
+                        </overlay>
+                        
                     </overlays>  
                 </configuration>
             </plugin>

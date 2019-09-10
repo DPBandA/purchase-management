@@ -30,8 +30,8 @@ Email: info@dpbennett.com.jm
             <p:commandButton 
                 value="New"
                 icon="ui-icon-plus" 
-                onstart="PF('longProcessDialogVar4').show();"
-                oncomplete="longProcessDialogVar4.hide();"
+                onstart="PF('longProcessDialogVar').show();"
+                oncomplete="longProcessDialogVar.hide();"
                 actionListener="#{purchasingManager.addNewSupplier}"                                            
                 process="@this"
                 title="Add a new supplier" >
@@ -131,8 +131,8 @@ Email: info@dpbennett.com.jm
 
         <p:column style="width:32px">
             <p:commandButton icon="ui-icon-pencil"
-                             onstart="PF('longProcessDialogVar4').show();"                               
-                             oncomplete="PF('longProcessDialogVar4').hide();"
+                             onstart="PF('longProcessDialogVar').show();"                               
+                             oncomplete="PF('longProcessDialogVar').hide();"
                              actionListener="#{purchasingManager.editSelectedSupplier}"
                              process="@this"
                              title="View or edit this supplier's detail">
@@ -152,8 +152,8 @@ Email: info@dpbennett.com.jm
             <p:commandButton 
                 value="New"
                 icon="ui-icon-plus" 
-                onstart="PF('longProcessDialogVar4').show();"
-                oncomplete="longProcessDialogVar4.hide();"
+                onstart="PF('longProcessDialogVar').show();"
+                oncomplete="longProcessDialogVar.hide();"
                 actionListener="#{purchasingManager.addNewSupplier}"                                            
                 process="@this"
                 title="Add a new supplier" >

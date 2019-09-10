@@ -43,8 +43,8 @@ Email: info@dpbennett.com.jm
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Send"
                                      actionListener="#{purchasingManager.sendGeneralPurchaseReqEmail}"
-                                     onstart="PF('longProcessDialogVar4').show();"
-                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     onstart="PF('longProcessDialogVar').show();"
+                                     oncomplete="PF('longProcessDialogVar').hide();"
                                      icon="ui-icon-mail-closed"
                                      update="purchaseReqEmailDialog_growl"
                                      process="@form"/>
@@ -52,7 +52,7 @@ Email: info@dpbennett.com.jm
                     <p:commandButton value="Cancel"  
                                      immediate="true"
                                      actionListener="#{purchasingManager.closeDialog}"
-                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     oncomplete="PF('longProcessDialogVar').hide();"
                                      icon="ui-icon ui-icon-close" />  
 
                 </p:toolbarGroup>
@@ -113,8 +113,8 @@ Email: info@dpbennett.com.jm
                 <p:toolbarGroup align="left">
                     <p:commandButton value="Send"
                                      actionListener="#{purchasingManager.sendGeneralPurchaseReqEmail}"
-                                     onstart="PF('longProcessDialogVar4').show();"
-                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     onstart="PF('longProcessDialogVar').show();"
+                                     oncomplete="PF('longProcessDialogVar').hide();"
                                      icon="ui-icon-mail-closed"
                                      update="purchaseReqEmailDialog_growl"
                                      process="@form"/>
@@ -122,7 +122,7 @@ Email: info@dpbennett.com.jm
                     <p:commandButton value="Cancel"  
                                      immediate="true"
                                      actionListener="#{purchasingManager.closeDialog}"
-                                     oncomplete="PF('longProcessDialogVar4').hide();"
+                                     oncomplete="PF('longProcessDialogVar').hide();"
                                      icon="ui-icon ui-icon-close" />  
 
                 </p:toolbarGroup>

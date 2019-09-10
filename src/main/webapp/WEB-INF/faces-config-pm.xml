@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+  
+    <converter>
+        <converter-id>activeSupplierConverter</converter-id>
+        <converter-class>jm.com.dpbennett.pm.converter.ActiveSupplierConverter</converter-class>
+    </converter> 
+    <validator>
+        <validator-id>supplierValidator</validator-id>
+        <validator-class>jm.com.dpbennett.pm.validator.SupplierValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>purchaseReqNumberValidator</validator-id>
+        <validator-class>jm.com.dpbennett.pm.validator.PurchaseReqNumberValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>purchaseOrderNumberValidator</validator-id>
+        <validator-class>jm.com.dpbennett.pm.validator.PurchaseOrderNumberValidator</validator-class>
+    </validator>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>purchreqDialog</from-outcome>
+            <to-view-id>/finance/purch/purchreqDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>purchaseReqEmailDialog</from-outcome>
+            <to-view-id>/finance/purch/purchaseReqEmailDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>  
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>supplierDialog</from-outcome>
+            <to-view-id>/finance/purch/supplierDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    
+    <managed-bean>
+        <managed-bean-name>purchasingManager</managed-bean-name>
+        <managed-bean-class>jm.com.dpbennett.pm.manager.PurchasingManager</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+</faces-config>
