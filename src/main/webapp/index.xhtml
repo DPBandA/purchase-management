@@ -138,6 +138,10 @@ Email: info@dpbennett.com.jm
                                 <ui:include src="finance/purch/suppliersTab.xhtml" />                                                                
                             </h:panelGroup>
                             
+                            <h:panelGroup rendered="#{t.id == 'Human Resource'}" >
+                                <ui:include src="hrm/hrmTab.xhtml" /> 
+                            </h:panelGroup>
+                            
                             <h:panelGroup  rendered="#{t.id == 'Financial Administration'}">
                                 <ui:include src="finance/financialAdminTab.xhtml" /> 
                             </h:panelGroup> 
@@ -212,6 +216,10 @@ Email: info@dpbennett.com.jm
 
                             <h:panelGroup rendered="#{t.id == 'Financial Administration'}">
                                 <ui:include src="dashboard/finance/financialAdminTab.xhtml" />
+                            </h:panelGroup>
+                            
+                            <h:panelGroup rendered="#{t.id == 'Human Resource'}">
+                                <ui:include src="dashboard/hrm/hrmTab.xhtml" />
                             </h:panelGroup>
 
                             <h:panelGroup rendered="#{t.id == 'System Administration'}">

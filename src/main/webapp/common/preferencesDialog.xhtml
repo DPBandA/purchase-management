@@ -1,0 +1,168 @@
+<!--
+Human Resource Management (HRM) 
+Copyright (C) 2017  D P Bennett & Associates Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Email: info@dpbennett.com.jm
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form id="preferencesDialogForm">
+
+        <p:dialog width="750"
+                  height="300"
+                  draggable="true"
+                  modal="true"
+                  widgetVar="preferencesDialog"
+                  maximizable="false"
+                  closable="true"
+                  header="Preferences" >
+
+            <p:ajax event="close"    
+                    onstart="PF('longProcessDialogVar').show();"
+                    oncomplete="PF('longProcessDialogVar').hide();"
+                    listener="#{humanResourceManager.closePreferencesDialog2}"/>
+
+            <p:toolbar>
+                <p:toolbarGroup align="left" >
+                    <p:commandButton value="Ok" 
+                                     onstart="PF('longProcessDialogVar').show();"
+                                     oncomplete="PF('longProcessDialogVar').hide();PF('mainTabViewVar').select(0);"
+                                     actionListener="#{humanResourceManager.closePreferencesDialog1}" />        
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:tabView id="preferencesTabView" 
+                       style="margin-top: 1px;margin-bottom: 1px;">
+                <p:tab title="General" id="generalTab">
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Theme:"/>
+                        <p:themeSwitcher value="#{humanResourceManager.user.userInterfaceThemeName}" 
+                                         style="width:165px" 
+                                         id="defaultSwitcher">  
+                            <f:selectItem itemLabel="Choose Theme" itemValue="" />  
+                            <f:selectItems value="#{SMApp.themes}" />  
+                            <p:ajax listener="#{humanResourceManager.updatePreferences}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:themeSwitcher>  
+
+                        <h:outputText value="Job table view:"/>
+
+                        <p:autoComplete forceSelection="true"                               
+                                        maxlength="250"
+                                        value="#{humanResourceManager.user.jobTableViewPreference}"
+                                        title="#{humanResourceManager.user.jobTableViewPreference}"                                      
+                                        dropdown="true"                                       
+                                        completeMethod="#{humanResourceManager.completePreferenceValue}" >
+
+                            <p:ajax event="itemSelect"
+                                    listener="#{humanResourceManager.updatePreferedJobTableView}"
+                                    global="false"                                    
+                                    process="@this" />
+
+                            <p:ajax event="change"
+                                    listener="#{humanResourceManager.updatePreferedJobTableView}"
+                                    global="false"                                    
+                                    process="@this" />
+
+                        </p:autoComplete>                        
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Module Access" id="modulesTab">
+                    <h:panelGrid columns="3" id="modulesTabPanelGrid" cellspacing="10">
+
+                        <p:selectBooleanCheckbox id="jobManagementAndTrackingUnit" 
+                                                 rendered="#{humanResourceManager.user.privilege.canAccessJobManagementUnit}"
+                                                 itemLabel="Job Management &amp; Tracking"
+                                                 value="#{humanResourceManager.user.modules.jobManagementAndTrackingModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>                     
+
+                        <p:selectBooleanCheckbox id="adminUnit" 
+                                                 itemLabel="System Administration"
+                                                 rendered="#{humanResourceManager.user.privilege.canBeJMTSAdministrator}"
+                                                 value="#{humanResourceManager.user.modules.adminModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>
+
+                        <p:selectBooleanCheckbox id="financialAdminUnit" 
+                                                 itemLabel="Financial Administration"
+                                                 rendered="#{humanResourceManager.user.privilege.canBeFinancialAdministrator}"
+                                                 value="#{humanResourceManager.user.modules.financialAdminModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>    
+                        
+                        <p:selectBooleanCheckbox id="purchaseManagementUnit" 
+                                                 itemLabel="Procurement"
+                                                 rendered="#{humanResourceManager.user.privilege.canAccessProcurementUnit}"
+                                                 value="#{humanResourceManager.user.modules.purchaseManagementModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>
+                       
+                        <p:selectBooleanCheckbox id="legalOfficeUnit" 
+                                                 itemLabel="Legal"
+                                                 rendered="#{humanResourceManager.user.privilege.canAccessLegalOfficeUnit}"
+                                                 value="#{humanResourceManager.user.modules.legalOfficeModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>
+
+                        <p:selectBooleanCheckbox id="crmUnit" 
+                                                 itemLabel="Client Management"
+                                                 rendered="#{humanResourceManager.user.privilege.canAccessCRMUnit}"
+                                                 value="#{humanResourceManager.user.modules.crmModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>
+                        
+                        <p:selectBooleanCheckbox id="hrmUnit" 
+                                                 itemLabel="Human Resource Management"
+                                                 rendered="#{humanResourceManager.user.privilege.canAccessHRMUnit}"
+                                                 value="#{humanResourceManager.user.modules.hrmModule}" >
+                            <p:ajax listener="#{humanResourceManager.updateDashboardTabs}"
+                                    global="false"
+                                    process="@this"/>
+                        </p:selectBooleanCheckbox>
+
+                    </h:panelGrid> 
+                </p:tab>
+            </p:tabView>
+            <p:toolbar>
+                <p:toolbarGroup align="left" >
+                    <p:commandButton value="Ok" 
+                                     onstart="PF('longProcessDialogVar').show();"
+                                     oncomplete="PF('longProcessDialogVar').hide();PF('mainTabViewVar').select(0);"
+                                     actionListener="#{humanResourceManager.closePreferencesDialog1}" />        
+                </p:toolbarGroup>
+            </p:toolbar>
+        </p:dialog>
+    </h:form>
+</html>
