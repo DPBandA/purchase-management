@@ -1,5 +1,4 @@
 ### Initial Implementation
-- 
 - Fix attachment feature:
   * It seems the file to be uploaded is being looked for on the server machine and 
     and not from where it is selected. Check out the fileToSave variable. The
