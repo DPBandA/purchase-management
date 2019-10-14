@@ -11,6 +11,7 @@
 - Do invoice.
 
 ### Later Issues
+- Impl quick search/filter at top of PR table.
 - Create CurrencyConversion entity class for storing currency conversions such as USD to JMD:
   * Fields: from, to, rate
   * Multiple from by rate to get to.
