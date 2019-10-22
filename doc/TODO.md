@@ -8,7 +8,7 @@
   * Check that default search still works.
 - Prevent adding/deleting attachments once PR is completed.
 - Impl searching based on work progress field.
-- Do invoice.
+- Impl getting email template from resources or from folder as is done for reports.
 
 ### Later Issues
 - Impl quick search/filter at top of PR table.
