@@ -19,7 +19,7 @@
 		</parameter>
 		<queryString>
 			<![CDATA[SELECT purchaserequisition.`ID`,
-	jmtstest.costcomponent.`RATE`,
+	costcomponent.`RATE`,
 	costcomponent.`HOURS`,
 	costcomponent.`NAME`,
 	costcomponent.`CODE`,
