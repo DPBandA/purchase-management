@@ -1,17 +1,8 @@
-### Initial Implementation
-- Fix the exportation of PR/PO form. Run on appsrv to see the problem.
-- Fix attachment feature:
-  * It seems the file to be uploaded is being looked for on the server machine and 
-    and not from where it is selected. Check out the fileToSave variable. The
-    argument to new File() should not be uploadedFilePath
-- See paper for changes to be implemented
-- Deploy, activate authentication and test entry, editing and form export:
-  * Check that default search still works.
-- Prevent adding/deleting attachments once PR is completed.
-- Impl searching based on work progress field.
-- Impl getting email template from resources or from folder as is done for reports.
-
-### Later Issues
+### General
+- Impl process management with Activiti.
+- Impl approval of PR from PR table edit button.
+- Impl sending email to head of organization when limit is exceeded.
+- Impl approval in the edit button of the PR table.
 - Impl quick search/filter at top of PR table.
 - Create CurrencyConversion entity class for storing currency conversions such as USD to JMD:
   * Fields: from, to, rate
@@ -23,6 +14,9 @@
   the base currencies.
 - Impl use of defaultOrganizationalHeadTitle and defaultProcurementOfficerTitle
   system options.
+- Prevent adding/deleting attachments once PR is completed.
+- Impl searching based on work progress field.
+- Impl getting email template from resources or from folder as is done for reports.
 
 ### UI Design
 - Address PO/PR forms as follows:
