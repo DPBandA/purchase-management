@@ -46,13 +46,13 @@ Email: info@dpbennett.com.jm
                      id="supplierName"
                      disabled="#{!purchasingManager.selectedSupplier.isNameAndIdEditable}"
                      validator="supplierValidator">
-            
+
             <p:ajax event="change"
                     global="true"      
                     update="supplierName"
                     listener="#{purchasingManager.updateSupplierName}"
                     process="@this"/>
-            
+
         </p:inputText>     
         <h:outputText value="" />
 
@@ -66,7 +66,7 @@ Email: info@dpbennett.com.jm
                     process="@this"/>
         </p:inputText>
         <h:outputText value="" />
-        
+
         <h:outputText value="Identification:" />        
         <p:inputText value="#{purchasingManager.selectedSupplier.identification}"
                      id="identification"
@@ -87,33 +87,27 @@ Email: info@dpbennett.com.jm
         <h:outputText value="" />
         <ui:remove>
             <p:menuButton icon="ui-icon-pencil" title="Add or edit address">
-                <p:menuitem>                       
-                    <p:commandButton value="Edit"
-                                     style="width: 300%;text-align: left;background: none;border: 0;"
-                                     icon="ui-icon-pencil"
-                                     title="Edit address"
-                                     update=":addressForm"
-                                     oncomplete="PF('addressFormDialog').show();"
-                                     actionListener="#{purchasingManager.editSupplierCurrentAddress}" 
-                                     process="@this" >
+                <p:menuitem value="Edit"
+                            icon="ui-icon-pencil"
+                            title="Edit address"
+                            update=":addressForm"
+                            oncomplete="PF('addressFormDialog').show();"
+                            actionListener="#{purchasingManager.editSupplierCurrentAddress}" 
+                            process="@this" >
 
-                        <p:resetInput target=":addressForm" />
+                    <p:resetInput target=":addressForm" />
 
-                    </p:commandButton>          
                 </p:menuitem>
-                <p:menuitem>                       
-                    <p:commandButton value="New"
-                                     style="width: 300%;text-align: left;background: none;border: 0;"
-                                     icon="ui-icon-plus" 
-                                     title="Add new address"
-                                     update=":addressForm"
-                                     oncomplete="PF('addressFormDialog').show();"
-                                     actionListener="#{purchasingManager.createNewSupplierAddress}" 
-                                     process="@this" >
+                <p:menuitem value="New"
+                            icon="ui-icon-plus" 
+                            title="Add new address"
+                            update=":addressForm"
+                            oncomplete="PF('addressFormDialog').show();"
+                            actionListener="#{purchasingManager.createNewSupplierAddress}" 
+                            process="@this" >
 
-                        <p:resetInput target=":addressForm" />
+                    <p:resetInput target=":addressForm" />
 
-                    </p:commandButton>          
                 </p:menuitem>
             </p:menuButton>  
         </ui:remove>

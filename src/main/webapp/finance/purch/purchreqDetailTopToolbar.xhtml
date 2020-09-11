@@ -45,42 +45,31 @@ Email: info@dpbennett.com.jm
                              immediate="true"                             
                              process="@this"
                              icon="ui-icon ui-icon-close" />         
-            
+
             <p:spacer width="20" />
 
             <p:menuButton value="Tools" >  
 
-                <p:menuitem>
+                <p:menuitem value="Request approval..."
+                            title="Send a request for approval for this purchase requisition"
+                            onstart="PF('longProcessDialogVar').show();" 
+                            actionListener="#{purchasingManager.openRequestApprovalEmailDialog}" 
+                            oncomplete="longProcessDialogVar.hide();"
+                            process="@this" />
 
-                    <p:commandButton value="Request approval..."
-                                     style="text-align: left;background: none;border: 0;"
-                                     title="Send a request for approval for this purchase requisition"
-                                     onstart="PF('longProcessDialogVar').show();" 
-                                     actionListener="#{purchasingManager.openRequestApprovalEmailDialog}" 
-                                     oncomplete="longProcessDialogVar.hide();"
-                                     process="@this" />
-
-                </p:menuitem>
-
-                <p:menuitem>
-
-                    <p:commandButton value="Send message..."
-                                     style="text-align: left;background: none;border: 0;"
-                                     title="Send a message"
-                                     onstart="PF('longProcessDialogVar').show();" 
-                                     actionListener="#{purchasingManager.openSendEmailDialog}" 
-                                     oncomplete="longProcessDialogVar.hide();"
-                                     process="@this" />
-
-                </p:menuitem>
-               
+                <p:menuitem value="Send message..."
+                            title="Send a message"
+                            onstart="PF('longProcessDialogVar').show();" 
+                            actionListener="#{purchasingManager.openSendEmailDialog}" 
+                            oncomplete="longProcessDialogVar.hide();"
+                            process="@this" />
 
             </p:menuButton>   
-            
+
             <p:spacer width="20" />
 
             <h:outputText value="#{purchasingManager.selectedPurchaseRequisition.editStatus}" />
-            
+
 
         </p:toolbarGroup>
 

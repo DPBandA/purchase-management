@@ -128,35 +128,29 @@ Email: info@dpbennett.com.jm
             <p:menuButton id="toolsButton" 
                           title="Edit or delete cost component"
                           icon="ui-icon-pencil" >
-                <p:menuitem>                       
-                    <p:commandButton   
-                        value="Edit"
-                        style="width: 300%;text-align: left;background: none;border: 0;"
-                        actionListener="#{purchasingManager.editCostComponent}"
-                        disabled="#{!costComponent.isEditable}"
-                        update=":purchreqCostingCompDialogForm"
-                        oncomplete="PF('purchreqCostingCompDialog').show();"
-                        icon="ui-icon ui-icon-pencil"
-                        process="@this" >
+                <p:menuitem   
+                    value="Edit"
+                    actionListener="#{purchasingManager.editCostComponent}"
+                    disabled="#{!costComponent.isEditable}"
+                    update=":purchreqCostingCompDialogForm"
+                    oncomplete="PF('purchreqCostingCompDialog').show();"
+                    icon="ui-icon ui-icon-pencil"
+                    process="@this" >
 
-                        <f:setPropertyActionListener value="#{costComponent}"
-                                                     target="#{purchasingManager.selectedCostComponent}" />
+                    <f:setPropertyActionListener value="#{costComponent}"
+                                                 target="#{purchasingManager.selectedCostComponent}" />
 
-                    </p:commandButton>                       
                 </p:menuitem>
 
-                <p:menuitem >                       
-                    <p:commandButton   
-                        value="Delete"
-                        style="width: 300%;text-align: left;background: none;border: 0;"
-                        onclick="purchreqCostCompDeleteConfirmDialog.show();"
-                        icon="ui-icon-trash"
-                        process="@this">
+                <p:menuitem  
+                    value="Delete"
+                    onclick="purchreqCostCompDeleteConfirmDialog.show();"
+                    icon="ui-icon-trash"
+                    process="@this">
 
-                        <f:setPropertyActionListener value="#{costComponent}"
-                                                     target="#{purchasingManager.selectedCostComponent}" />
+                    <f:setPropertyActionListener value="#{costComponent}"
+                                                 target="#{purchasingManager.selectedCostComponent}" />
 
-                    </p:commandButton>
                 </p:menuitem>                   
 
             </p:menuButton>                   

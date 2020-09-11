@@ -97,42 +97,36 @@ Email: info@dpbennett.com.jm
                 </p:autoComplete>     
 
                 <p:menuButton id="supplierActionsMenu" icon="ui-icon-pencil" title="Add or edit supplier">
-                    <p:menuitem>                       
-                        <p:commandButton value="Edit supplier"
-                                         id="editSupplier"
-                                         icon="ui-icon-pencil" 
-                                         disabled="${!purchasingManager.isSupplierNameValid}"
-                                         style="width: 300%;text-align: left;background: none;border: 0;"
-                                         onstart="PF('longProcessDialogVar').show();"   
-                                         oncomplete="PF('longProcessDialogVar').hide();"                                  
-                                         actionListener="#{purchasingManager.editPurhaseReqSuppier}"  
-                                         process="@this,supplier"                             
-                                         title="View or edit this suppliers's detail">  
+                    <p:menuitem value="Edit supplier"
+                                id="editSupplier"
+                                icon="ui-icon-pencil" 
+                                disabled="${!purchasingManager.isSupplierNameValid}"
+                                onstart="PF('longProcessDialogVar').show();"   
+                                oncomplete="PF('longProcessDialogVar').hide();"                                  
+                                actionListener="#{purchasingManager.editPurhaseReqSuppier}"  
+                                process="@this,supplier"                             
+                                title="View or edit this suppliers's detail">  
 
-                            <p:ajax event="dialogReturn" 
-                                    listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
-                                    update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
+                        <p:ajax event="dialogReturn" 
+                                listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
+                                update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
 
-                        </p:commandButton>            
                     </p:menuitem>
 
-                    <p:menuitem >       
-                        <p:commandButton 
-                            value="Add new supplier"
-                            icon="ui-icon-plus" 
-                            style="width: 300%;text-align: left;background: none;border: 0;"
-                            onstart="PF('longProcessDialogVar').show();"    
-                            oncomplete="PF('longProcessDialogVar').hide();"                    
-                            disabled="#{!purchasingManager.user.privilege.canAddSupplier}"
-                            actionListener="#{purchasingManager.createNewPurhaseReqSupplier}"                                            
-                            process="@this"
-                            title="Add a new supplier">
+                    <p:menuitem 
+                        value="Add new supplier"
+                        icon="ui-icon-plus" 
+                        onstart="PF('longProcessDialogVar').show();"    
+                        oncomplete="PF('longProcessDialogVar').hide();"                    
+                        disabled="#{!purchasingManager.user.privilege.canAddSupplier}"
+                        actionListener="#{purchasingManager.createNewPurhaseReqSupplier}"                                            
+                        process="@this"
+                        title="Add a new supplier">
 
-                            <p:ajax event="dialogReturn" 
-                                    listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
-                                    update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
+                        <p:ajax event="dialogReturn" 
+                                listener="#{purchasingManager.purchaseReqSupplierDialogReturn}"
+                                update="supplier,supplierActionsMenu,:purchreqDialogForm:purchreqDetailToolbar1" />
 
-                        </p:commandButton>
                     </p:menuitem>
                 </p:menuButton>      
 
@@ -193,7 +187,7 @@ Email: info@dpbennett.com.jm
                         process="@this"/>
 
             </p:selectOneMenu>
-            
+
             <h:outputText value="Purpose/Description: " style="font-weight: bold;vertical-align: top;" />       
             <p:inputTextarea
                 id="description"
@@ -215,14 +209,14 @@ Email: info@dpbennett.com.jm
             </p:inputTextarea> 
             <h:outputText value="&nbsp;&nbsp;" />
             <h:outputText id="descriptionCharsRemaining" /> 
-            
+
         </h:panelGrid>
     </p:panel>
 
     <p:panel id="approvalsPanel" style="border: 0;" >
-        
+
         <ui:include src="purchreqApprovalsToolbar.xhtml"/>
-        
+
         <p:dataTable  var="approver"
                       style="margin-top: 1px;margin-bottom: 1px;"
                       id="approverTable"
@@ -264,19 +258,19 @@ Email: info@dpbennett.com.jm
             </p:column>      
 
         </p:dataTable>     
-        
+
         <h:outputText 
             style="font-weight: bold;"
             value="#{purchasingManager.selectedPurchaseRequisitionApprovalsNote}" />
-        
+
         <ui:include src="purchreqApprovalsToolbar.xhtml"/>
-        
+
         <h:outputText 
             style="font-weight: bold;color: red;"
             value="#{purchasingManager.selectedPRProcurementAmountNote}" />
-      
+
     </p:panel>
-    
+
 </html>
 
 

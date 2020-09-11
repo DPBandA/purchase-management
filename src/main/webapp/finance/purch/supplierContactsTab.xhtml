@@ -80,36 +80,30 @@ Email: info@dpbennett.com.jm
 
         <p:column style="width:32px" >
             <p:menuButton icon="ui-icon-pencil" title="Edit or delete this contact">
-                <p:menuitem>                       
-                    <p:commandButton value="Edit"
-                                     icon="ui-icon-pencil" 
-                                     style="width: 300%;text-align: left;background: none;border: 0;"
-                                     update=":contactForm"
-                                     oncomplete="PF('contactFormDialog').show();" 
-                                     process="@this"                             
-                                     title="View or edit contact detail">  
+                <p:menuitem value="Edit"
+                            icon="ui-icon-pencil" 
+                            update=":contactForm"
+                            oncomplete="PF('contactFormDialog').show();" 
+                            process="@this"                             
+                            title="View or edit contact detail">  
 
-                        <p:resetInput target=":contactForm" />
+                    <p:resetInput target=":contactForm" />
 
-                        <f:setPropertyActionListener value="#{contact}"
-                                                     target="#{purchasingManager.selectedSupplierContact}" />
+                    <f:setPropertyActionListener value="#{contact}"
+                                                 target="#{purchasingManager.selectedSupplierContact}" />
 
-                    </p:commandButton>            
                 </p:menuitem>
 
-                <p:menuitem >       
-                    <p:commandButton 
-                        value="Delete"
-                        icon="ui-icon-trash" 
-                        style="width: 300%;text-align: left;background: none;border: 0;"
-                        oncomplete="PF('deleteContactDialog').show();"                                           
-                        process="@this"
-                        title="Delete this contact">
+                <p:menuitem
+                    value="Delete"
+                    icon="ui-icon-trash" 
+                    oncomplete="PF('deleteContactDialog').show();"                                           
+                    process="@this"
+                    title="Delete this contact">
 
-                        <f:setPropertyActionListener value="#{contact}"
-                                                     target="#{purchasingManager.selectedSupplierContact}" />
+                    <f:setPropertyActionListener value="#{contact}"
+                                                 target="#{purchasingManager.selectedSupplierContact}" />
 
-                    </p:commandButton>
                 </p:menuitem>
             </p:menuButton>    
         </p:column>
